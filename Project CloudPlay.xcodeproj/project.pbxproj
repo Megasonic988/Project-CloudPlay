@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A00BFD71AB52B9200216487 /* MPCSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A00BFD61AB52B9200216487 /* MPCSession.m */; };
 		0ADB3A751AB4DB6400CF0CF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB3A741AB4DB6400CF0CF9 /* main.m */; };
 		0ADB3A781AB4DB6400CF0CF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB3A771AB4DB6400CF0CF9 /* AppDelegate.m */; };
 		0ADB3A7B1AB4DB6400CF0CF9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB3A7A1AB4DB6400CF0CF9 /* ViewController.m */; };
@@ -46,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A00BFD51AB52B9200216487 /* MPCSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPCSession.h; path = "MPC Model/MPCSession.h"; sourceTree = SOURCE_ROOT; };
+		0A00BFD61AB52B9200216487 /* MPCSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPCSession.m; path = "MPC Model/MPCSession.m"; sourceTree = SOURCE_ROOT; };
 		0ADB3A6F1AB4DB6400CF0CF9 /* Project CloudPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project CloudPlay.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADB3A731AB4DB6400CF0CF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0ADB3A741AB4DB6400CF0CF9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -123,7 +126,7 @@
 				0ADB3B601AB4EC9000CF0CF9 /* TDAudioLibrary for Streaming Audio */,
 				0ADB3B371AB4EA7A00CF0CF9 /* Categories */,
 				0ADB3B3A1AB4EA7A00CF0CF9 /* TDAudioStreamer Library */,
-				0ADB3B611AB4ECB900CF0CF9 /* MPC Session */,
+				0ADB3B611AB4ECB900CF0CF9 /* MPC Model */,
 				0ADB3A711AB4DB6400CF0CF9 /* Project CloudPlay */,
 				0ADB3A8B1AB4DB6400CF0CF9 /* Project CloudPlayTests */,
 				0ADB3A701AB4DB6400CF0CF9 /* Products */,
@@ -241,11 +244,13 @@
 			name = "TDAudioLibrary for Streaming Audio";
 			sourceTree = "<group>";
 		};
-		0ADB3B611AB4ECB900CF0CF9 /* MPC Session */ = {
+		0ADB3B611AB4ECB900CF0CF9 /* MPC Model */ = {
 			isa = PBXGroup;
 			children = (
+				0A00BFD51AB52B9200216487 /* MPCSession.h */,
+				0A00BFD61AB52B9200216487 /* MPCSession.m */,
 			);
-			name = "MPC Session";
+			name = "MPC Model";
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -357,6 +362,7 @@
 				0ADB3B491AB4EA7A00CF0CF9 /* NSMutableArray+QueueMethods.m in Sources */,
 				0ADB3B321AB4EA0F00CF0CF9 /* TDAudioStreamerConstants.m in Sources */,
 				0ADB3B4D1AB4EA7A00CF0CF9 /* TDAudioQueueBufferManager.m in Sources */,
+				0A00BFD71AB52B9200216487 /* MPCSession.m in Sources */,
 				0ADB3B501AB4EA7A00CF0CF9 /* TDAudioStream.m in Sources */,
 				0ADB3B2F1AB4EA0F00CF0CF9 /* TDAudioInputStreamer.m in Sources */,
 				0ADB3B4C1AB4EA7A00CF0CF9 /* TDAudioQueueBuffer.m in Sources */,
