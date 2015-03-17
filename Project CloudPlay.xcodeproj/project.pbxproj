@@ -10,7 +10,7 @@
 		0A00BFD71AB52B9200216487 /* MPCSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A00BFD61AB52B9200216487 /* MPCSession.m */; };
 		0ADB3A751AB4DB6400CF0CF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB3A741AB4DB6400CF0CF9 /* main.m */; };
 		0ADB3A781AB4DB6400CF0CF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB3A771AB4DB6400CF0CF9 /* AppDelegate.m */; };
-		0ADB3A7B1AB4DB6400CF0CF9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB3A7A1AB4DB6400CF0CF9 /* ViewController.m */; };
+		0ADB3A7B1AB4DB6400CF0CF9 /* ConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB3A7A1AB4DB6400CF0CF9 /* ConnectionViewController.m */; };
 		0ADB3A7E1AB4DB6400CF0CF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ADB3A7C1AB4DB6400CF0CF9 /* Main.storyboard */; };
 		0ADB3A801AB4DB6400CF0CF9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ADB3A7F1AB4DB6400CF0CF9 /* Images.xcassets */; };
 		0ADB3A831AB4DB6400CF0CF9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ADB3A811AB4DB6400CF0CF9 /* LaunchScreen.xib */; };
@@ -34,6 +34,8 @@
 		0ADB3B5A1AB4EB1400CF0CF9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADB3B591AB4EB1400CF0CF9 /* CoreGraphics.framework */; };
 		0ADB3B5C1AB4EB1A00CF0CF9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADB3B5B1AB4EB1A00CF0CF9 /* UIKit.framework */; };
 		0ADB3B5E1AB4EB2100CF0CF9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADB3B5D1AB4EB2100CF0CF9 /* Foundation.framework */; };
+		0AE6C2D91AB7C683004E6D44 /* ConnectedPeerCVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE6C2D81AB7C683004E6D44 /* ConnectedPeerCVCell.m */; };
+		0AE6C2DC1AB7D46B004E6D44 /* NibCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE6C2DB1AB7D46B004E6D44 /* NibCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,8 +56,8 @@
 		0ADB3A741AB4DB6400CF0CF9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0ADB3A761AB4DB6400CF0CF9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0ADB3A771AB4DB6400CF0CF9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		0ADB3A791AB4DB6400CF0CF9 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		0ADB3A7A1AB4DB6400CF0CF9 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		0ADB3A791AB4DB6400CF0CF9 /* ConnectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConnectionViewController.h; sourceTree = "<group>"; };
+		0ADB3A7A1AB4DB6400CF0CF9 /* ConnectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConnectionViewController.m; sourceTree = "<group>"; };
 		0ADB3A7D1AB4DB6400CF0CF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0ADB3A7F1AB4DB6400CF0CF9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0ADB3A821AB4DB6400CF0CF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -93,6 +95,9 @@
 		0ADB3B591AB4EB1400CF0CF9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		0ADB3B5B1AB4EB1A00CF0CF9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0ADB3B5D1AB4EB2100CF0CF9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0AE6C2D71AB7C683004E6D44 /* ConnectedPeerCVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectedPeerCVCell.h; sourceTree = "<group>"; };
+		0AE6C2D81AB7C683004E6D44 /* ConnectedPeerCVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectedPeerCVCell.m; sourceTree = "<group>"; };
+		0AE6C2DB1AB7D46B004E6D44 /* NibCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NibCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +132,7 @@
 				0ADB3B371AB4EA7A00CF0CF9 /* Categories */,
 				0ADB3B3A1AB4EA7A00CF0CF9 /* TDAudioStreamer Library */,
 				0ADB3B611AB4ECB900CF0CF9 /* MPC Model */,
+				0AE6C2DA1AB7C68C004E6D44 /* Views */,
 				0ADB3A711AB4DB6400CF0CF9 /* Project CloudPlay */,
 				0ADB3A8B1AB4DB6400CF0CF9 /* Project CloudPlayTests */,
 				0ADB3A701AB4DB6400CF0CF9 /* Products */,
@@ -148,9 +154,10 @@
 			children = (
 				0ADB3A761AB4DB6400CF0CF9 /* AppDelegate.h */,
 				0ADB3A771AB4DB6400CF0CF9 /* AppDelegate.m */,
-				0ADB3A791AB4DB6400CF0CF9 /* ViewController.h */,
-				0ADB3A7A1AB4DB6400CF0CF9 /* ViewController.m */,
+				0ADB3A791AB4DB6400CF0CF9 /* ConnectionViewController.h */,
+				0ADB3A7A1AB4DB6400CF0CF9 /* ConnectionViewController.m */,
 				0ADB3A7C1AB4DB6400CF0CF9 /* Main.storyboard */,
+				0AE6C2DB1AB7D46B004E6D44 /* NibCell.xib */,
 				0ADB3A7F1AB4DB6400CF0CF9 /* Images.xcassets */,
 				0ADB3A811AB4DB6400CF0CF9 /* LaunchScreen.xib */,
 				0ADB3A721AB4DB6400CF0CF9 /* Supporting Files */,
@@ -254,6 +261,16 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		0AE6C2DA1AB7C68C004E6D44 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0AE6C2D71AB7C683004E6D44 /* ConnectedPeerCVCell.h */,
+				0AE6C2D81AB7C683004E6D44 /* ConnectedPeerCVCell.m */,
+			);
+			name = Views;
+			path = "Project CloudPlay";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -335,6 +352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0ADB3A7E1AB4DB6400CF0CF9 /* Main.storyboard in Resources */,
+				0AE6C2DC1AB7D46B004E6D44 /* NibCell.xib in Resources */,
 				0ADB3A831AB4DB6400CF0CF9 /* LaunchScreen.xib in Resources */,
 				0ADB3A801AB4DB6400CF0CF9 /* Images.xcassets in Resources */,
 			);
@@ -356,7 +374,8 @@
 			files = (
 				0ADB3B4A1AB4EA7A00CF0CF9 /* TDAudioFileStream.m in Sources */,
 				0ADB3B4F1AB4EA7A00CF0CF9 /* TDAudioQueueFiller.m in Sources */,
-				0ADB3A7B1AB4DB6400CF0CF9 /* ViewController.m in Sources */,
+				0ADB3A7B1AB4DB6400CF0CF9 /* ConnectionViewController.m in Sources */,
+				0AE6C2D91AB7C683004E6D44 /* ConnectedPeerCVCell.m in Sources */,
 				0ADB3B4B1AB4EA7A00CF0CF9 /* TDAudioQueue.m in Sources */,
 				0ADB3A781AB4DB6400CF0CF9 /* AppDelegate.m in Sources */,
 				0ADB3B491AB4EA7A00CF0CF9 /* NSMutableArray+QueueMethods.m in Sources */,
@@ -494,8 +513,10 @@
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = "Project CloudPlay/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -506,8 +527,10 @@
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = "Project CloudPlay/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};

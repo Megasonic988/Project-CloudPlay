@@ -32,6 +32,7 @@
     _advertiser.delegate = self;
     
     _browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.peerID serviceType:@"cloudplay"];
+    _browser.delegate = self;
     
     [self.advertiser startAdvertisingPeer];
     [self.browser startBrowsingForPeers];
@@ -162,7 +163,9 @@
 - (void)browser:(MCNearbyServiceBrowser *)browser foundPeer:(MCPeerID *)peerID withDiscoveryInfo:(NSDictionary *)info
 {
     NSLog(@"found peer: %@", peerID.displayName);
-    [self.browser invitePeer:peerID toSession:self.session withContext:nil timeout:30];
+    if (![self.session.connectedPeers containsObject:peerID]) {
+        [self.browser invitePeer:peerID toSession:self.session withContext:nil timeout:30];
+    }
 }
 
 - (void)browser:(MCNearbyServiceBrowser *)browser lostPeer:(MCPeerID *)peerID

@@ -13,14 +13,15 @@
 
 @protocol MPCSessionDelegate <NSObject>
 
+@optional
 - (void)session:(MPCSession *)session didReceiveAudioStream:(NSInputStream *)stream;
 - (void)session:(MPCSession *)session didReceiveData:(NSData *)data;
+- (void)session:(MPCSession *)session lostConnectionToPeer:(MCPeerID *)peer;
 
+@required
 - (void)session:(MPCSession *)session didStartConnectingtoPeer:(MCPeerID *)peer;
 - (void)session:(MPCSession *)session didFinishConnetingtoPeer:(MCPeerID *)peer;
 - (void)session:(MPCSession *)session didDisconnectFromPeer:(MCPeerID *)peer;
-
-- (void)session:(MPCSession *)session lostConnectionToPeer:(MCPeerID *)peer;
 
 @end
 
