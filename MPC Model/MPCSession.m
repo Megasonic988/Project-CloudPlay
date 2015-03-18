@@ -13,6 +13,7 @@
 @property (strong, nonatomic) MCSession *session;
 @property (strong, nonatomic) MCNearbyServiceAdvertiser *advertiser;
 @property (strong, nonatomic) MCNearbyServiceBrowser *browser;
+@property (strong, nonatomic) NSDate *date;
 
 @end
 
@@ -24,6 +25,8 @@
     if (!self) return nil;
     
     self.peerID = [[MCPeerID alloc] initWithDisplayName:name];
+    
+    _date = [NSDate date];
     
     _session = [[MCSession alloc] initWithPeer:self.peerID];
     _session.delegate = self;
@@ -144,7 +147,18 @@
 - (void)advertiser:(MCNearbyServiceAdvertiser *)advertiser didReceiveInvitationFromPeer:(MCPeerID *)peerID withContext:(NSData *)context invitationHandler:(void (^)(BOOL, MCSession *))invitationHandler
 {
     NSLog(@" did receive invitation from peer: %@", peerID.displayName);
-    invitationHandler(YES, self.session);
+    
+    BOOL accept = NO;
+    
+    if (context.length == 8) {
+        NSTimeInterval runningTime = -[self.date timeIntervalSinceNow];
+        NSTimeInterval otherPeerRunningTime;
+        [context getBytes:&otherPeerRunningTime length:8];
+        
+        accept = otherPeerRunningTime > runningTime;
+    }
+    
+    invitationHandler(accept, self.session);
 }
 
 - (void)advertiser:(MCNearbyServiceAdvertiser *)advertiser didNotStartAdvertisingPeer:(NSError *)error
@@ -164,8 +178,12 @@
 {
     NSLog(@"found peer: %@", peerID.displayName);
     if (![self.session.connectedPeers containsObject:peerID]) {
-        [self.browser invitePeer:peerID toSession:self.session withContext:nil timeout:30];
+        
+        NSTimeInterval runningTime = -[self.date timeIntervalSinceNow];
+        NSData *context = [[NSData alloc] initWithBytes:&runningTime length:sizeof(NSTimeInterval)];
+        [self.browser invitePeer:peerID toSession:self.session withContext:context timeout:30];
     }
+    
 }
 
 - (void)browser:(MCNearbyServiceBrowser *)browser lostPeer:(MCPeerID *)peerID

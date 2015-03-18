@@ -10,12 +10,16 @@
 #import "MPCSession.h"
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
 #import "ConnectedPeerCVCell.h"
+#import "MenuViewController.h"
 
 
 @interface ConnectionViewController () <MPCSessionDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate>
 
 - (IBAction)displayConnectedPeers:(id)sender;
+- (IBAction)startButton:(id)sender;
 
+
+@property (weak, nonatomic) IBOutlet UIButton *startButton;
 @property (strong, nonatomic) MPCSession *session;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray *dataArray;
@@ -40,7 +44,7 @@
     
     [self.collectionView setCollectionViewLayout:flowLayout];
     // Do any additional setup after loading the view, typically from a nib.
-    
+    [self setupStartButton];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,22 +57,44 @@
     dispatch_async(dispatch_get_main_queue(), ^{[self.collectionView reloadData];});
 }
 
+- (void)setupStartButton
+{
+    self.startButton.enabled = NO;
+}
+
+- (void)startButton:(id)sender
+{
+    
+}
+
 - (void)session:(MPCSession *)session didReceiveAudioStream:(NSInputStream *)stream{}
 - (void)session:(MPCSession *)session didReceiveData:(NSData *)data{}
 
 - (void)session:(MPCSession *)session didStartConnectingtoPeer:(MCPeerID *)peer{
-    dispatch_async(dispatch_get_main_queue(), ^{[self.collectionView reloadData];});
+    [self updatePlayers];
 }
 - (void)session:(MPCSession *)session didFinishConnetingtoPeer:(MCPeerID *)peer{
-    dispatch_async(dispatch_get_main_queue(), ^{[self.collectionView reloadData];});
+    [self updatePlayers];
 }
 - (void)session:(MPCSession *)session didDisconnectFromPeer:(MCPeerID *)peer{
-    dispatch_async(dispatch_get_main_queue(), ^{[self.collectionView reloadData];});
+    [self updatePlayers];
+}
+
+- (void)updatePlayers;
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [self.collectionView reloadData];
+        self.startButton.enabled = ([self.session.connectedPeers count] > 0);
+    
+    
+    
+    });
 }
 
 - (void)session:(MPCSession *)session lostConnectionToPeer:(MCPeerID *)peer
 {
-    dispatch_async(dispatch_get_main_queue(), ^{[self.collectionView reloadData];});
+    [self updatePlayers];
 }
 
 #pragma mark - UICollectionView DataSource
@@ -97,8 +123,22 @@
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    
+    [self.session stopAdvertising];
+    [self.session stopBrowsing];
 
+}
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.destinationViewController isKindOfClass:[MenuViewController class]]) {
+        MenuViewController *menuVC = (MenuViewController *)segue.destinationViewController;
+        menuVC.session = self.session;
+    }
+}
 
 #pragma mark - 
 
