@@ -14,6 +14,7 @@
 @property (strong, nonatomic) MCNearbyServiceAdvertiser *advertiser;
 @property (strong, nonatomic) MCNearbyServiceBrowser *browser;
 @property (strong, nonatomic) NSDate *date;
+@property (strong, nonatomic) NSString *number;
 
 @end
 
@@ -31,7 +32,12 @@
     _session = [[MCSession alloc] initWithPeer:self.peerID];
     _session.delegate = self;
     
-    _advertiser = [[MCNearbyServiceAdvertiser alloc] initWithPeer:self.peerID discoveryInfo:nil serviceType:@"cloudplay"];
+    int num = arc4random()%5000;
+    NSString *numstr = [NSString stringWithFormat:@"%i", num];
+    self.number = [[NSString alloc] initWithString:numstr];
+    NSDictionary *info = @{@"Number" : self.number};
+    NSLog(@"%@", self.number);
+    _advertiser = [[MCNearbyServiceAdvertiser alloc] initWithPeer:self.peerID discoveryInfo:info serviceType:@"cloudplay"];
     _advertiser.delegate = self;
     
     _browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.peerID serviceType:@"cloudplay"];
@@ -148,17 +154,18 @@
 {
     NSLog(@" did receive invitation from peer: %@", peerID.displayName);
     
-    BOOL accept = NO;
-    
-    if (context.length == 8) {
-        NSTimeInterval runningTime = -[self.date timeIntervalSinceNow];
-        NSTimeInterval otherPeerRunningTime;
-        [context getBytes:&otherPeerRunningTime length:8];
-        
-        accept = otherPeerRunningTime > runningTime;
-    }
-    
-    invitationHandler(accept, self.session);
+//    BOOL accept = NO;
+//    
+//    if (context.length == 8) {
+//        NSTimeInterval runningTime = -[self.date timeIntervalSinceNow];
+//        NSTimeInterval otherPeerRunningTime;
+//        [context getBytes:&otherPeerRunningTime length:8];
+//        
+//        accept = otherPeerRunningTime > runningTime;
+//    }
+//    
+//    invitationHandler(accept, self.session);
+    invitationHandler(YES, self.session);
 }
 
 - (void)advertiser:(MCNearbyServiceAdvertiser *)advertiser didNotStartAdvertisingPeer:(NSError *)error
@@ -179,9 +186,13 @@
     NSLog(@"found peer: %@", peerID.displayName);
     if (![self.session.connectedPeers containsObject:peerID]) {
         
-        NSTimeInterval runningTime = -[self.date timeIntervalSinceNow];
-        NSData *context = [[NSData alloc] initWithBytes:&runningTime length:sizeof(NSTimeInterval)];
-        [self.browser invitePeer:peerID toSession:self.session withContext:context timeout:30];
+//        NSTimeInterval runningTime = -[self.date timeIntervalSinceNow];
+//        NSLog(@"%f", runningTime);
+//        NSData *context = [[NSData alloc] initWithBytes:&runningTime length:sizeof(NSTimeInterval)];
+//        [self.browser invitePeer:peerID toSession:self.session withContext:context timeout:30];
+        if ([info valueForKey:@"Number"] > self.number) {
+            [self.browser invitePeer:peerID toSession:self.session withContext:nil timeout:30];
+        }
     }
     
 }

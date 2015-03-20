@@ -37,7 +37,6 @@
     UINib *cellNib = [UINib nibWithNibName:@"NibCell" bundle:nil];
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"cvCell"];
     
-    
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setItemSize:CGSizeMake(368, 50)];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
@@ -45,6 +44,14 @@
     [self.collectionView setCollectionViewLayout:flowLayout];
     // Do any additional setup after loading the view, typically from a nib.
     [self setupStartButton];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    self.session.delegate = self;
+    [self.session startAdvertising];
+    [self.session startBrowsing];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,11 +71,31 @@
 
 - (void)startButton:(id)sender
 {
-    
+    [self sendStartMessage];
+}
+
+- (void)session:(MPCSession *)session didReceiveData:(NSData *)data
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        id message = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        if ([message isKindOfClass:[NSDictionary class]]) {
+            if ([[message valueForKey:@"Description"] isEqualToString:@"Start"]) {
+                NSLog(@"other player has started");
+                [self performSegueWithIdentifier:@"show menu" sender:self];
+            }
+        }
+    });
+}
+
+- (void)sendStartMessage
+{
+    NSDictionary *start = [[NSDictionary alloc] init];
+    start = @{@"Description" : @"Start"};
+    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[start copy]]];
+    NSLog(@"sent start");
 }
 
 - (void)session:(MPCSession *)session didReceiveAudioStream:(NSInputStream *)stream{}
-- (void)session:(MPCSession *)session didReceiveData:(NSData *)data{}
 
 - (void)session:(MPCSession *)session didStartConnectingtoPeer:(MCPeerID *)peer{
     [self updatePlayers];
@@ -86,9 +113,7 @@
         
         [self.collectionView reloadData];
         self.startButton.enabled = ([self.session.connectedPeers count] > 0);
-    
-    
-    
+
     });
 }
 
