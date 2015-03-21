@@ -54,15 +54,21 @@
     [self.session startBrowsing];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    
+    [self.session stopAdvertising];
+    [self.session stopBrowsing];
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)displayConnectedPeers:(id)sender {
-    NSLog(@"Connected peers: %@", self.session.connectedPeers);
-    dispatch_async(dispatch_get_main_queue(), ^{[self.collectionView reloadData];});
-}
+#pragma mark - Start Control
 
 - (void)setupStartButton
 {
@@ -72,6 +78,19 @@
 - (void)startButton:(id)sender
 {
     [self sendStartMessage];
+}
+
+#pragma mark - MPCSessionDelegate
+- (void)session:(MPCSession *)session didReceiveAudioStream:(NSInputStream *)stream{}
+
+- (void)session:(MPCSession *)session didStartConnectingtoPeer:(MCPeerID *)peer{
+    [self updatePlayers];
+}
+- (void)session:(MPCSession *)session didFinishConnetingtoPeer:(MCPeerID *)peer{
+    [self updatePlayers];
+}
+- (void)session:(MPCSession *)session didDisconnectFromPeer:(MCPeerID *)peer{
+    [self updatePlayers];
 }
 
 - (void)session:(MPCSession *)session didReceiveData:(NSData *)data
@@ -93,18 +112,6 @@
     start = @{@"Description" : @"Start"};
     [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[start copy]]];
     NSLog(@"sent start");
-}
-
-- (void)session:(MPCSession *)session didReceiveAudioStream:(NSInputStream *)stream{}
-
-- (void)session:(MPCSession *)session didStartConnectingtoPeer:(MCPeerID *)peer{
-    [self updatePlayers];
-}
-- (void)session:(MPCSession *)session didFinishConnetingtoPeer:(MCPeerID *)peer{
-    [self updatePlayers];
-}
-- (void)session:(MPCSession *)session didDisconnectFromPeer:(MCPeerID *)peer{
-    [self updatePlayers];
 }
 
 - (void)updatePlayers;
@@ -148,15 +155,7 @@
     
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:YES];
-    
-    [self.session stopAdvertising];
-    [self.session stopBrowsing];
-
-}
-
+#pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.destinationViewController isKindOfClass:[MenuViewController class]]) {
@@ -165,6 +164,5 @@
     }
 }
 
-#pragma mark - 
 
 @end

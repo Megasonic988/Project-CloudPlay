@@ -191,14 +191,15 @@
 
 - (void)browser:(MCNearbyServiceBrowser *)browser foundPeer:(MCPeerID *)peerID withDiscoveryInfo:(NSDictionary *)info
 {
-    NSLog(@"found peer: %@", peerID.displayName);
+    NSLog(@"found peer: %@ with info: %@", peerID.displayName, [info valueForKey:@"Number"]);
     if (![self.session.connectedPeers containsObject:peerID]) {
         
 //        NSTimeInterval runningTime = -[self.date timeIntervalSinceNow];
 //        NSLog(@"%f", runningTime);
 //        NSData *context = [[NSData alloc] initWithBytes:&runningTime length:sizeof(NSTimeInterval)];
 //        [self.browser invitePeer:peerID toSession:self.session withContext:context timeout:30];
-        if ([info valueForKey:@"Number"] > self.number) {
+        NSInteger number = [self.number integerValue];
+        if ([[info valueForKey:@"Number"] integerValue] > number) {
             NSLog(@"invited peer: %@", peerID.displayName);
             [self.browser invitePeer:peerID toSession:self.session withContext:nil timeout:30];
         }

@@ -24,12 +24,14 @@
 - (IBAction)displayMusicPlayer:(id)sender;
 
 @property (strong, nonatomic) NSMutableArray *mySongs; //of MPMediaItems
-@property (strong, nonatomic) NSMutableArray *songsData;
-@property (strong, nonatomic) NSMutableArray *justSelectedSongsData;
+@property (strong, nonatomic) NSMutableArray *songsData; //of NSDictionaries with song data
+@property (strong, nonatomic) NSMutableArray *justSelectedSongsData; //of NSDictionaries with just selected song data (to be sent)
 @property (strong, nonatomic) NSDictionary *currentPlayingSong;
+@property (strong, nonatomic) MPMediaItem *justSelectedSong;
 
 @property (strong, nonatomic) TDAudioOutputStreamer *outputStreamer;
 @property (strong, nonatomic) TDAudioInputStreamer *inputStream;
+@property (strong, nonatomic) KWMusicPlayer *musicPlayer;
 
 @end
 
@@ -61,14 +63,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)sendBackMessage
-{
-    NSDictionary *back = [[NSDictionary alloc] init];
-    back = @{@"Description" : @"Back"};
-    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[back copy]]];
-    NSLog(@"sent back");
-}
-
 - (NSMutableArray *)mySongs
 {
     if (!_mySongs) _mySongs = [[NSMutableArray alloc] init];
@@ -87,6 +81,12 @@
     return _justSelectedSongsData;
 }
 
+- (KWMusicPlayer *)musicPlayer
+{
+    if (!_musicPlayer) _musicPlayer = [[KWMusicPlayer alloc] init];
+    return _musicPlayer;
+}
+
 #pragma mark - Media Picker delegate
 
 - (void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection
@@ -95,16 +95,30 @@
     [self.mySongs addObjectsFromArray:mediaItemCollection.items];
     [self storeSongDataFromSongs:mediaItemCollection.items];
     [self shareSongData];
-    
+    [self streamSongToOtherPeers];
+    [self.outputStreamer stop];
+    [self.musicPlayer pause];
+    self.justSelectedSong = [mediaItemCollection.items firstObject];
+}
+
+- (void)streamSongToOtherPeers
+{
     if (self.session.connectedPeers.count) {
         for (id peer in self.session.connectedPeers) {
             self.outputStreamer = [[TDAudioOutputStreamer alloc] initWithOutputStream:[self.session outputStreamForPeer:peer]];
-            [self.outputStreamer streamAudioFromURL:[[self.mySongs firstObject] valueForProperty:MPMediaItemPropertyAssetURL]];
+            [self.outputStreamer streamAudioFromURL:[self.justSelectedSong valueForProperty:MPMediaItemPropertyAssetURL]];
             
             NSLog(@"%@", self.outputStreamer);
             [self.outputStreamer start];
         }
     }
+}
+
+- (void)sendStopStreamMessage
+{
+    NSDictionary *stopStreamMessage = @{@"Description" : @"Stopped Sending Stream"};
+    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[stopStreamMessage copy]]];
+    NSLog(@"sent stop stream message");
 }
 
 static const CGSize ALBUM_SIZE = {200, 200};
@@ -116,9 +130,9 @@ static const CGSize ALBUM_SIZE = {200, 200};
         for (MPMediaItem *song in songs) {
             NSMutableDictionary *songData = [[NSMutableDictionary alloc] init];
             songData[@"Song Title"] = [song valueForProperty:MPMediaItemPropertyTitle] ? [song valueForProperty:MPMediaItemPropertyTitle] : @"";
-            songData[@"Artist"] = [song valueForProperty:MPMediaItemPropertyArtist] ? [song valueForProperty:MPMediaItemPropertyArtist] : @"";
-            songData[@"Album Title"] = [song valueForProperty:MPMediaItemPropertyAlbumTitle] ? [song valueForProperty:MPMediaItemPropertyAlbumTitle] : @"";
-            songData[@"Song Duration"] = [song valueForProperty:MPMediaItemPropertyPlaybackDuration] ? [song valueForProperty:MPMediaItemPropertyArtist] : @"";
+            songData[@"Artist"] = [song valueForProperty:MPMediaItemPropertyArtist] ? [song valueForProperty:MPMediaItemPropertyArtist] : @"Unknown Artist";
+            songData[@"Album Title"] = [song valueForProperty:MPMediaItemPropertyAlbumTitle] ? [song valueForProperty:MPMediaItemPropertyAlbumTitle] : @"Unknown Album";
+            songData[@"Song Duration"] = [song valueForProperty:MPMediaItemPropertyPlaybackDuration] ? [song valueForProperty:MPMediaItemPropertyPlaybackDuration] : @"";
             songData[@"Song Owner"] = self.session.peerID;
             MPMediaItemArtwork *artwork = [song valueForProperty:MPMediaItemPropertyArtwork];
             UIImage *image = [artwork imageWithSize:ALBUM_SIZE];
@@ -149,9 +163,15 @@ static const CGSize ALBUM_SIZE = {200, 200};
     [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[self.justSelectedSongsData copy]]];
 }
 
+#pragma mark - MPCSessionDelegate Methods
+- (void)session:(MPCSession *)session didStartConnectingtoPeer:(MCPeerID *)peer{}
+- (void)session:(MPCSession *)session didFinishConnetingtoPeer:(MCPeerID *)peer{}
+- (void)session:(MPCSession *)session didDisconnectFromPeer:(MCPeerID *)peer{}
+
 - (void)session:(MPCSession *)session didReceiveAudioStream:(NSInputStream *)stream
 {
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self sendReceivedStreamMessagetoPeer:self.session.connectedPeers.firstObject];
         NSLog(@"received audio stream");
         if (!self.inputStream) {
             self.inputStream = [[TDAudioInputStreamer alloc] initWithInputStream:stream];
@@ -160,7 +180,22 @@ static const CGSize ALBUM_SIZE = {200, 200};
         }});
 }
 
-- (void)session:(MPCSession *)session didReceiveData:(NSData *)data{
+- (void)sendReceivedStreamMessagetoPeer:(MCPeerID *)peer
+{
+    NSDictionary *nowPlayingMessage = @{@"Description" : @"Received Stream"};
+    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[nowPlayingMessage copy]] toPeer:peer];
+    NSLog(@"sent received stream message");
+}
+
+- (void)sendDidStopInputStreamMessage
+{
+    NSDictionary *didstopinputstreammsg = @{@"Description" : @"Did Stop Input Stream"};
+    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[didstopinputstreammsg copy]]];
+    NSLog(@"sent did stop input stream message");
+}
+
+- (void)session:(MPCSession *)session didReceiveData:(NSData *)data
+{
     dispatch_async(dispatch_get_main_queue(), ^{
        
         id message = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -168,11 +203,22 @@ static const CGSize ALBUM_SIZE = {200, 200};
         if ([message isKindOfClass:[NSDictionary class]]) {
             if ([[message valueForKey:@"Description"] isEqualToString:@"Back"]) {
                 [self.navigationController popToRootViewControllerAnimated:YES];
+            } else if ([[message valueForKey:@"Description"] isEqualToString:@"Received Stream"]) {
+                NSLog(@"starting playback of song");
+                [self.musicPlayer playSong:[self.mySongs firstObject]];
+            } else if ([[message valueForKey:@"Description"] isEqualToString:@"Stopped Sending Stream"]) {
+                [self.inputStream stop];
+                self.inputStream = nil;
+                [self sendDidStopInputStreamMessage];
+            } else if ([[message valueForKey:@"Description"] isEqualToString:@"Did Stop InputStream"]) {
+                
             }
         } else {
             [self storeSongDataFromSongs:message];
         }
     });}
+
+
 
 - (void)session:(MPCSession *)session lostConnectionToPeer:(MCPeerID *)peer{}
 
@@ -198,6 +244,7 @@ static const CGSize ALBUM_SIZE = {200, 200};
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - Actions
 - (IBAction)viewConnectedPeers:(id)sender {
 }
 
@@ -207,6 +254,15 @@ static const CGSize ALBUM_SIZE = {200, 200};
 - (IBAction)displayMusicPlayer:(id)sender {
 }
 
+- (void)sendBackMessage
+{
+    NSDictionary *back = [[NSDictionary alloc] init];
+    back = @{@"Description" : @"Back"};
+    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[back copy]]];
+    NSLog(@"sent back");
+}
+
+#pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"show playlist"]) {
@@ -219,8 +275,6 @@ static const CGSize ALBUM_SIZE = {200, 200};
         if ([segue.destinationViewController isKindOfClass:[ConnectedPeersViewController class]]) {
             ConnectedPeersViewController *connectedpeersVC = (ConnectedPeersViewController *)segue.destinationViewController;
             connectedpeersVC.connectedPeers = self.session.connectedPeers;
-            NSLog(@"%@", self.session.connectedPeers);
-            NSLog(@"%@", connectedpeersVC.connectedPeers);
         }
     } else if ([segue.identifier isEqualToString:@"show music player"]) {
         if ([segue.destinationViewController isKindOfClass:[MusicPlayerViewController class]]) {
@@ -230,7 +284,4 @@ static const CGSize ALBUM_SIZE = {200, 200};
     }
 }
 
-- (void)session:(MPCSession *)session didStartConnectingtoPeer:(MCPeerID *)peer{}
-- (void)session:(MPCSession *)session didFinishConnetingtoPeer:(MCPeerID *)peer{}
-- (void)session:(MPCSession *)session didDisconnectFromPeer:(MCPeerID *)peer{}
 @end
