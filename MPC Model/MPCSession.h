@@ -41,7 +41,10 @@
 - (NSArray *)connectedPeers;
 
 - (NSOutputStream *)outputStreamForPeer:(MCPeerID *)peer;
+
+
 - (void)sendData:(NSData *)data;
+- (void)sendData:(NSData *)data toPeer:(MCPeerID *)peer;
 
 
 

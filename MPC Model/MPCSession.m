@@ -111,11 +111,19 @@
     return [self.session connectedPeers];
 }
 
+- (void)sendData:(NSData *)data toPeer:(MCPeerID *)peer
+{
+    NSError *error;
+    [self.session sendData:data toPeers:[NSArray arrayWithObject:peer] withMode:MCSessionSendDataReliable error:&error];
+    if (error) {
+        NSLog(@"Error (data): %@", [error userInfo].description);
+    }
+}
+
 - (void)sendData:(NSData *)data
 {
     NSError *error;
     [self.session sendData:data toPeers:self.session.connectedPeers withMode:MCSessionSendDataReliable error:&error];
-    
     if (error) {
         NSLog(@"Error (data): %@", [error userInfo].description);
     }
@@ -191,6 +199,7 @@
 //        NSData *context = [[NSData alloc] initWithBytes:&runningTime length:sizeof(NSTimeInterval)];
 //        [self.browser invitePeer:peerID toSession:self.session withContext:context timeout:30];
         if ([info valueForKey:@"Number"] > self.number) {
+            NSLog(@"invited peer: %@", peerID.displayName);
             [self.browser invitePeer:peerID toSession:self.session withContext:nil timeout:30];
         }
     }
