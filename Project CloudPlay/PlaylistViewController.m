@@ -9,9 +9,11 @@
 #import "PlaylistViewController.h"
 #import "SongsCollectionViewCell.h"
 
-@interface PlaylistViewController ()
+
+@interface PlaylistViewController () <MPCSessionDelegate>
 
 @property (strong, nonatomic) IBOutlet UICollectionView *songsCollectionView;
+- (IBAction)returnButton:(id)sender;
 
 @end
 
@@ -25,6 +27,8 @@
     [flowLayout setItemSize:CGSizeMake(368, 50)];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
     [self.songsCollectionView setCollectionViewLayout:flowLayout];
+    [self.navigationItem setHidesBackButton:YES];
+    self.session.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,7 +52,14 @@
     SongsCollectionViewCell *cell = (SongsCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     NSString *songTitle = [[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Song Title"];
     NSString *artist = [[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Artist"];
-    UIImage *songImage = [[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Artwork"];
+    
+    UIImage *songImage = [[UIImage alloc] init];
+    if ([[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Artwork"]) {
+        songImage = [[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Artwork"];
+    } else {
+        songImage = [UIImage imageNamed:@"blankAlbum.png"];
+        [self.songsData objectAtIndex:indexPath.row][@"Artwork"] = songImage;
+    }
     
     [cell.songImage setImage:songImage];
     [cell.titleLabel setText:songTitle];
@@ -67,4 +78,16 @@
 }
 */
 
+#pragma mark - MPCSessionDelegate
+
+- (void)session:(MPCSession *)session didDisconnectFromPeer:(MCPeerID *)peer{
+    if ([self.session.connectedPeers count] == 0) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
+
+- (IBAction)returnButton:(id)sender {
+    [self performSegueWithIdentifier:@"restart" sender:sender];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

@@ -15,6 +15,7 @@
 @property (strong, nonatomic) MCNearbyServiceBrowser *browser;
 @property (strong, nonatomic) NSDate *date;
 @property (strong, nonatomic) NSString *number;
+@property (assign, nonatomic) BOOL isLeader;
 
 @end
 
@@ -46,6 +47,7 @@
     [self.advertiser startAdvertisingPeer];
     [self.browser startBrowsingForPeers];
     
+    self.isLeader = YES;
     return self;
 }
 
@@ -201,6 +203,7 @@
         NSInteger number = [self.number integerValue];
         if ([[info valueForKey:@"Number"] integerValue] > number) {
             NSLog(@"invited peer: %@", peerID.displayName);
+            self.isLeader = NO;
             [self.browser invitePeer:peerID toSession:self.session withContext:nil timeout:30];
         }
     }

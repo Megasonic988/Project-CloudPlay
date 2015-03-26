@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@import MediaPlayer;
+@import MultipeerConnectivity;
+#import "MPCSession.h"
 
 @interface PlaylistViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (strong, nonatomic) NSArray *songsData;
+
+@property (strong, nonatomic) MPCSession *session;
 
 
 

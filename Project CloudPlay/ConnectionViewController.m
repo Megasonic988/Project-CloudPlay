@@ -10,8 +10,7 @@
 #import "MPCSession.h"
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
 #import "ConnectedPeerCVCell.h"
-#import "MenuViewController.h"
-
+#import "SongSelectionViewController.h"
 
 @interface ConnectionViewController () <MPCSessionDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate>
 
@@ -27,6 +26,7 @@
 @end
 
 @implementation ConnectionViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -158,9 +158,9 @@
 #pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.destinationViewController isKindOfClass:[MenuViewController class]]) {
-        MenuViewController *menuVC = (MenuViewController *)segue.destinationViewController;
-        menuVC.session = self.session;
+    if ([segue.destinationViewController isKindOfClass:[SongSelectionViewController class]]) {
+        SongSelectionViewController *songselVC = (SongSelectionViewController *)segue.destinationViewController;
+        songselVC.session = self.session;
     }
 }
 

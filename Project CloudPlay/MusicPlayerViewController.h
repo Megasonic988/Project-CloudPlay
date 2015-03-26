@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+
+
 @interface MusicPlayerViewController : UIViewController
 
 @property (strong, nonatomic) NSDictionary *currentSong;
+@property (weak, nonatomic) IBOutlet UIImageView *albumImageView;
+@property (weak, nonatomic) IBOutlet UILabel *songTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *artistLabel;
 
 @end

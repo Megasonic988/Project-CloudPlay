@@ -10,6 +10,7 @@
 
 @interface MusicPlayerViewController ()
 
+
 @end
 
 @implementation MusicPlayerViewController
@@ -22,6 +23,14 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setCurrentSong:(NSDictionary *)currentSong
+{
+    _currentSong = currentSong;
+    self.artistLabel = [self.currentSong valueForKey:@"Artist"];
+    self.songTitleLabel = [self.currentSong valueForKey:@"Song Title"];
+    self.albumImageView = [self.currentSong valueForKey:@"Artwork"];
 }
 
 /*

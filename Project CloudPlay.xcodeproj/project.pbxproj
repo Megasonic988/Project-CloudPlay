@@ -13,6 +13,8 @@
 		0A8402D81ABBDB03003494D3 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8402D71ABBDB03003494D3 /* PlaylistViewController.m */; };
 		0A8402DB1ABBDB17003494D3 /* MusicPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8402DA1ABBDB17003494D3 /* MusicPlayerViewController.m */; };
 		0A8402DE1ABBDB2B003494D3 /* ConnectedPeersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8402DD1ABBDB2B003494D3 /* ConnectedPeersViewController.m */; };
+		0AC6CE101AC1C9AF001AE449 /* MPCSessionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC6CE0F1AC1C9AF001AE449 /* MPCSessionData.m */; };
+		0AC6CE131AC45FF5001AE449 /* SongSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC6CE121AC45FF5001AE449 /* SongSelectionViewController.m */; };
 		0ACD19831ABD2ECB007F980F /* SongsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ACD19821ABD2ECB007F980F /* SongsCollectionViewCell.m */; };
 		0ACD19871ABD2FF7007F980F /* SongCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ACD19861ABD2FF7007F980F /* SongCell.xib */; };
 		0ADB3A751AB4DB6400CF0CF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB3A741AB4DB6400CF0CF9 /* main.m */; };
@@ -68,6 +70,10 @@
 		0A8402DA1ABBDB17003494D3 /* MusicPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerViewController.m; sourceTree = "<group>"; };
 		0A8402DC1ABBDB2B003494D3 /* ConnectedPeersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectedPeersViewController.h; sourceTree = "<group>"; };
 		0A8402DD1ABBDB2B003494D3 /* ConnectedPeersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectedPeersViewController.m; sourceTree = "<group>"; };
+		0AC6CE0E1AC1C9AF001AE449 /* MPCSessionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCSessionData.h; sourceTree = "<group>"; };
+		0AC6CE0F1AC1C9AF001AE449 /* MPCSessionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCSessionData.m; sourceTree = "<group>"; };
+		0AC6CE111AC45FF5001AE449 /* SongSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongSelectionViewController.h; sourceTree = "<group>"; };
+		0AC6CE121AC45FF5001AE449 /* SongSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongSelectionViewController.m; sourceTree = "<group>"; };
 		0ACD19811ABD2ECB007F980F /* SongsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongsCollectionViewCell.h; sourceTree = "<group>"; };
 		0ACD19821ABD2ECB007F980F /* SongsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongsCollectionViewCell.m; sourceTree = "<group>"; };
 		0ACD19861ABD2FF7007F980F /* SongCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SongCell.xib; path = ../SongCell.xib; sourceTree = "<group>"; };
@@ -148,16 +154,15 @@
 		0A5AB3FC1AB91B23003DD934 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0AC6CE161AC4BBA8001AE449 /* Old Controllers */,
 				0ADB3A791AB4DB6400CF0CF9 /* ConnectionViewController.h */,
 				0ADB3A7A1AB4DB6400CF0CF9 /* ConnectionViewController.m */,
 				0A8402D61ABBDB03003494D3 /* PlaylistViewController.h */,
 				0A8402D71ABBDB03003494D3 /* PlaylistViewController.m */,
 				0A8402D91ABBDB17003494D3 /* MusicPlayerViewController.h */,
 				0A8402DA1ABBDB17003494D3 /* MusicPlayerViewController.m */,
-				0A8402DC1ABBDB2B003494D3 /* ConnectedPeersViewController.h */,
-				0A8402DD1ABBDB2B003494D3 /* ConnectedPeersViewController.m */,
-				0A5AB3F91AB91B0E003DD934 /* MenuViewController.h */,
-				0A5AB3FA1AB91B0E003DD934 /* MenuViewController.m */,
+				0AC6CE111AC45FF5001AE449 /* SongSelectionViewController.h */,
+				0AC6CE121AC45FF5001AE449 /* SongSelectionViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -169,6 +174,17 @@
 				0A5AB4031AB93034003DD934 /* KWMusicPlayer.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		0AC6CE161AC4BBA8001AE449 /* Old Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0A5AB3F91AB91B0E003DD934 /* MenuViewController.h */,
+				0A5AB3FA1AB91B0E003DD934 /* MenuViewController.m */,
+				0A8402DC1ABBDB2B003494D3 /* ConnectedPeersViewController.h */,
+				0A8402DD1ABBDB2B003494D3 /* ConnectedPeersViewController.m */,
+			);
+			name = "Old Controllers";
 			sourceTree = "<group>";
 		};
 		0ADB3A661AB4DB6400CF0CF9 = {
@@ -302,6 +318,8 @@
 			children = (
 				0A00BFD51AB52B9200216487 /* MPCSession.h */,
 				0A00BFD61AB52B9200216487 /* MPCSession.m */,
+				0AC6CE0E1AC1C9AF001AE449 /* MPCSessionData.h */,
+				0AC6CE0F1AC1C9AF001AE449 /* MPCSessionData.m */,
 			);
 			name = "MPC Model";
 			path = ../Classes;
@@ -431,6 +449,8 @@
 				0ADB3A781AB4DB6400CF0CF9 /* AppDelegate.m in Sources */,
 				0ADB3B491AB4EA7A00CF0CF9 /* NSMutableArray+QueueMethods.m in Sources */,
 				0A8402D81ABBDB03003494D3 /* PlaylistViewController.m in Sources */,
+				0AC6CE131AC45FF5001AE449 /* SongSelectionViewController.m in Sources */,
+				0AC6CE101AC1C9AF001AE449 /* MPCSessionData.m in Sources */,
 				0ADB3B321AB4EA0F00CF0CF9 /* TDAudioStreamerConstants.m in Sources */,
 				0ADB3B4D1AB4EA7A00CF0CF9 /* TDAudioQueueBufferManager.m in Sources */,
 				0A00BFD71AB52B9200216487 /* MPCSession.m in Sources */,
@@ -572,7 +592,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos8.2;
 			};
 			name = Debug;
 		};
@@ -586,7 +606,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos8.2;
 			};
 			name = Release;
 		};

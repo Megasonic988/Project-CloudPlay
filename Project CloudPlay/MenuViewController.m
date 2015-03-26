@@ -15,6 +15,7 @@
 #import "PlaylistViewController.h"
 #import "ConnectedPeersViewController.h"
 #import "MusicPlayerViewController.h"
+#import "MPCSessionData.h"
 
 @interface MenuViewController () <MPCSessionDelegate, MPMediaPickerControllerDelegate>
 
@@ -23,34 +24,28 @@
 - (IBAction)viewPlaylist:(id)sender;
 - (IBAction)displayMusicPlayer:(id)sender;
 
-@property (strong, nonatomic) NSMutableArray *mySongs; //of MPMediaItems
-@property (strong, nonatomic) NSMutableArray *songsData; //of NSDictionaries with song data
-@property (strong, nonatomic) NSMutableArray *justSelectedSongsData; //of NSDictionaries with just selected song data (to be sent)
-@property (strong, nonatomic) NSDictionary *currentPlayingSong;
-@property (strong, nonatomic) MPMediaItem *justSelectedSong;
-
 @property (strong, nonatomic) TDAudioOutputStreamer *outputStreamer;
 @property (strong, nonatomic) TDAudioInputStreamer *inputStream;
 @property (strong, nonatomic) KWMusicPlayer *musicPlayer;
+@property (strong, nonatomic) MPCSessionData *sessionData;
 
 @end
 
 @implementation MenuViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad { //
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
+    // Do any additional setup after loading the view
     self.session.delegate = self;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated //
 {
     [super viewWillAppear:YES];
     self.session.delegate = self;
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated //
 {
     [super viewWillDisappear:YES];
     if (self.isMovingFromParentViewController) {
@@ -63,22 +58,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSMutableArray *)mySongs
+- (MPCSessionData *)sessionData //
 {
-    if (!_mySongs) _mySongs = [[NSMutableArray alloc] init];
-    return _mySongs;
-}
-
-- (NSMutableArray *)songsData
-{
-    if (!_songsData) _songsData = [[NSMutableArray alloc] init];
-    return _songsData;
-}
-
-- (NSMutableArray *)justSelectedSongsData
-{
-    if (!_justSelectedSongsData) _justSelectedSongsData = [[NSMutableArray alloc] init];
-    return _justSelectedSongsData;
+    if (!_sessionData) _sessionData = [[MPCSessionData alloc] init];
+    return _sessionData;
 }
 
 - (KWMusicPlayer *)musicPlayer
@@ -87,18 +70,15 @@
     return _musicPlayer;
 }
 
-#pragma mark - Media Picker delegate
+#pragma mark - Media Picker delegate //
 
 - (void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-    [self.mySongs addObjectsFromArray:mediaItemCollection.items];
-    [self storeSongDataFromSongs:mediaItemCollection.items];
+    [self.sessionData.mySongs addObjectsFromArray:mediaItemCollection.items];
+    [self.sessionData storeSongDataFromSongs:mediaItemCollection.items withMyPeerID:self.session.peerID];
     [self shareSongData];
-    [self streamSongToOtherPeers];
-    [self.outputStreamer stop];
-    [self.musicPlayer pause];
-    self.justSelectedSong = [mediaItemCollection.items firstObject];
+    self.sessionData.currentPlayingSong = [mediaItemCollection.items firstObject];
 }
 
 - (void)streamSongToOtherPeers
@@ -106,7 +86,7 @@
     if (self.session.connectedPeers.count) {
         for (id peer in self.session.connectedPeers) {
             self.outputStreamer = [[TDAudioOutputStreamer alloc] initWithOutputStream:[self.session outputStreamForPeer:peer]];
-            [self.outputStreamer streamAudioFromURL:[self.justSelectedSong valueForProperty:MPMediaItemPropertyAssetURL]];
+            [self.outputStreamer streamAudioFromURL:[self.sessionData.songToStream valueForProperty:MPMediaItemPropertyAssetURL]];
             
             NSLog(@"%@", self.outputStreamer);
             [self.outputStreamer start];
@@ -121,52 +101,24 @@
     NSLog(@"sent stop stream message");
 }
 
-static const CGSize ALBUM_SIZE = {200, 200};
-
-- (void)storeSongDataFromSongs:(NSArray *)songs
+- (void)sendDidStopInputStreamMessage
 {
-    NSMutableArray *songsData = [[NSMutableArray alloc] init];
-    if ([[songs firstObject] isKindOfClass:[MPMediaItem class]]) {
-        for (MPMediaItem *song in songs) {
-            NSMutableDictionary *songData = [[NSMutableDictionary alloc] init];
-            songData[@"Song Title"] = [song valueForProperty:MPMediaItemPropertyTitle] ? [song valueForProperty:MPMediaItemPropertyTitle] : @"";
-            songData[@"Artist"] = [song valueForProperty:MPMediaItemPropertyArtist] ? [song valueForProperty:MPMediaItemPropertyArtist] : @"Unknown Artist";
-            songData[@"Album Title"] = [song valueForProperty:MPMediaItemPropertyAlbumTitle] ? [song valueForProperty:MPMediaItemPropertyAlbumTitle] : @"Unknown Album";
-            songData[@"Song Duration"] = [song valueForProperty:MPMediaItemPropertyPlaybackDuration] ? [song valueForProperty:MPMediaItemPropertyPlaybackDuration] : @"";
-            songData[@"Song Owner"] = self.session.peerID;
-            MPMediaItemArtwork *artwork = [song valueForProperty:MPMediaItemPropertyArtwork];
-            UIImage *image = [artwork imageWithSize:ALBUM_SIZE];
-            if (image) {
-                songData[@"Artwork"] = image;
-            } else {
-                songData[@"Artwork"] = [UIImage imageNamed:@"No-artwork"];
-                
-            }
-            [songsData addObject:songData];
-        }
-    } else {
-        for (NSMutableDictionary *song in songs) {
-            [songsData addObject:song];
-        }
-    }
-    for (NSMutableDictionary *song in songsData) {
-        [self.songsData addObject:song];
-    }
-    self.justSelectedSongsData = songsData;
-    NSLog(@"%@", self.songsData);
-    NSLog(@"Songs count: %lu", (unsigned long)self.songsData.count);
+    NSDictionary *didstopinputstreammsg = @{@"Description" : @"Did Stop Input Stream"};
+    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[didstopinputstreammsg copy]]];
+    NSLog(@"sent did stop input stream message");
 }
 
-- (void)shareSongData
+
+- (void)shareSongData//
 {
     NSLog(@"shared songs data");
-    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[self.justSelectedSongsData copy]]];
+    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[self.sessionData.justSelectedSongsData copy]]];
 }
 
-#pragma mark - MPCSessionDelegate Methods
-- (void)session:(MPCSession *)session didStartConnectingtoPeer:(MCPeerID *)peer{}
-- (void)session:(MPCSession *)session didFinishConnetingtoPeer:(MCPeerID *)peer{}
-- (void)session:(MPCSession *)session didDisconnectFromPeer:(MCPeerID *)peer{}
+#pragma mark - MPCSessionDelegate Methods //
+- (void)session:(MPCSession *)session didStartConnectingtoPeer:(MCPeerID *)peer{} //
+- (void)session:(MPCSession *)session didFinishConnetingtoPeer:(MCPeerID *)peer{} //
+- (void)session:(MPCSession *)session didDisconnectFromPeer:(MCPeerID *)peer{} //
 
 - (void)session:(MPCSession *)session didReceiveAudioStream:(NSInputStream *)stream
 {
@@ -187,14 +139,8 @@ static const CGSize ALBUM_SIZE = {200, 200};
     NSLog(@"sent received stream message");
 }
 
-- (void)sendDidStopInputStreamMessage
-{
-    NSDictionary *didstopinputstreammsg = @{@"Description" : @"Did Stop Input Stream"};
-    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[didstopinputstreammsg copy]]];
-    NSLog(@"sent did stop input stream message");
-}
 
-- (void)session:(MPCSession *)session didReceiveData:(NSData *)data
+- (void)session:(MPCSession *)session didReceiveData:(NSData *)data //
 {
     dispatch_async(dispatch_get_main_queue(), ^{
        
@@ -205,16 +151,16 @@ static const CGSize ALBUM_SIZE = {200, 200};
                 [self.navigationController popToRootViewControllerAnimated:YES];
             } else if ([[message valueForKey:@"Description"] isEqualToString:@"Received Stream"]) {
                 NSLog(@"starting playback of song");
-                [self.musicPlayer playSong:[self.mySongs firstObject]];
+                [self.musicPlayer playSong:[self.sessionData.mySongs firstObject]];
             } else if ([[message valueForKey:@"Description"] isEqualToString:@"Stopped Sending Stream"]) {
                 [self.inputStream stop];
                 self.inputStream = nil;
                 [self sendDidStopInputStreamMessage];
-            } else if ([[message valueForKey:@"Description"] isEqualToString:@"Did Stop InputStream"]) {
-                
+            } else if ([[message valueForKey:@"Description"] isEqualToString:@"Did Stop Input Stream"]) {
+                [self streamSongToOtherPeers];
             }
         } else {
-            [self storeSongDataFromSongs:message];
+            [self.sessionData storeSongDataFromSongs:message withMyPeerID:self.session.peerID];
         }
     });}
 
@@ -232,7 +178,7 @@ static const CGSize ALBUM_SIZE = {200, 200};
 }
 */
 
-- (IBAction)chooseMusicButton:(id)sender {
+- (IBAction)chooseMusicButton:(id)sender { //
     MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes:MPMediaTypeMusic];
     picker.allowsPickingMultipleItems = YES;
     picker.delegate = self;
@@ -268,7 +214,7 @@ static const CGSize ALBUM_SIZE = {200, 200};
     if ([segue.identifier isEqualToString:@"show playlist"]) {
         if ([segue.destinationViewController isKindOfClass:[PlaylistViewController class]]) {
             PlaylistViewController *playlistVC = (PlaylistViewController *)segue.destinationViewController;
-            NSArray *songsDataArray = [NSArray arrayWithArray:self.songsData];
+            NSArray *songsDataArray = [NSArray arrayWithArray:self.sessionData.songsData];
             playlistVC.songsData = songsDataArray;
         }
     } else if ([segue.identifier isEqualToString:@"show connected peers"]) {
@@ -279,7 +225,7 @@ static const CGSize ALBUM_SIZE = {200, 200};
     } else if ([segue.identifier isEqualToString:@"show music player"]) {
         if ([segue.destinationViewController isKindOfClass:[MusicPlayerViewController class]]) {
             MusicPlayerViewController *musicPlayerVC = (MusicPlayerViewController *)segue.destinationViewController;
-            musicPlayerVC.currentSong = self.currentPlayingSong;
+            musicPlayerVC.currentSong = self.sessionData.currentPlayingSong;
         }
     }
 }
