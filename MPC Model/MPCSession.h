@@ -46,6 +46,8 @@
 - (void)sendData:(NSData *)data;
 - (void)sendData:(NSData *)data toPeer:(MCPeerID *)peer;
 
+@property (assign, nonatomic) BOOL isLeader;
+
 
 
 @end

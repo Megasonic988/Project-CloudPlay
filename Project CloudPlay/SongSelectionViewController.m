@@ -145,11 +145,9 @@
 - (IBAction)chooseSongsButton:(id)sender {
     MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes:MPMediaTypeMusic];
     picker.allowsPickingMultipleItems = YES;
+    picker.showsCloudItems = NO;
     picker.delegate = self;
     [self presentViewController:picker animated:YES completion:nil];
-    
-
-    
 }
 
 - (IBAction)skipButton:(id)sender {
@@ -175,6 +173,7 @@
             NSArray *shuffledSongs = [songsDataArray sortedArrayUsingDescriptors:[NSArray arrayWithObject:randomIDDescriptor]];
             playlistVC.songsData = shuffledSongs;
             playlistVC.session = self.session;
+            playlistVC.mySongs = self.sessionData.mySongs;
         }
     }
 }

@@ -7,8 +7,11 @@
 //
 
 #import "MusicPlayerViewController.h"
+#import "KWMusicPlayer.h"
+@import AudioToolbox;
 
 @interface MusicPlayerViewController ()
+
 
 
 @end
@@ -18,6 +21,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self.artistLabel setText:[self.currentSong valueForKey:@"Artist"]];
+    [self.songTitleLabel setText:[self.currentSong valueForKey:@"Song Title"]];
+    [self.albumImageView setImage:[self.currentSong valueForKey:@"Artwork"]];
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [self becomeFirstResponder];
+    
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:2] animated:YES];
+}
+
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event
+{
+    if (event.type == UIEventTypeRemoteControl) {
+        switch (event.subtype) {
+            case UIEventSubtypeRemoteControlPlay:
+                [self.musicPlayer play];
+                break;
+            case UIEventSubtypeRemoteControlPause:
+                [self.musicPlayer pause];
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -25,12 +58,22 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)setCurrentSong:(NSDictionary *)currentSong
+#pragma mark - PlaylistViewControllerDelegate
+
+- (void)startSongPlayback
 {
-    _currentSong = currentSong;
-    self.artistLabel = [self.currentSong valueForKey:@"Artist"];
-    self.songTitleLabel = [self.currentSong valueForKey:@"Song Title"];
-    self.albumImageView = [self.currentSong valueForKey:@"Artwork"];
+    NSLog(@"starting playback");
+    [self.musicPlayer play];
+}
+
+- (void)pauseSongPlayback
+{
+    [self.musicPlayer pause];
+}
+
+- (void)popDelegateViewController
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*

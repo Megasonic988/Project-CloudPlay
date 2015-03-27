@@ -52,6 +52,10 @@
     self.session.delegate = self;
     [self.session startAdvertising];
     [self.session startBrowsing];
+    [self setupStartButton];
+    [self updatePlayers];
+    self.session.isLeader = YES;
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated

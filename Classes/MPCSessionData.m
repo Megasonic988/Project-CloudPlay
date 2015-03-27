@@ -44,6 +44,9 @@ static const CGSize ALBUM_IMAGE_SIZE = {50, 50};
             songData[@"isSelected"] = @"NO";
             NSNumber *randomNum = [[NSNumber alloc] initWithInt:arc4random()%100000];
             songData[@"RandomID"] = randomNum;
+            if ([song valueForProperty:MPMediaItemPropertyAssetURL]) {
+                songData[@"MediaItemURL"] = [song valueForProperty:MPMediaItemPropertyAssetURL];
+            } else { continue; };
             MPMediaItemArtwork *artwork = [song valueForProperty:MPMediaItemPropertyArtwork];
             UIImage *image = [artwork imageWithSize:ALBUM_IMAGE_SIZE];
             if (image) {

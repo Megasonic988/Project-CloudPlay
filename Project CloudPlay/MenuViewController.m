@@ -151,7 +151,7 @@
                 [self.navigationController popToRootViewControllerAnimated:YES];
             } else if ([[message valueForKey:@"Description"] isEqualToString:@"Received Stream"]) {
                 NSLog(@"starting playback of song");
-                [self.musicPlayer playSong:[self.sessionData.mySongs firstObject]];
+//                [self.musicPlayer playSong:[self.sessionData.mySongs firstObject]];
             } else if ([[message valueForKey:@"Description"] isEqualToString:@"Stopped Sending Stream"]) {
                 [self.inputStream stop];
                 self.inputStream = nil;

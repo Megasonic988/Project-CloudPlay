@@ -15,7 +15,7 @@
 @property (strong, nonatomic) MCNearbyServiceBrowser *browser;
 @property (strong, nonatomic) NSDate *date;
 @property (strong, nonatomic) NSString *number;
-@property (assign, nonatomic) BOOL isLeader;
+
 
 @end
 
@@ -67,10 +67,10 @@
         [self.delegate session:self didStartConnectingtoPeer:peerID];
     } else if (state == MCSessionStateConnected) {
         NSLog(@"Connected to %@", peerID.displayName);
-        [self.delegate session:self didStartConnectingtoPeer:peerID];
+        [self.delegate session:self didFinishConnetingtoPeer:peerID];
     } else if (state == MCSessionStateNotConnected) {
         NSLog(@"Disconnected from %@", peerID.displayName);
-        [self.delegate session:self didStartConnectingtoPeer:peerID];
+        [self.delegate session:self didDisconnectFromPeer:peerID];
     }
 }
 
@@ -201,7 +201,7 @@
 //        NSData *context = [[NSData alloc] initWithBytes:&runningTime length:sizeof(NSTimeInterval)];
 //        [self.browser invitePeer:peerID toSession:self.session withContext:context timeout:30];
         NSInteger number = [self.number integerValue];
-        if ([[info valueForKey:@"Number"] integerValue] > number) {
+        if ([[info valueForKey:@"Number"] integerValue] >= number) {
             NSLog(@"invited peer: %@", peerID.displayName);
             self.isLeader = NO;
             [self.browser invitePeer:peerID toSession:self.session withContext:nil timeout:30];
