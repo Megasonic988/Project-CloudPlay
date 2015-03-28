@@ -25,6 +25,8 @@
 @property (strong, nonatomic) TDAudioOutputStreamer *outputStreamer;
 @property (strong, nonatomic) KWMusicPlayer *musicPlayer;
 
+@property (assign, nonatomic) int numberOfPeersWhoHaveNoInputStreamOrPlaybackCurrently;
+
 @end
 
 @implementation PlaylistViewController
@@ -70,6 +72,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - UICollectionViewDelegate Methods
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
@@ -104,30 +108,15 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Song Owner"] == self.session.peerID) {
-        NSLog(@"selected item");
-        
-    }
-    
     if (self.session.isLeader) {
         self.currentSong = [self.songsData objectAtIndex:indexPath.row];
+        
         [self tellEveryoneThisIsTheNewCurrentSong:self.currentSong];
-        if([[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Song Owner"] == self.session.peerID) {
-            NSArray *peers = [self.session connectedPeers];
-            if (peers.count) {
-                for (MCPeerID *peer in peers) {
-                    self.outputStreamer = [[TDAudioOutputStreamer alloc] initWithOutputStream:[self.session outputStreamForPeer:peer]];
-                    [self.outputStreamer streamAudioFromURL:[self.currentSong valueForKey:@"MediaItemURL"]];
-                    NSLog(@"%@", self.outputStreamer);
-                    [self.outputStreamer start];
-                }
-            }
-            self.musicPlayer = [[KWMusicPlayer alloc] initWithSong:self.currentSong];
-            [self.musicPlayer play];
-
-        } else {
-            
-        }
+        [self playSong:self.currentSong];
+        
+        [self stopInputStreamAndPlayback];
+        [self tellOthersToStopInputStreamAndPlayBack];
+        
         [self performSegueWithIdentifier:@"show music player" sender:self];
     }
 }
@@ -139,6 +128,78 @@
     newCurrentSongMsg[@"Description"] = @"New Current Song";
     newCurrentSongMsg[@"Song Title"] = songTitle;
     [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[newCurrentSongMsg copy]]];
+}
+
+- (void)playSong:(NSDictionary *)song
+{
+    if (self.numberOfPeersWhoHaveNoInputStreamOrPlaybackCurrently != [self.session.connectedPeers count])
+    {
+        return;
+    }
+    
+    if([song valueForKey:@"Song Owner"] == self.session.peerID) {
+        self.numberOfPeersWhoHaveNoInputStreamOrPlaybackCurrently = 0;
+        [self.outputStreamer stop];
+        NSArray *peers = [self.session connectedPeers];
+        if (peers.count) {
+            for (MCPeerID *peer in peers) {
+                self.outputStreamer = [[TDAudioOutputStreamer alloc] initWithOutputStream:[self.session outputStreamForPeer:peer]];
+                [self.outputStreamer streamAudioFromURL:[self.currentSong valueForKey:@"MediaItemURL"]];
+                NSLog(@"%@", self.outputStreamer);
+                [self.outputStreamer start];
+            }
+        }
+        self.musicPlayer = [[KWMusicPlayer alloc] initWithSong:self.currentSong];
+        [self.musicPlayer play];
+    }
+    // if it is not my song, the owner will automatically stream it to everyone else (in the changeCurrentSong method below)
+}
+
+- (void)stopInputStreamAndPlayback
+{
+    if (self.inputStream || self.musicPlayer) {;
+        [self.inputStream stop];
+        [self.musicPlayer stop];
+    }
+    [self sendDidStopInputStreamAndPlaybackMessage];
+}
+
+- (void)sendDidStopInputStreamAndPlaybackMessage
+{
+    NSMutableDictionary *didStopInputStreamAndPlayBackMessage = [[NSMutableDictionary alloc] init];
+    didStopInputStreamAndPlayBackMessage[@"Description"] = @"Did Stop IS and P";
+    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[didStopInputStreamAndPlayBackMessage copy]]];
+
+}
+
+- (void)tellOthersToStopInputStreamAndPlayBack
+{
+    NSMutableDictionary *stopAllStreamsAndPlaybackMsg = [[NSMutableDictionary alloc] init];
+    stopAllStreamsAndPlaybackMsg[@"Description"] = @"Stop Input Stream and Playback";
+    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[stopAllStreamsAndPlaybackMsg copy]]];
+}
+
+- (void)changeCurrentSong:(NSString *)songTitle
+{
+    for (NSDictionary *song in self.songsData) {
+        if ([songTitle isEqualToString:[song valueForKey:@"Song Title"]]) {
+            self.currentSong = song;
+            NSLog(@"%@", song);
+            break;
+        }
+    }
+    [self playSong:self.currentSong];
+    [self performSegueWithIdentifier:@"show music player" sender:self];
+}
+
+- (void)checkIfCanPlaySong
+{
+    self.numberOfPeersWhoHaveNoInputStreamOrPlaybackCurrently++;
+    if([self.currentSong valueForKey:@"Song Owner"] == self.session.peerID) {
+        if (self.numberOfPeersWhoHaveNoInputStreamOrPlaybackCurrently == [self.session.connectedPeers count]) {
+            [self playSong:self.currentSong];
+        }
+    }
 }
 
 #pragma mark - Navigation
@@ -154,33 +215,7 @@
             musicPlayerVC.musicPlayer = self.musicPlayer;
         }
     }
-}
-
-- (void)changeCurrentSong:(NSString *)songTitle
-{
-    for (NSDictionary *song in self.songsData) {
-        if ([songTitle isEqualToString:[song valueForKey:@"Song Title"]]) {
-            self.currentSong = song;
-            NSLog(@"%@", song);
-            break;
-        }
-    }
-    if ([self.currentSong valueForKey:@"Song Owner"] == self.session.peerID) {
-        NSArray *peers = [self.session connectedPeers];
-        if (peers.count) {
-            for (MCPeerID *peer in peers) {
-                self.outputStreamer = [[TDAudioOutputStreamer alloc] initWithOutputStream:[self.session outputStreamForPeer:peer]];
-                [self.outputStreamer streamAudioFromURL:[self.currentSong valueForKey:@"MediaItemURL"]];
-                NSLog(@"%@", self.outputStreamer);
-                [self.outputStreamer start];
-            }
-        }
-        if (!self.musicPlayer) {
-            self.musicPlayer = [[KWMusicPlayer alloc] initWithSong:self.currentSong];
-            [self.musicPlayer play];
-        }
-        [self performSegueWithIdentifier:@"show music player" sender:self];
-    }
+    
 }
 
 #pragma mark - MPCSessionDelegate
@@ -199,6 +234,7 @@
 
 - (void)session:(MPCSession *)session didReceiveAudioStream:(NSInputStream *)stream{
     dispatch_async(dispatch_get_main_queue(), ^{
+        self.numberOfPeersWhoHaveNoInputStreamOrPlaybackCurrently = 0;
         NSLog(@"received audio stream");
         if (!self.inputStream) {
             self.inputStream = [[TDAudioInputStreamer alloc] initWithInputStream:stream];
@@ -217,6 +253,12 @@
             if ([[message valueForKey:@"Description"] isEqualToString:@"New Current Song"]) {
                 NSString *songTitle = [message valueForKey:@"Song Title"];
                 [self changeCurrentSong:songTitle];
+            }
+            if ([[message valueForKey:@"Description"] isEqualToString:@"Stop Input Stream and Playback"]) {
+                [self stopInputStreamAndPlayback];
+            }
+            if ([[message valueForKey:@"Description"] isEqualToString:@"Did Stop IS and P"]) {
+                [self checkIfCanPlaySong];
             }
         }
     });

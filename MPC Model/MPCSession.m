@@ -163,7 +163,7 @@
 - (void)advertiser:(MCNearbyServiceAdvertiser *)advertiser didReceiveInvitationFromPeer:(MCPeerID *)peerID withContext:(NSData *)context invitationHandler:(void (^)(BOOL, MCSession *))invitationHandler
 {
     NSLog(@" did receive invitation from peer: %@", peerID.displayName);
-    
+    self.isLeader = NO; NSLog(@"I am not the leader now");
 //    BOOL accept = NO;
 //    
 //    if (context.length == 8) {
@@ -203,7 +203,6 @@
         NSInteger number = [self.number integerValue];
         if ([[info valueForKey:@"Number"] integerValue] >= number) {
             NSLog(@"invited peer: %@", peerID.displayName);
-            self.isLeader = NO;
             [self.browser invitePeer:peerID toSession:self.session withContext:nil timeout:30];
         }
     }

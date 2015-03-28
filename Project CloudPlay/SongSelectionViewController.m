@@ -96,22 +96,36 @@
 - (void)session:(MPCSession *)session didReceiveData:(NSData *)data //
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-    
-    id message = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    NSLog(@"received data: %@", message);
-    if ([message isKindOfClass:[NSDictionary class]]) {
-        if ([[message valueForKey:@"Description"] isEqualToString:@"Back"]) {
-            [self.navigationController popToRootViewControllerAnimated:YES];
+        
+        @try {
+            id message = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            NSLog(@"received data: %@", message);
+            if ([message isKindOfClass:[NSDictionary class]]) {
+                if ([[message valueForKey:@"Description"] isEqualToString:@"Back"]) {
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                }
+            } else {
+                [self.sessionData storeSongDataFromSongs:message withMyPeerID:self.session.peerID];
+                self.songShares++;
+                if (self.songShares == [self.session.connectedPeers count] && self.hasChosen == YES)
+                {
+                    [self performSegueWithIdentifier:@"show playlist" sender:self];
+                }
+            }
+
         }
-    } else {
-        [self.sessionData storeSongDataFromSongs:message withMyPeerID:self.session.peerID];
-        self.songShares++;
-        if (self.songShares == [self.session.connectedPeers count] && self.hasChosen == YES)
-        {
-            [self performSegueWithIdentifier:@"show playlist" sender:self];
+        @catch (NSException *exception) {
+            self.songShares++;
+            if (self.songShares == [self.session.connectedPeers count] && self.hasChosen == YES)
+            {
+                [self performSegueWithIdentifier:@"show playlist" sender:self];
+            }
+            NSLog(@"exception: %@", exception);
         }
-    }
-});}
+        @finally {
+            
+        }
+    });}
 
 - (IBAction)randomSongsButton:(id)sender {
     MPMediaQuery *songsQuery = [MPMediaQuery songsQuery];
