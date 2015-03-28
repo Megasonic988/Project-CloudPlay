@@ -31,12 +31,12 @@
 {
     self = [super init];
     if (!self) return nil;
-
+    
     self.audioFileStream = [[TDAudioFileStream alloc] init];
     if (!self.audioFileStream) return nil;
-
+    
     self.audioFileStream.delegate = self;
-
+    
     return self;
 }
 
@@ -44,12 +44,12 @@
 {
     self = [self init];
     if (!self) return nil;
-
+    
     self.audioStream = [[TDAudioStream alloc] initWithInputStream:inputStream];
     if (!self.audioStream) return nil;
-
+    
     self.audioStream.delegate = self;
-
+    
     return self;
 }
 
@@ -58,7 +58,7 @@
     if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) {
         return [self performSelectorOnMainThread:@selector(start) withObject:nil waitUntilDone:YES];
     }
-
+    
     self.audioStreamerThread = [[NSThread alloc] initWithTarget:self selector:@selector(run) object:nil];
     [self.audioStreamerThread start];
 }
@@ -67,9 +67,9 @@
 {
     @autoreleasepool {
         [self.audioStream open];
-
+        
         self.isPlaying = YES;
-
+        
         while (self.isPlaying && [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]) ;
     }
 }
@@ -80,7 +80,7 @@
 {
     if (!_audioStreamReadMaxLength)
         _audioStreamReadMaxLength = kTDAudioStreamReadMaxLength;
-
+    
     return _audioStreamReadMaxLength;
 }
 
@@ -88,7 +88,7 @@
 {
     if (!_audioQueueBufferSize)
         _audioQueueBufferSize = kTDAudioQueueBufferSize;
-
+    
     return _audioQueueBufferSize;
 }
 
@@ -96,7 +96,7 @@
 {
     if (!_audioQueueBufferCount)
         _audioQueueBufferCount = kTDAudioQueueBufferCount;
-
+    
     return _audioQueueBufferCount;
 }
 
@@ -111,16 +111,16 @@
             [self.audioFileStream parseData:bytes length:length];
             break;
         }
-
+            
         case TDAudioStreamEventEnd:
             self.isPlaying = NO;
             [self.audioQueue finish];
             break;
-
+            
         case TDAudioStreamEventError:
             [[NSNotificationCenter defaultCenter] postNotificationName:TDAudioStreamDidFinishPlayingNotification object:nil];
             break;
-
+            
         default:
             break;
     }
@@ -131,9 +131,9 @@
 - (void)audioFileStreamDidBecomeReady:(TDAudioFileStream *)audioFileStream
 {
     UInt32 bufferSize = audioFileStream.packetBufferSize ? audioFileStream.packetBufferSize : self.audioQueueBufferSize;
-
+    
     self.audioQueue = [[TDAudioQueue alloc] initWithBasicDescription:audioFileStream.basicDescription bufferCount:self.audioQueueBufferCount bufferSize:bufferSize magicCookieData:audioFileStream.magicCookieData magicCookieSize:audioFileStream.magicCookieLength];
-
+    
     self.audioQueue.delegate = self;
 }
 
@@ -183,12 +183,14 @@
 
 - (void)stop
 {
-    [self performSelector:@selector(stopThread) onThread:self.audioStreamerThread withObject:nil waitUntilDone:YES];
+    [self performSelector:@selector(stopThread) onThread:[NSThread mainThread] withObject:nil waitUntilDone:YES];
 }
 
 - (void)stopThread
 {
+    NSLog(@"Stop");
     self.isPlaying = NO;
+    [self.audioStream close];
     [self.audioQueue stop];
 }
 

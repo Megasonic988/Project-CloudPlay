@@ -25,8 +25,6 @@
 @property (strong, nonatomic) TDAudioOutputStreamer *outputStreamer;
 @property (strong, nonatomic) KWMusicPlayer *musicPlayer;
 
-@property (assign, nonatomic) int numberOfPeersWhoHaveNoInputStreamOrPlaybackCurrently;
-
 @end
 
 @implementation PlaylistViewController
@@ -111,11 +109,11 @@
     if (self.session.isLeader) {
         self.currentSong = [self.songsData objectAtIndex:indexPath.row];
         
+        
         [self tellEveryoneThisIsTheNewCurrentSong:self.currentSong];
         [self playSong:self.currentSong];
         
-        [self stopInputStreamAndPlayback];
-        [self tellOthersToStopInputStreamAndPlayBack];
+
         
         [self performSegueWithIdentifier:@"show music player" sender:self];
     }
@@ -130,16 +128,29 @@
     [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[newCurrentSongMsg copy]]];
 }
 
+- (void)tellOthersToStopPlayback
+{
+    NSMutableDictionary *stopAllStreamsAndPlaybackMsg = [[NSMutableDictionary alloc] init];
+    stopAllStreamsAndPlaybackMsg[@"Description"] = @"Stop Playback";
+    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[stopAllStreamsAndPlaybackMsg copy]]];
+}
+
+- (void)stopPlayback
+{
+    if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) {
+        return [self performSelectorOnMainThread:@selector(stopPlayback) withObject:nil waitUntilDone:YES];
+    }
+        
+    if (self.musicPlayer) [self.musicPlayer stop];
+    if (self.inputStream) [self.inputStream stop];
+    if (self.outputStreamer) [self.outputStreamer stop];
+    
+    
+}
+
 - (void)playSong:(NSDictionary *)song
 {
-    if (self.numberOfPeersWhoHaveNoInputStreamOrPlaybackCurrently != [self.session.connectedPeers count])
-    {
-        return;
-    }
-    
     if([song valueForKey:@"Song Owner"] == self.session.peerID) {
-        self.numberOfPeersWhoHaveNoInputStreamOrPlaybackCurrently = 0;
-        [self.outputStreamer stop];
         NSArray *peers = [self.session connectedPeers];
         if (peers.count) {
             for (MCPeerID *peer in peers) {
@@ -155,30 +166,6 @@
     // if it is not my song, the owner will automatically stream it to everyone else (in the changeCurrentSong method below)
 }
 
-- (void)stopInputStreamAndPlayback
-{
-    if (self.inputStream || self.musicPlayer) {;
-        [self.inputStream stop];
-        [self.musicPlayer stop];
-    }
-    [self sendDidStopInputStreamAndPlaybackMessage];
-}
-
-- (void)sendDidStopInputStreamAndPlaybackMessage
-{
-    NSMutableDictionary *didStopInputStreamAndPlayBackMessage = [[NSMutableDictionary alloc] init];
-    didStopInputStreamAndPlayBackMessage[@"Description"] = @"Did Stop IS and P";
-    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[didStopInputStreamAndPlayBackMessage copy]]];
-
-}
-
-- (void)tellOthersToStopInputStreamAndPlayBack
-{
-    NSMutableDictionary *stopAllStreamsAndPlaybackMsg = [[NSMutableDictionary alloc] init];
-    stopAllStreamsAndPlaybackMsg[@"Description"] = @"Stop Input Stream and Playback";
-    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[stopAllStreamsAndPlaybackMsg copy]]];
-}
-
 - (void)changeCurrentSong:(NSString *)songTitle
 {
     for (NSDictionary *song in self.songsData) {
@@ -189,18 +176,24 @@
         }
     }
     [self playSong:self.currentSong];
+    if ([self.currentSong valueForKey:@"Song Owner"] == self.session.peerID) {
+        NSArray *peers = [self.session connectedPeers];
+        if (peers.count) {
+            for (MCPeerID *peer in peers) {
+                self.outputStreamer = [[TDAudioOutputStreamer alloc] initWithOutputStream:[self.session outputStreamForPeer:peer]];
+                [self.outputStreamer streamAudioFromURL:[self.currentSong valueForKey:@"MediaItemURL"]];
+                NSLog(@"%@", self.outputStreamer);
+                [self.outputStreamer start];
+            }
+        }
+        if (!self.musicPlayer) {
+            self.musicPlayer = [[KWMusicPlayer alloc] initWithSong:self.currentSong];
+            [self.musicPlayer play];
+        }
+    }
     [self performSegueWithIdentifier:@"show music player" sender:self];
 }
 
-- (void)checkIfCanPlaySong
-{
-    self.numberOfPeersWhoHaveNoInputStreamOrPlaybackCurrently++;
-    if([self.currentSong valueForKey:@"Song Owner"] == self.session.peerID) {
-        if (self.numberOfPeersWhoHaveNoInputStreamOrPlaybackCurrently == [self.session.connectedPeers count]) {
-            [self playSong:self.currentSong];
-        }
-    }
-}
 
 #pragma mark - Navigation
 
@@ -234,7 +227,6 @@
 
 - (void)session:(MPCSession *)session didReceiveAudioStream:(NSInputStream *)stream{
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.numberOfPeersWhoHaveNoInputStreamOrPlaybackCurrently = 0;
         NSLog(@"received audio stream");
         if (!self.inputStream) {
             self.inputStream = [[TDAudioInputStreamer alloc] initWithInputStream:stream];
@@ -254,11 +246,8 @@
                 NSString *songTitle = [message valueForKey:@"Song Title"];
                 [self changeCurrentSong:songTitle];
             }
-            if ([[message valueForKey:@"Description"] isEqualToString:@"Stop Input Stream and Playback"]) {
-                [self stopInputStreamAndPlayback];
-            }
-            if ([[message valueForKey:@"Description"] isEqualToString:@"Did Stop IS and P"]) {
-                [self checkIfCanPlaySong];
+            if ([[message valueForKey:@"Description"] isEqualToString:@"Stop Playback"]) {
+                [self stopPlayback];
             }
         }
     });
@@ -272,9 +261,13 @@
 - (void)session:(MPCSession *)session didFinishConnetingtoPeer:(MCPeerID *)peer{}
 
 - (IBAction)returnButton:(id)sender {
-    self.session.delegate = nil;
-    self.session = nil;
-    [self.navigationController popToRootViewControllerAnimated:NO];
+//    self.session.delegate = nil;
+//    self.session = nil;
+//    [self.navigationController popToRootViewControllerAnimated:NO];
+    if (self.musicPlayer) [self.musicPlayer stop];
+    if (self.inputStream) [self.inputStream stop];
+    if (self.outputStreamer) [self.outputStreamer stop];
+    
 }
 - (IBAction)adjustButton:(id)sender {
     [self.musicPlayer pause];
