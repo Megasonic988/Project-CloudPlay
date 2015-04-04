@@ -10,8 +10,9 @@
 #import "PlaylistViewController.h"
 @import MultipeerConnectivity;
 @import MediaPlayer;
+#import "AMWaveTransition.h"
 
-@interface SongSelectionViewController () <MPCSessionDelegate, MPMediaPickerControllerDelegate>
+@interface SongSelectionViewController () <MPCSessionDelegate, MPMediaPickerControllerDelegate, AMWaveTransitioning, UINavigationControllerDelegate>
 
 - (IBAction)randomSongsButton:(id)sender;
 - (IBAction)chooseSongsButton:(id)sender;
@@ -35,12 +36,30 @@
     self.session.delegate = self;
 }
 
+//- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+//                                  animationControllerForOperation:(UINavigationControllerOperation)operation
+//                                               fromViewController:(UIViewController*)fromVC
+//                                                 toViewController:(UIViewController*)toVC
+//{
+//    if (operation != UINavigationControllerOperationNone) {
+//        // Return your preferred transition operation
+//        return [AMWaveTransition transitionWithOperation:operation andTransitionType:AMWaveTransitionTypeBounce];
+//    }
+//    return nil;
+//}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
     if (self.isMovingFromParentViewController) {
         [self sendBackMessage];
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [self.navigationController setDelegate:self];
 }
 
 - (void)sendBackMessage

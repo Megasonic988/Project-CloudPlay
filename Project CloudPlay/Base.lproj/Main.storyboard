@@ -42,6 +42,15 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="Cys-eS-ENd"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNx-0o-9JV">
+                                <rect key="frame" x="121" y="607" width="133" height="30"/>
+                                <state key="normal" title="Restart Connection">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="restartConnectionButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="hct-jZ-lez"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -50,7 +59,9 @@
                             <constraint firstItem="eas-Mt-rcc" firstAttribute="top" secondItem="jKO-jl-UM3" secondAttribute="bottom" constant="8" symbolic="YES" id="FHf-iL-2jF"/>
                             <constraint firstAttribute="centerX" secondItem="jKO-jl-UM3" secondAttribute="centerX" id="GQI-QW-eXY"/>
                             <constraint firstItem="QAv-k9-bL8" firstAttribute="top" secondItem="eas-Mt-rcc" secondAttribute="bottom" constant="58" id="KEb-Nx-mcv"/>
+                            <constraint firstItem="UNx-0o-9JV" firstAttribute="centerX" secondItem="eas-Mt-rcc" secondAttribute="centerX" id="gaQ-wg-7OT"/>
                             <constraint firstItem="eas-Mt-rcc" firstAttribute="centerX" secondItem="jKO-jl-UM3" secondAttribute="centerX" id="t1e-Ze-7Ay"/>
+                            <constraint firstItem="QAv-k9-bL8" firstAttribute="top" secondItem="UNx-0o-9JV" secondAttribute="bottom" constant="30" id="t1j-pi-xUs"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="iXq-Tg-iqW"/>
@@ -121,7 +132,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vvK-if-h04" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1363.5" y="-292.5"/>
+            <point key="canvasLocation" x="1309.5" y="-548.5"/>
         </scene>
         <!--Connected Peers-->
         <scene sceneID="7Wu-d4-0jn">
@@ -161,7 +172,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Tb-KU-AVw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1858.5" y="-283.5"/>
+            <point key="canvasLocation" x="1718.5" y="-567.5"/>
         </scene>
         <!--Song Selection View Controller-->
         <scene sceneID="92Q-wn-BeO">
@@ -307,7 +318,7 @@
                                     <constraint firstAttribute="width" constant="246" id="IM7-B6-oJi"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hke-ad-rFN">

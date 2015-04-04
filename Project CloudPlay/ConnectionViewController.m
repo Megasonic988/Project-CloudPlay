@@ -22,6 +22,7 @@
 @property (strong, nonatomic) MPCSession *session;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray *dataArray;
+- (IBAction)restartConnectionButton:(id)sender;
 
 @end
 
@@ -169,4 +170,14 @@
 }
 
 
+- (IBAction)restartConnectionButton:(id)sender {
+    [self.session stopAdvertising];
+    [self.session stopBrowsing];
+    self.session = nil;
+    self.session = [[MPCSession alloc] initWithPeerDisplayName:[UIDevice currentDevice].name];
+    self.session.delegate = self;
+    [self.session startAdvertising];
+    [self.session startBrowsing];
+    [self.session setIsLeader:YES];
+}
 @end

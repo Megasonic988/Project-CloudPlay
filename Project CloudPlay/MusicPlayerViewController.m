@@ -9,8 +9,9 @@
 #import "MusicPlayerViewController.h"
 #import "KWMusicPlayer.h"
 @import AudioToolbox;
+#import "AMWaveTransition.h"
 
-@interface MusicPlayerViewController ()
+@interface MusicPlayerViewController () <UINavigationControllerDelegate, AMWaveTransitioning>
 
 
 
@@ -27,8 +28,17 @@
     [self.albumImageView setImage:[self.currentSong valueForKey:@"Artwork"]];
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
-    
-    
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                  animationControllerForOperation:(UINavigationControllerOperation)operation
+                                               fromViewController:(UIViewController*)fromVC
+                                                 toViewController:(UIViewController*)toVC
+{
+    if (operation != UINavigationControllerOperationNone) {
+        return [AMWaveTransition transitionWithOperation:operation andTransitionType:AMWaveTransitionTypeNervous];
+    }
+    return nil;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -37,15 +47,23 @@
     [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:2] animated:YES];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [self.navigationController setDelegate:self];
+}
+
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event
 {
     if (event.type == UIEventTypeRemoteControl) {
         switch (event.subtype) {
             case UIEventSubtypeRemoteControlPlay:
                 [self.musicPlayer play];
+                [self.inputStreamer resume];
                 break;
             case UIEventSubtypeRemoteControlPause:
                 [self.musicPlayer pause];
+                [self.inputStreamer pause];
                 break;
             default:
                 break;

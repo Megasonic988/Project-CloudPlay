@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "PlaylistViewController.h"
+#import "TDAudioStreamer.h"
 
 @interface MusicPlayerViewController : UIViewController
 
 @property (strong, nonatomic) KWMusicPlayer *musicPlayer;
+@property (strong, nonatomic) TDAudioInputStreamer *inputStreamer;
 @property (strong, nonatomic) PlaylistViewController *playlistVC;
 
 @property (strong, nonatomic) NSDictionary *currentSong;

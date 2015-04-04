@@ -11,9 +11,10 @@
 #import "MusicPlayerViewController.h"
 @import AVFoundation;
 #import "TDAudioStreamer.h"
+#import "AMWaveTransition.h"
 
 
-@interface PlaylistViewController () <MPCSessionDelegate>
+@interface PlaylistViewController () <MPCSessionDelegate, UINavigationControllerDelegate, AMWaveTransitioning>
 @property (weak, nonatomic) IBOutlet UILabel *leaderLabel;
 - (IBAction)adjustButton:(id)sender;
 
@@ -25,9 +26,20 @@
 @property (strong, nonatomic) TDAudioOutputStreamer *outputStreamer;
 @property (strong, nonatomic) KWMusicPlayer *musicPlayer;
 
+@property (assign, nonatomic) int numberOfPeersWhoHaveStoppedPlayback;
+@property (assign, nonatomic) BOOL allPeersHaveStoppedPlayback;
+
 @end
 
 @implementation PlaylistViewController
+
+- (NSArray*)visibleCells
+{
+    NSMutableArray *cells = [@[] mutableCopy];
+    [cells addObjectsFromArray:[self.songsCollectionView visibleCells]];
+    
+    return cells;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,6 +59,24 @@
     } else {
         [self.leaderLabel setText:@"I am not the leader!"];
     }
+    self.allPeersHaveStoppedPlayback = YES;
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [self.navigationController setDelegate:self];
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                  animationControllerForOperation:(UINavigationControllerOperation)operation
+                                               fromViewController:(UIViewController*)fromVC
+                                                 toViewController:(UIViewController*)toVC
+{
+    if (operation != UINavigationControllerOperationNone) {
+        // Return your preferred transition operation
+        return [AMWaveTransition transitionWithOperation:operation andTransitionType:AMWaveTransitionTypeNervous];
+    }
+    return nil;
 }
 
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event
@@ -55,9 +85,11 @@
         switch (event.subtype) {
             case UIEventSubtypeRemoteControlPlay:
                 [self.musicPlayer play];
+                [self.inputStream resume];
                 break;
             case UIEventSubtypeRemoteControlPause:
                 [self.musicPlayer pause];
+                [self.inputStream pause];
                 break;
             default:
                 break;
@@ -109,11 +141,18 @@
     if (self.session.isLeader) {
         self.currentSong = [self.songsData objectAtIndex:indexPath.row];
         
-        
-        [self tellEveryoneThisIsTheNewCurrentSong:self.currentSong];
-        [self playSong:self.currentSong];
-        
+        [self tellOthersToStopPlayback];
+        [self stopPlayback];
+    }
+}
 
+#pragma mark - Song Playback/Changing Methods
+
+- (void)changeToSelfCurrentSong
+{
+    if (self.allPeersHaveStoppedPlayback && self.session.isLeader) {
+        [self tellEveryoneThisIsTheNewCurrentSong:self.currentSong]; //if someone else has song, they will play it now
+        [self playSong:self.currentSong]; //if the song is mine, I will stream it now
         
         [self performSegueWithIdentifier:@"show music player" sender:self];
     }
@@ -137,15 +176,21 @@
 
 - (void)stopPlayback
 {
-    if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) {
-        return [self performSelectorOnMainThread:@selector(stopPlayback) withObject:nil waitUntilDone:YES];
-    }
-        
     if (self.musicPlayer) [self.musicPlayer stop];
-    if (self.inputStream) [self.inputStream stop];
-    if (self.outputStreamer) [self.outputStreamer stop];
-    
-    
+    if (self.inputStream) {
+        [self.inputStream stop];
+        self.inputStream = nil;
+    }
+    if (self.outputStreamer) {
+        if (self.allPeersHaveStoppedPlayback) {
+            NSLog(@"stopping output streamer");
+            [self.outputStreamer stop];
+            self.outputStreamer = nil;
+        }
+    }
+    NSMutableDictionary *didStopPlaybackMsg = [[NSMutableDictionary alloc] init];
+    didStopPlaybackMsg[@"Description"] = @"Did Stop Playback";
+    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[didStopPlaybackMsg copy]]];
 }
 
 - (void)playSong:(NSDictionary *)song
@@ -158,12 +203,24 @@
                 [self.outputStreamer streamAudioFromURL:[self.currentSong valueForKey:@"MediaItemURL"]];
                 NSLog(@"%@", self.outputStreamer);
                 [self.outputStreamer start];
+                NSLog(@"starting output streamer");
             }
         }
         self.musicPlayer = [[KWMusicPlayer alloc] initWithSong:self.currentSong];
         [self.musicPlayer play];
+        self.allPeersHaveStoppedPlayback = NO;
+        self.numberOfPeersWhoHaveStoppedPlayback = 0;
     }
     // if it is not my song, the owner will automatically stream it to everyone else (in the changeCurrentSong method below)
+}
+
+- (void)checkIfAllPeersHaveStoppedPlayback
+{
+    if (self.numberOfPeersWhoHaveStoppedPlayback == [self.session.connectedPeers count]) {
+        self.allPeersHaveStoppedPlayback = YES;
+        NSLog(@"All peers have now stopped playback");
+    }
+    [self changeToSelfCurrentSong];
 }
 
 - (void)changeCurrentSong:(NSString *)songTitle
@@ -175,40 +232,20 @@
             break;
         }
     }
-    [self playSong:self.currentSong];
-    if ([self.currentSong valueForKey:@"Song Owner"] == self.session.peerID) {
-        NSArray *peers = [self.session connectedPeers];
-        if (peers.count) {
-            for (MCPeerID *peer in peers) {
-                self.outputStreamer = [[TDAudioOutputStreamer alloc] initWithOutputStream:[self.session outputStreamForPeer:peer]];
-                [self.outputStreamer streamAudioFromURL:[self.currentSong valueForKey:@"MediaItemURL"]];
-                NSLog(@"%@", self.outputStreamer);
-                [self.outputStreamer start];
+    if (self.allPeersHaveStoppedPlayback) {    //song playback occurs here
+        [self playSong:self.currentSong];
+        if ([self.currentSong valueForKey:@"Song Owner"] == self.session.peerID) {
+            if (!self.musicPlayer) {
+                self.musicPlayer = [[KWMusicPlayer alloc] initWithSong:self.currentSong];
+                [self.musicPlayer play];
             }
+        } else {
+            self.musicPlayer = [[KWMusicPlayer alloc] init];
+            [self.musicPlayer configNowPlayingInfoForSong:self.currentSong];
         }
-        if (!self.musicPlayer) {
-            self.musicPlayer = [[KWMusicPlayer alloc] initWithSong:self.currentSong];
-            [self.musicPlayer play];
-        }
+        [self performSegueWithIdentifier:@"show music player" sender:self];
+        
     }
-    [self performSegueWithIdentifier:@"show music player" sender:self];
-}
-
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"show music player"]) {
-        if ([segue.destinationViewController isKindOfClass:[MusicPlayerViewController class]]) {
-            MusicPlayerViewController *musicPlayerVC = (MusicPlayerViewController *)segue.destinationViewController;
-            musicPlayerVC.currentSong = self.currentSong;
-            musicPlayerVC.playlistVC = self;
-            musicPlayerVC.isLeader = self.session.isLeader;
-            musicPlayerVC.musicPlayer = self.musicPlayer;
-        }
-    }
-    
 }
 
 #pragma mark - MPCSessionDelegate
@@ -228,6 +265,8 @@
 - (void)session:(MPCSession *)session didReceiveAudioStream:(NSInputStream *)stream{
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"received audio stream");
+        self.allPeersHaveStoppedPlayback = NO;
+        self.numberOfPeersWhoHaveStoppedPlayback = 0;
         if (!self.inputStream) {
             self.inputStream = [[TDAudioInputStreamer alloc] initWithInputStream:stream];
             [self.inputStream start];
@@ -240,7 +279,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         
         id message = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        NSLog(@"received data: %@", message);
+        NSLog(@"received data: %@ %i", message, self.numberOfPeersWhoHaveStoppedPlayback);
         if ([message isKindOfClass:[NSDictionary class]]) {
             if ([[message valueForKey:@"Description"] isEqualToString:@"New Current Song"]) {
                 NSString *songTitle = [message valueForKey:@"Song Title"];
@@ -248,6 +287,11 @@
             }
             if ([[message valueForKey:@"Description"] isEqualToString:@"Stop Playback"]) {
                 [self stopPlayback];
+            }
+            if ([[message valueForKey:@"Description"] isEqualToString:@"Did Stop Playback"]) {
+                self.numberOfPeersWhoHaveStoppedPlayback++;
+                NSLog(@"Number of peers who have stopped playback: %i", self.numberOfPeersWhoHaveStoppedPlayback);
+                [self checkIfAllPeersHaveStoppedPlayback];
             }
         }
     });
@@ -264,9 +308,8 @@
 //    self.session.delegate = nil;
 //    self.session = nil;
 //    [self.navigationController popToRootViewControllerAnimated:NO];
-    if (self.musicPlayer) [self.musicPlayer stop];
-    if (self.inputStream) [self.inputStream stop];
-    if (self.outputStreamer) [self.outputStreamer stop];
+    [self stopPlayback];
+    [self tellOthersToStopPlayback];
     
 }
 - (IBAction)adjustButton:(id)sender {
@@ -275,5 +318,28 @@
     usleep(15000);
     [self.musicPlayer play];
     [self.inputStream resume];
+}
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"show music player"]) {
+        if ([segue.destinationViewController isKindOfClass:[MusicPlayerViewController class]]) {
+            for (UIViewController *viewController in self.navigationController.viewControllers) {
+                if ([viewController isKindOfClass:[MusicPlayerViewController class]]) {
+                    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:2] animated:NO];
+                }
+            }
+            [self.musicPlayer configNowPlayingInfoForSong:self.currentSong];
+            MusicPlayerViewController *musicPlayerVC = (MusicPlayerViewController *)segue.destinationViewController;
+            musicPlayerVC.currentSong = self.currentSong;
+            musicPlayerVC.playlistVC = self;
+            musicPlayerVC.isLeader = self.session.isLeader;
+            musicPlayerVC.musicPlayer = self.musicPlayer;
+            musicPlayerVC.inputStreamer = self.inputStream;
+        }
+    }
+    
 }
 @end
