@@ -256,8 +256,8 @@
         NSLog(@"disconnected, peers left:%@", self.session.connectedPeers);
     if ([self.session.connectedPeers count] == 0) {
         NSLog(@"no peers left");
-        UINavigationController *navigationController = self.navigationController;
-        [navigationController popToRootViewControllerAnimated:YES];
+        [self.view removeFromSuperview];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
     });
 }

@@ -17,21 +17,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jKO-jl-UM3">
-                                <rect key="frame" x="171" y="73" width="33" height="30"/>
-                                <state key="normal" title="Start">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="startButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="1gJ-ru-Fvg"/>
-                                    <segue destination="Yps-cG-l2t" kind="push" identifier="show menu" id="xXp-AC-gvI"/>
-                                </connections>
-                            </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eas-Mt-rcc">
-                                <rect key="frame" x="0.0" y="111" width="375" height="498"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eas-Mt-rcc">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="569"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BZ1-O7-DxH">
-                                    <size key="itemSize" width="316" height="40"/>
+                                    <size key="itemSize" width="321" height="35"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -42,38 +32,36 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="Cys-eS-ENd"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNx-0o-9JV">
-                                <rect key="frame" x="121" y="607" width="133" height="30"/>
-                                <state key="normal" title="Restart Connection">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6pR-aq-CIO">
+                                <rect key="frame" x="56" y="585" width="262" height="47"/>
+                                <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="30"/>
+                                <state key="normal" title="START" backgroundImage="button">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="restartConnectionButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="hct-jZ-lez"/>
+                                    <action selector="startButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="LSa-lq-MeE"/>
+                                    <segue destination="Yps-cG-l2t" kind="push" identifier="show menu" id="hrd-yD-b2k"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="jKO-jl-UM3" firstAttribute="top" secondItem="86N-fH-Eq5" secondAttribute="bottom" constant="9" id="1YU-Ub-Sld"/>
-                            <constraint firstItem="eas-Mt-rcc" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="1g2-SV-0Xl"/>
-                            <constraint firstItem="eas-Mt-rcc" firstAttribute="top" secondItem="jKO-jl-UM3" secondAttribute="bottom" constant="8" symbolic="YES" id="FHf-iL-2jF"/>
-                            <constraint firstAttribute="centerX" secondItem="jKO-jl-UM3" secondAttribute="centerX" id="GQI-QW-eXY"/>
-                            <constraint firstItem="QAv-k9-bL8" firstAttribute="top" secondItem="eas-Mt-rcc" secondAttribute="bottom" constant="58" id="KEb-Nx-mcv"/>
-                            <constraint firstItem="UNx-0o-9JV" firstAttribute="centerX" secondItem="eas-Mt-rcc" secondAttribute="centerX" id="gaQ-wg-7OT"/>
-                            <constraint firstItem="eas-Mt-rcc" firstAttribute="centerX" secondItem="jKO-jl-UM3" secondAttribute="centerX" id="t1e-Ze-7Ay"/>
-                            <constraint firstItem="QAv-k9-bL8" firstAttribute="top" secondItem="UNx-0o-9JV" secondAttribute="bottom" constant="30" id="t1j-pi-xUs"/>
+                            <constraint firstItem="eas-Mt-rcc" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="LMW-Ls-LeC"/>
+                            <constraint firstAttribute="trailing" secondItem="eas-Mt-rcc" secondAttribute="trailing" id="MNp-UT-iP3"/>
+                            <constraint firstItem="eas-Mt-rcc" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="auK-dw-6jT"/>
+                            <constraint firstItem="QAv-k9-bL8" firstAttribute="top" secondItem="eas-Mt-rcc" secondAttribute="bottom" constant="98" id="pcj-sc-TzC"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="iXq-Tg-iqW"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="collectionView" destination="eas-Mt-rcc" id="YcN-Vc-IJa"/>
-                        <outlet property="startButton" destination="jKO-jl-UM3" id="VaC-Vo-bg5"/>
+                        <outlet property="startButton" destination="6pR-aq-CIO" id="DB5-6e-hIf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="937.5" y="427.5"/>
+            <point key="canvasLocation" x="940.5" y="427.5"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="DVX-a1-0YI">
@@ -224,7 +212,9 @@
                             <constraint firstItem="zwi-4g-SDd" firstAttribute="leading" secondItem="sLq-O4-79n" secondAttribute="leading" constant="170" id="mV9-CJ-Ps5"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="M72-Tc-ZMs"/>
+                    <navigationItem key="navigationItem" id="M72-Tc-ZMs">
+                        <barButtonItem key="backBarButtonItem" title=" " id="rjy-x4-7k2"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="chooseSongsButton" destination="inC-7I-0fC" id="tQr-6z-WvZ"/>
                         <outlet property="randomSongsButton" destination="fcu-uH-E0a" id="Q6f-Ag-HWE"/>
@@ -234,7 +224,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rc5-3N-Mcg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1377.5" y="461.5"/>
+            <point key="canvasLocation" x="1419.5" y="438.5"/>
         </scene>
         <!--Music Player-->
         <scene sceneID="e2x-Jh-Z4o">
@@ -397,6 +387,9 @@
             <point key="canvasLocation" x="271" y="383"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="button" width="526" height="145"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

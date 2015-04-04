@@ -10,6 +10,7 @@
 		0A00BFD71AB52B9200216487 /* MPCSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A00BFD61AB52B9200216487 /* MPCSession.m */; };
 		0A3046201ACDC2640047BE19 /* AMWaveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A30461D1ACDC2640047BE19 /* AMWaveTransition.m */; };
 		0A3046211ACDC2640047BE19 /* AMWaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A30461F1ACDC2640047BE19 /* AMWaveViewController.m */; };
+		0A42332C1ACF81E600ED82E6 /* BOZPongRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A42332B1ACF81E600ED82E6 /* BOZPongRefreshControl.m */; };
 		0A5AB3FB1AB91B0E003DD934 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AB3FA1AB91B0E003DD934 /* MenuViewController.m */; };
 		0A5AB4041AB93034003DD934 /* KWMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AB4031AB93034003DD934 /* KWMusicPlayer.m */; };
 		0A8402D81ABBDB03003494D3 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8402D71ABBDB03003494D3 /* PlaylistViewController.m */; };
@@ -46,7 +47,7 @@
 		0ADB3B5C1AB4EB1A00CF0CF9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADB3B5B1AB4EB1A00CF0CF9 /* UIKit.framework */; };
 		0ADB3B5E1AB4EB2100CF0CF9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADB3B5D1AB4EB2100CF0CF9 /* Foundation.framework */; };
 		0AE6C2D91AB7C683004E6D44 /* ConnectedPeerCVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE6C2D81AB7C683004E6D44 /* ConnectedPeerCVCell.m */; };
-		0AE6C2DC1AB7D46B004E6D44 /* NibCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE6C2DB1AB7D46B004E6D44 /* NibCell.xib */; };
+		0AE6C2DC1AB7D46B004E6D44 /* PeerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE6C2DB1AB7D46B004E6D44 /* PeerCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,8 @@
 		0A30461D1ACDC2640047BE19 /* AMWaveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWaveTransition.m; sourceTree = "<group>"; };
 		0A30461E1ACDC2640047BE19 /* AMWaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWaveViewController.h; sourceTree = "<group>"; };
 		0A30461F1ACDC2640047BE19 /* AMWaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWaveViewController.m; sourceTree = "<group>"; };
+		0A42332A1ACF81E600ED82E6 /* BOZPongRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOZPongRefreshControl.h; sourceTree = "<group>"; };
+		0A42332B1ACF81E600ED82E6 /* BOZPongRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOZPongRefreshControl.m; sourceTree = "<group>"; };
 		0A5AB3F91AB91B0E003DD934 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		0A5AB3FA1AB91B0E003DD934 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		0A5AB4021AB93034003DD934 /* KWMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KWMusicPlayer.h; path = ../../../TDAudioStreamer/TDAudioStreamer/Classes/KWMusicPlayer.h; sourceTree = "<group>"; };
@@ -129,7 +132,7 @@
 		0ADB3B5D1AB4EB2100CF0CF9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0AE6C2D71AB7C683004E6D44 /* ConnectedPeerCVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectedPeerCVCell.h; sourceTree = "<group>"; };
 		0AE6C2D81AB7C683004E6D44 /* ConnectedPeerCVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectedPeerCVCell.m; sourceTree = "<group>"; };
-		0AE6C2DB1AB7D46B004E6D44 /* NibCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NibCell.xib; sourceTree = "<group>"; };
+		0AE6C2DB1AB7D46B004E6D44 /* PeerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PeerCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +170,16 @@
 			);
 			name = AMWaveTransition;
 			path = ../../../AMWaveTransition/AMWaveTransition;
+			sourceTree = "<group>";
+		};
+		0A4233291ACF81E600ED82E6 /* BOZPongRefreshControl */ = {
+			isa = PBXGroup;
+			children = (
+				0A42332A1ACF81E600ED82E6 /* BOZPongRefreshControl.h */,
+				0A42332B1ACF81E600ED82E6 /* BOZPongRefreshControl.m */,
+			);
+			name = BOZPongRefreshControl;
+			path = ../../../BOZPongRefreshControl/BOZPongRefreshControl;
 			sourceTree = "<group>";
 		};
 		0A5AB3FC1AB91B23003DD934 /* View Controllers */ = {
@@ -259,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				0A30461B1ACDC2640047BE19 /* AMWaveTransition */,
+				0A4233291ACF81E600ED82E6 /* BOZPongRefreshControl */,
 				0AA51FC81AC65E1600704F54 /* TDAS Library */,
 				0AE6C2DA1AB7C68C004E6D44 /* Views */,
 				0ADB3B611AB4ECB900CF0CF9 /* MPC Model */,
@@ -334,7 +348,7 @@
 				0ACD19811ABD2ECB007F980F /* SongsCollectionViewCell.h */,
 				0ACD19821ABD2ECB007F980F /* SongsCollectionViewCell.m */,
 				0ACD19861ABD2FF7007F980F /* SongCell.xib */,
-				0AE6C2DB1AB7D46B004E6D44 /* NibCell.xib */,
+				0AE6C2DB1AB7D46B004E6D44 /* PeerCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -421,7 +435,7 @@
 			files = (
 				0ADB3A7E1AB4DB6400CF0CF9 /* Main.storyboard in Resources */,
 				0ACD19871ABD2FF7007F980F /* SongCell.xib in Resources */,
-				0AE6C2DC1AB7D46B004E6D44 /* NibCell.xib in Resources */,
+				0AE6C2DC1AB7D46B004E6D44 /* PeerCell.xib in Resources */,
 				0ADB3A831AB4DB6400CF0CF9 /* LaunchScreen.xib in Resources */,
 				0ADB3A801AB4DB6400CF0CF9 /* Images.xcassets in Resources */,
 			);
@@ -458,6 +472,7 @@
 				0AA51FE61AC65E5A00704F54 /* TDAudioQueueController.m in Sources */,
 				0A5AB4041AB93034003DD934 /* KWMusicPlayer.m in Sources */,
 				0AA51FE41AC65E5A00704F54 /* TDAudioQueueBuffer.m in Sources */,
+				0A42332C1ACF81E600ED82E6 /* BOZPongRefreshControl.m in Sources */,
 				0A8402DB1ABBDB17003494D3 /* MusicPlayerViewController.m in Sources */,
 				0AA51FE31AC65E5A00704F54 /* TDAudioQueue.m in Sources */,
 				0ADB3A751AB4DB6400CF0CF9 /* main.m in Sources */,
