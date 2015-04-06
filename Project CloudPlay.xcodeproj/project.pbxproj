@@ -12,7 +12,7 @@
 		0A3046211ACDC2640047BE19 /* AMWaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A30461F1ACDC2640047BE19 /* AMWaveViewController.m */; };
 		0A42332C1ACF81E600ED82E6 /* BOZPongRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A42332B1ACF81E600ED82E6 /* BOZPongRefreshControl.m */; };
 		0A5AB3FB1AB91B0E003DD934 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AB3FA1AB91B0E003DD934 /* MenuViewController.m */; };
-		0A5AB4041AB93034003DD934 /* KWMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AB4031AB93034003DD934 /* KWMusicPlayer.m */; };
+		0A7219F01AD219D400C4F77D /* UIImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A7219EF1AD219D400C4F77D /* UIImageEffects.m */; };
 		0A8402D81ABBDB03003494D3 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8402D71ABBDB03003494D3 /* PlaylistViewController.m */; };
 		0A8402DB1ABBDB17003494D3 /* MusicPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8402DA1ABBDB17003494D3 /* MusicPlayerViewController.m */; };
 		0A8402DE1ABBDB2B003494D3 /* ConnectedPeersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8402DD1ABBDB2B003494D3 /* ConnectedPeersViewController.m */; };
@@ -28,6 +28,8 @@
 		0AA51FEA1AC65E5A00704F54 /* TDAudioOutputStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA51FDC1AC65E5A00704F54 /* TDAudioOutputStreamer.m */; };
 		0AA51FEB1AC65E5A00704F54 /* TDAudioStreamerConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA51FDE1AC65E5A00704F54 /* TDAudioStreamerConstants.m */; };
 		0AA51FEC1AC65E5A00704F54 /* TDAudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA51FE01AC65E5A00704F54 /* TDAudioStreamer.m */; };
+		0AB5A08B1AD05A7400AA2F46 /* KWMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB5A08A1AD05A7400AA2F46 /* KWMusicPlayer.m */; };
+		0AB5A08F1AD105F300AA2F46 /* AMPopTip.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB5A08E1AD105F300AA2F46 /* AMPopTip.m */; };
 		0AC6CE101AC1C9AF001AE449 /* MPCSessionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC6CE0F1AC1C9AF001AE449 /* MPCSessionData.m */; };
 		0AC6CE131AC45FF5001AE449 /* SongSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC6CE121AC45FF5001AE449 /* SongSelectionViewController.m */; };
 		0ACD19831ABD2ECB007F980F /* SongsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ACD19821ABD2ECB007F980F /* SongsCollectionViewCell.m */; };
@@ -71,8 +73,8 @@
 		0A42332B1ACF81E600ED82E6 /* BOZPongRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOZPongRefreshControl.m; sourceTree = "<group>"; };
 		0A5AB3F91AB91B0E003DD934 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		0A5AB3FA1AB91B0E003DD934 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
-		0A5AB4021AB93034003DD934 /* KWMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KWMusicPlayer.h; path = ../../../TDAudioStreamer/TDAudioStreamer/Classes/KWMusicPlayer.h; sourceTree = "<group>"; };
-		0A5AB4031AB93034003DD934 /* KWMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KWMusicPlayer.m; path = ../../../TDAudioStreamer/TDAudioStreamer/Classes/KWMusicPlayer.m; sourceTree = "<group>"; };
+		0A7219EE1AD219D400C4F77D /* UIImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIImageEffects.h; path = ../../../../Downloads/UIImageEffects/UIImageEffects/UIImageEffects.h; sourceTree = "<group>"; };
+		0A7219EF1AD219D400C4F77D /* UIImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIImageEffects.m; path = ../../../../Downloads/UIImageEffects/UIImageEffects/UIImageEffects.m; sourceTree = "<group>"; };
 		0A8402D61ABBDB03003494D3 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
 		0A8402D71ABBDB03003494D3 /* PlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistViewController.m; sourceTree = "<group>"; };
 		0A8402D91ABBDB17003494D3 /* MusicPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerViewController.h; sourceTree = "<group>"; };
@@ -103,6 +105,10 @@
 		0AA51FDE1AC65E5A00704F54 /* TDAudioStreamerConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDAudioStreamerConstants.m; path = ../../../TDAudioStreamer/TDAudioStreamer/AudioStreamer/TDAudioStreamerConstants.m; sourceTree = "<group>"; };
 		0AA51FDF1AC65E5A00704F54 /* TDAudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDAudioStreamer.h; path = ../../../TDAudioStreamer/TDAudioStreamer/AudioStreamer/TDAudioStreamer.h; sourceTree = "<group>"; };
 		0AA51FE01AC65E5A00704F54 /* TDAudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDAudioStreamer.m; path = ../../../TDAudioStreamer/TDAudioStreamer/AudioStreamer/TDAudioStreamer.m; sourceTree = "<group>"; };
+		0AB5A0891AD05A7400AA2F46 /* KWMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KWMusicPlayer.h; path = ../../../TDAudioStreamer/TDAudioStreamer/AudioStreamer/Classes/KWMusicPlayer.h; sourceTree = "<group>"; };
+		0AB5A08A1AD05A7400AA2F46 /* KWMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KWMusicPlayer.m; path = ../../../TDAudioStreamer/TDAudioStreamer/AudioStreamer/Classes/KWMusicPlayer.m; sourceTree = "<group>"; };
+		0AB5A08D1AD105F300AA2F46 /* AMPopTip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMPopTip.h; sourceTree = "<group>"; };
+		0AB5A08E1AD105F300AA2F46 /* AMPopTip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMPopTip.m; sourceTree = "<group>"; };
 		0AC6CE0E1AC1C9AF001AE449 /* MPCSessionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCSessionData.h; sourceTree = "<group>"; };
 		0AC6CE0F1AC1C9AF001AE449 /* MPCSessionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCSessionData.m; sourceTree = "<group>"; };
 		0AC6CE111AC45FF5001AE449 /* SongSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongSelectionViewController.h; sourceTree = "<group>"; };
@@ -188,12 +194,12 @@
 				0AC6CE161AC4BBA8001AE449 /* Old Controllers */,
 				0ADB3A791AB4DB6400CF0CF9 /* ConnectionViewController.h */,
 				0ADB3A7A1AB4DB6400CF0CF9 /* ConnectionViewController.m */,
+				0AC6CE111AC45FF5001AE449 /* SongSelectionViewController.h */,
+				0AC6CE121AC45FF5001AE449 /* SongSelectionViewController.m */,
 				0A8402D61ABBDB03003494D3 /* PlaylistViewController.h */,
 				0A8402D71ABBDB03003494D3 /* PlaylistViewController.m */,
 				0A8402D91ABBDB17003494D3 /* MusicPlayerViewController.h */,
 				0A8402DA1ABBDB17003494D3 /* MusicPlayerViewController.m */,
-				0AC6CE111AC45FF5001AE449 /* SongSelectionViewController.h */,
-				0AC6CE121AC45FF5001AE449 /* SongSelectionViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -201,10 +207,19 @@
 		0A5AB4011AB93022003DD934 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0A5AB4021AB93034003DD934 /* KWMusicPlayer.h */,
-				0A5AB4031AB93034003DD934 /* KWMusicPlayer.m */,
+				0AB5A0891AD05A7400AA2F46 /* KWMusicPlayer.h */,
+				0AB5A08A1AD05A7400AA2F46 /* KWMusicPlayer.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		0A7219F21AD219E000C4F77D /* UIImageEffects */ = {
+			isa = PBXGroup;
+			children = (
+				0A7219EE1AD219D400C4F77D /* UIImageEffects.h */,
+				0A7219EF1AD219D400C4F77D /* UIImageEffects.m */,
+			);
+			name = UIImageEffects;
 			sourceTree = "<group>";
 		};
 		0AA51FC81AC65E1600704F54 /* TDAS Library */ = {
@@ -236,6 +251,16 @@
 				0AA51FE01AC65E5A00704F54 /* TDAudioStreamer.m */,
 			);
 			name = "TDAS Library";
+			sourceTree = "<group>";
+		};
+		0AB5A08C1AD105F300AA2F46 /* AMPopTip */ = {
+			isa = PBXGroup;
+			children = (
+				0AB5A08D1AD105F300AA2F46 /* AMPopTip.h */,
+				0AB5A08E1AD105F300AA2F46 /* AMPopTip.m */,
+			);
+			name = AMPopTip;
+			path = ../../../AMPopTip/AMPopTip;
 			sourceTree = "<group>";
 		};
 		0AC6CE161AC4BBA8001AE449 /* Old Controllers */ = {
@@ -271,6 +296,8 @@
 		0ADB3A711AB4DB6400CF0CF9 /* Project CloudPlay */ = {
 			isa = PBXGroup;
 			children = (
+				0A7219F21AD219E000C4F77D /* UIImageEffects */,
+				0AB5A08C1AD105F300AA2F46 /* AMPopTip */,
 				0A30461B1ACDC2640047BE19 /* AMWaveTransition */,
 				0A4233291ACF81E600ED82E6 /* BOZPongRefreshControl */,
 				0AA51FC81AC65E1600704F54 /* TDAS Library */,
@@ -463,6 +490,7 @@
 				0AE6C2D91AB7C683004E6D44 /* ConnectedPeerCVCell.m in Sources */,
 				0ADB3A781AB4DB6400CF0CF9 /* AppDelegate.m in Sources */,
 				0A8402D81ABBDB03003494D3 /* PlaylistViewController.m in Sources */,
+				0A7219F01AD219D400C4F77D /* UIImageEffects.m in Sources */,
 				0AC6CE131AC45FF5001AE449 /* SongSelectionViewController.m in Sources */,
 				0AC6CE101AC1C9AF001AE449 /* MPCSessionData.m in Sources */,
 				0A00BFD71AB52B9200216487 /* MPCSession.m in Sources */,
@@ -470,14 +498,15 @@
 				0ACD19831ABD2ECB007F980F /* SongsCollectionViewCell.m in Sources */,
 				0AA51FEA1AC65E5A00704F54 /* TDAudioOutputStreamer.m in Sources */,
 				0AA51FE61AC65E5A00704F54 /* TDAudioQueueController.m in Sources */,
-				0A5AB4041AB93034003DD934 /* KWMusicPlayer.m in Sources */,
 				0AA51FE41AC65E5A00704F54 /* TDAudioQueueBuffer.m in Sources */,
 				0A42332C1ACF81E600ED82E6 /* BOZPongRefreshControl.m in Sources */,
 				0A8402DB1ABBDB17003494D3 /* MusicPlayerViewController.m in Sources */,
 				0AA51FE31AC65E5A00704F54 /* TDAudioQueue.m in Sources */,
 				0ADB3A751AB4DB6400CF0CF9 /* main.m in Sources */,
 				0AA51FE71AC65E5A00704F54 /* TDAudioQueueFiller.m in Sources */,
+				0AB5A08F1AD105F300AA2F46 /* AMPopTip.m in Sources */,
 				0A3046201ACDC2640047BE19 /* AMWaveTransition.m in Sources */,
+				0AB5A08B1AD05A7400AA2F46 /* KWMusicPlayer.m in Sources */,
 				0AA51FEB1AC65E5A00704F54 /* TDAudioStreamerConstants.m in Sources */,
 				0A8402DE1ABBDB2B003494D3 /* ConnectedPeersViewController.m in Sources */,
 				0AA51FE51AC65E5A00704F54 /* TDAudioQueueBufferManager.m in Sources */,
@@ -607,7 +636,7 @@
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = "Project CloudPlay/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos8.2;
@@ -621,7 +650,7 @@
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = "Project CloudPlay/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos8.2;

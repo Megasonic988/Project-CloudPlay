@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "ConnectionViewController.h"
 
 @interface AppDelegate ()
 
@@ -26,6 +27,7 @@
                                   NSForegroundColorAttributeName: [UIColor whiteColor]};
     [[UINavigationBar appearance] setTitleTextAttributes:attributes];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     return YES;
 }

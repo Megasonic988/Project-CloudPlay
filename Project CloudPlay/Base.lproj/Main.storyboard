@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="mSz-9n-Yga">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Connection View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ConnectionViewController" sceneMemberID="viewController">
+                <viewController definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" id="vXZ-lx-hvc" customClass="ConnectionViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="86N-fH-Eq5"/>
                         <viewControllerLayoutGuide type="bottom" id="QAv-k9-bL8"/>
@@ -32,10 +34,19 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="Cys-eS-ENd"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hel-VV-ggr">
+                                <rect key="frame" x="162" y="462" width="50" height="50"/>
+                                <state key="normal" title="Button" image="red">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="popTipButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="z5i-Jn-jQU"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6pR-aq-CIO">
-                                <rect key="frame" x="56" y="585" width="262" height="47"/>
+                                <rect key="frame" x="72" y="586" width="231" height="47"/>
                                 <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="30"/>
-                                <state key="normal" title="START" backgroundImage="button">
+                                <state key="normal" title="Start" backgroundImage="button">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -52,16 +63,19 @@
                             <constraint firstItem="QAv-k9-bL8" firstAttribute="top" secondItem="eas-Mt-rcc" secondAttribute="bottom" constant="98" id="pcj-sc-TzC"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="iXq-Tg-iqW"/>
+                    <navigationItem key="navigationItem" id="iXq-Tg-iqW">
+                        <barButtonItem key="backBarButtonItem" title=" " id="BRI-Mk-WwB"/>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="collectionView" destination="eas-Mt-rcc" id="YcN-Vc-IJa"/>
+                        <outlet property="redPopTipButton" destination="Hel-VV-ggr" id="2bf-6h-jcU"/>
                         <outlet property="startButton" destination="6pR-aq-CIO" id="DB5-6e-hIf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="940.5" y="427.5"/>
+            <point key="canvasLocation" x="922.5" y="410.5"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="DVX-a1-0YI">
@@ -120,7 +134,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vvK-if-h04" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1309.5" y="-548.5"/>
+            <point key="canvasLocation" x="1265.5" y="-567.5"/>
         </scene>
         <!--Connected Peers-->
         <scene sceneID="7Wu-d4-0jn">
@@ -162,7 +176,7 @@
             </objects>
             <point key="canvasLocation" x="1718.5" y="-567.5"/>
         </scene>
-        <!--Song Selection View Controller-->
+        <!--Music Selection-->
         <scene sceneID="92Q-wn-BeO">
             <objects>
                 <viewController id="Yps-cG-l2t" customClass="SongSelectionViewController" sceneMemberID="viewController">
@@ -201,30 +215,44 @@
                                     <action selector="skipButton:" destination="Yps-cG-l2t" eventType="touchUpInside" id="mb2-ZY-C3O"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3d-k9-omu">
+                                <rect key="frame" x="286" y="581" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="j4n-uv-xZh"/>
+                                    <constraint firstAttribute="width" secondItem="a3d-k9-omu" secondAttribute="height" multiplier="1:1" id="xeU-Lp-1V3"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="yellow">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="popTipButton:" destination="Yps-cG-l2t" eventType="touchUpInside" id="xed-YG-1V5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="5b4-LE-lif" firstAttribute="top" secondItem="a3d-k9-omu" secondAttribute="bottom" constant="36" id="6ia-JX-ysd"/>
                             <constraint firstItem="inC-7I-0fC" firstAttribute="top" secondItem="9zh-21-ePB" secondAttribute="bottom" constant="246" id="FvV-aY-nGR"/>
                             <constraint firstItem="inC-7I-0fC" firstAttribute="leading" secondItem="sLq-O4-79n" secondAttribute="leadingMargin" constant="53" id="Kx5-yT-yrd"/>
                             <constraint firstItem="fcu-uH-E0a" firstAttribute="leading" secondItem="inC-7I-0fC" secondAttribute="trailing" constant="30" id="SBT-rA-NpV"/>
                             <constraint firstItem="5b4-LE-lif" firstAttribute="top" secondItem="zwi-4g-SDd" secondAttribute="bottom" constant="267" id="b1G-An-tAe"/>
                             <constraint firstItem="inC-7I-0fC" firstAttribute="baseline" secondItem="fcu-uH-E0a" secondAttribute="baseline" id="cCw-YM-rYm"/>
                             <constraint firstItem="zwi-4g-SDd" firstAttribute="leading" secondItem="sLq-O4-79n" secondAttribute="leading" constant="170" id="mV9-CJ-Ps5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="a3d-k9-omu" secondAttribute="trailing" constant="23" id="tKy-EU-azU"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="M72-Tc-ZMs">
-                        <barButtonItem key="backBarButtonItem" title=" " id="rjy-x4-7k2"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Music Selection" id="M72-Tc-ZMs"/>
                     <connections>
                         <outlet property="chooseSongsButton" destination="inC-7I-0fC" id="tQr-6z-WvZ"/>
                         <outlet property="randomSongsButton" destination="fcu-uH-E0a" id="Q6f-Ag-HWE"/>
                         <outlet property="skipButton" destination="zwi-4g-SDd" id="Db2-7s-qtv"/>
+                        <outlet property="yellowPopTipButton" destination="a3d-k9-omu" id="baA-uo-7XT"/>
                         <segue destination="1Xl-Hp-byB" kind="push" identifier="show playlist" id="Wjs-5d-7O6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rc5-3N-Mcg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1419.5" y="438.5"/>
+            <point key="canvasLocation" x="1419.5" y="410.5"/>
         </scene>
         <!--Music Player-->
         <scene sceneID="e2x-Jh-Z4o">
@@ -240,42 +268,39 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dfl-gC-EnV">
                                 <rect key="frame" x="47" y="108" width="280" height="280"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="280" id="ehl-aM-OwW"/>
+                                </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nd-0o-383">
-                                <rect key="frame" x="47" y="424" width="255" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X1r-Ve-Peu">
-                                <rect key="frame" x="47" y="453" width="19" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist - Album Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZUv-ip-jy5">
-                                <rect key="frame" x="74" y="453" width="253" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist - Album Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZUv-ip-jy5">
+                                <rect key="frame" x="61" y="452" width="253" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="253" id="7YO-5p-sqh"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="GillSans-LightItalic" family="Gill Sans" pointSize="19"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nd-0o-383">
+                                <rect key="frame" x="60" y="414" width="255" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="dy5-lJ-DoP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="22"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ZUv-ip-jy5" firstAttribute="leading" secondItem="X1r-Ve-Peu" secondAttribute="trailing" constant="8" symbolic="YES" id="0G5-ag-mzx"/>
-                            <constraint firstItem="4nd-0o-383" firstAttribute="leading" secondItem="dfl-gC-EnV" secondAttribute="leading" id="8w2-Sl-cIt"/>
-                            <constraint firstItem="4nd-0o-383" firstAttribute="leading" secondItem="X1r-Ve-Peu" secondAttribute="leading" id="Cs7-TJ-vY9"/>
-                            <constraint firstItem="X1r-Ve-Peu" firstAttribute="top" secondItem="4nd-0o-383" secondAttribute="bottom" constant="8" symbolic="YES" id="Dft-wa-xej"/>
-                            <constraint firstItem="dfl-gC-EnV" firstAttribute="top" secondItem="hrT-CO-w3s" secondAttribute="bottom" constant="44" id="DzW-rk-zFZ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="4nd-0o-383" secondAttribute="trailing" constant="57" id="EkH-FP-jgl"/>
-                            <constraint firstItem="dfl-gC-EnV" firstAttribute="centerX" secondItem="E5V-KV-F8n" secondAttribute="centerX" id="M4I-AW-Ahm"/>
-                            <constraint firstItem="dfl-gC-EnV" firstAttribute="leading" secondItem="E5V-KV-F8n" secondAttribute="leadingMargin" constant="31" id="VHD-xe-UIK"/>
-                            <constraint firstItem="4nd-0o-383" firstAttribute="top" secondItem="dfl-gC-EnV" secondAttribute="bottom" constant="36" id="Wnx-P4-otX"/>
-                            <constraint firstItem="jRP-LW-Kn7" firstAttribute="top" secondItem="X1r-Ve-Peu" secondAttribute="bottom" constant="193" id="X2c-Go-Bfh"/>
-                            <constraint firstItem="ZUv-ip-jy5" firstAttribute="baseline" secondItem="X1r-Ve-Peu" secondAttribute="baseline" id="XQx-2Z-UU7"/>
+                            <constraint firstItem="4nd-0o-383" firstAttribute="centerX" secondItem="ZUv-ip-jy5" secondAttribute="centerX" id="26N-Mk-QrV"/>
+                            <constraint firstItem="ZUv-ip-jy5" firstAttribute="top" secondItem="4nd-0o-383" secondAttribute="bottom" constant="2" id="3kc-lH-sSQ"/>
+                            <constraint firstItem="4nd-0o-383" firstAttribute="leading" secondItem="E5V-KV-F8n" secondAttribute="leadingMargin" constant="44" id="Cb8-B7-Sod"/>
+                            <constraint firstItem="dfl-gC-EnV" firstAttribute="trailing" secondItem="ZUv-ip-jy5" secondAttribute="trailing" constant="13" id="PUP-K9-gQW"/>
+                            <constraint firstItem="dfl-gC-EnV" firstAttribute="centerX" secondItem="E5V-KV-F8n" secondAttribute="centerX" id="R7y-ww-G9j"/>
+                            <constraint firstItem="4nd-0o-383" firstAttribute="centerX" secondItem="dfl-gC-EnV" secondAttribute="centerX" id="RNH-Yx-Cgh"/>
+                            <constraint firstItem="dfl-gC-EnV" firstAttribute="top" secondItem="hrT-CO-w3s" secondAttribute="bottom" constant="44" id="aK6-cp-EIG"/>
+                            <constraint firstItem="4nd-0o-383" firstAttribute="top" secondItem="dfl-gC-EnV" secondAttribute="bottom" constant="26" id="egh-v4-JtT"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Music Player" id="p1b-2F-m3C"/>
@@ -288,7 +313,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ogi-FO-rVh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2269.5" y="549.5"/>
+            <point key="canvasLocation" x="2423.5" y="410.5"/>
         </scene>
         <!--Playlist-->
         <scene sceneID="9z2-PW-0PN">
@@ -339,34 +364,29 @@
                     </view>
                     <navigationItem key="navigationItem" title="Playlist" id="TpB-Xy-UGp">
                         <barButtonItem key="backBarButtonItem" title=" " id="bxV-d2-DbD"/>
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="cB4-iH-Bso">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Hgk-Cj-hoT">
-                                <rect key="frame" x="-23" y="-15" width="83" height="30"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="eVV-ke-nHT">
+                            <button key="customView" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lb5-ZO-Hhh">
+                                <rect key="frame" x="16" y="2" width="35" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="adjust">
+                                <state key="normal" title="Button" image="exit">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="adjustButton:" destination="1Xl-Hp-byB" eventType="touchUpInside" id="y93-uB-fe8"/>
+                                    <action selector="logoutButton:" destination="1Xl-Hp-byB" eventType="touchUpInside" id="6es-j9-mst"/>
                                 </connections>
                             </button>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Return" id="xyx-go-yB9">
-                            <connections>
-                                <action selector="returnButton:" destination="1Xl-Hp-byB" id="otM-th-DOz"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="leaderLabel" destination="gcK-BY-LNu" id="gdF-qB-mts"/>
                         <outlet property="songsCollectionView" destination="hke-ad-rFN" id="BME-ps-EKt"/>
-                        <segue destination="p2z-0n-qbg" kind="push" identifier="show music player" id="lCh-df-oXm"/>
+                        <segue destination="p2z-0n-qbg" kind="push" identifier="show music player" id="EIF-8V-rK4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Viw-dq-d4r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1822.5" y="469.5"/>
+            <point key="canvasLocation" x="1910.5" y="410.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2qS-Es-Bld">
@@ -384,11 +404,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="atT-eC-CwM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="271" y="383"/>
+            <point key="canvasLocation" x="419" y="371"/>
         </scene>
     </scenes>
     <resources>
         <image name="button" width="526" height="145"/>
+        <image name="exit" width="256" height="256"/>
+        <image name="red" width="50" height="50"/>
+        <image name="yellow" width="50" height="50"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

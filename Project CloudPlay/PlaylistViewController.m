@@ -11,12 +11,12 @@
 #import "MusicPlayerViewController.h"
 @import AVFoundation;
 #import "TDAudioStreamer.h"
-#import "AMWaveTransition.h"
 
 
-@interface PlaylistViewController () <MPCSessionDelegate, UINavigationControllerDelegate, AMWaveTransitioning>
+@interface PlaylistViewController () <MPCSessionDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *leaderLabel;
-- (IBAction)adjustButton:(id)sender;
+
+- (IBAction)logoutButton:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UICollectionView *songsCollectionView;
 - (IBAction)returnButton:(id)sender;
@@ -33,13 +33,13 @@
 
 @implementation PlaylistViewController
 
-- (NSArray*)visibleCells
-{
-    NSMutableArray *cells = [@[] mutableCopy];
-    [cells addObjectsFromArray:[self.songsCollectionView visibleCells]];
-    
-    return cells;
-}
+//- (NSArray*)visibleCells
+//{
+//    NSMutableArray *cells = [@[] mutableCopy];
+//    [cells addObjectsFromArray:[self.songsCollectionView visibleCells]];
+//    
+//    return cells;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -64,19 +64,25 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    [self.navigationController setDelegate:self];
+//    [self.navigationController setDelegate:self];
 }
 
-- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
-                                  animationControllerForOperation:(UINavigationControllerOperation)operation
-                                               fromViewController:(UIViewController*)fromVC
-                                                 toViewController:(UIViewController*)toVC
+//- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+//                                  animationControllerForOperation:(UINavigationControllerOperation)operation
+//                                               fromViewController:(UIViewController*)fromVC
+//                                                 toViewController:(UIViewController*)toVC
+//{
+//    if (operation != UINavigationControllerOperationNone) {
+//        // Return your preferred transition operation
+//        return [AMWaveTransition transitionWithOperation:operation andTransitionType:AMWaveTransitionTypeNervous];
+//    }
+//    return nil;
+//}
+
+- (void)viewWillDisappear:(BOOL)animated
 {
-    if (operation != UINavigationControllerOperationNone) {
-        // Return your preferred transition operation
-        return [AMWaveTransition transitionWithOperation:operation andTransitionType:AMWaveTransitionTypeNervous];
-    }
-    return nil;
+    [super viewWillDisappear:YES];
+//    [self.navigationController setDelegate:nil];
 }
 
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event
@@ -188,9 +194,11 @@
             self.outputStreamer = nil;
         }
     }
-    NSMutableDictionary *didStopPlaybackMsg = [[NSMutableDictionary alloc] init];
-    didStopPlaybackMsg[@"Description"] = @"Did Stop Playback";
-    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[didStopPlaybackMsg copy]]];
+    if (self.session) {
+        NSMutableDictionary *didStopPlaybackMsg = [[NSMutableDictionary alloc] init];
+        didStopPlaybackMsg[@"Description"] = @"Did Stop Playback";
+        [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[didStopPlaybackMsg copy]]];
+    }
 }
 
 - (void)playSong:(NSDictionary *)song
@@ -256,8 +264,7 @@
         NSLog(@"disconnected, peers left:%@", self.session.connectedPeers);
     if ([self.session.connectedPeers count] == 0) {
         NSLog(@"no peers left");
-        [self.view removeFromSuperview];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self resetToConnectionViewController];
     }
     });
 }
@@ -334,12 +341,24 @@
             [self.musicPlayer configNowPlayingInfoForSong:self.currentSong];
             MusicPlayerViewController *musicPlayerVC = (MusicPlayerViewController *)segue.destinationViewController;
             musicPlayerVC.currentSong = self.currentSong;
-            musicPlayerVC.playlistVC = self;
             musicPlayerVC.isLeader = self.session.isLeader;
             musicPlayerVC.musicPlayer = self.musicPlayer;
             musicPlayerVC.inputStreamer = self.inputStream;
         }
     }
     
+}
+
+- (void)resetToConnectionViewController
+{
+    NSLog(@"going back to connection view controller");
+    [self stopPlayback];
+    self.session.delegate = nil;
+    self.session = nil;
+    self.musicPlayer = nil;
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+- (IBAction)logoutButton:(id)sender {
+    [self resetToConnectionViewController];
 }
 @end

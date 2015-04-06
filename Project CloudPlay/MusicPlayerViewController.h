@@ -13,8 +13,7 @@
 @interface MusicPlayerViewController : UIViewController
 
 @property (strong, nonatomic) KWMusicPlayer *musicPlayer;
-@property (strong, nonatomic) TDAudioInputStreamer *inputStreamer;
-@property (strong, nonatomic) PlaylistViewController *playlistVC;
+@property (weak, nonatomic) TDAudioInputStreamer *inputStreamer;
 
 @property (strong, nonatomic) NSDictionary *currentSong;
 @property (assign, nonatomic) BOOL isLeader;

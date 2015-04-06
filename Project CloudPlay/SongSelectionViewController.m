@@ -10,9 +10,9 @@
 #import "PlaylistViewController.h"
 @import MultipeerConnectivity;
 @import MediaPlayer;
-#import "AMWaveTransition.h"
+#import "AMPopTip.h"
 
-@interface SongSelectionViewController () <MPCSessionDelegate, MPMediaPickerControllerDelegate, AMWaveTransitioning, UINavigationControllerDelegate>
+@interface SongSelectionViewController () <MPCSessionDelegate, MPMediaPickerControllerDelegate>
 
 - (IBAction)randomSongsButton:(id)sender;
 - (IBAction)chooseSongsButton:(id)sender;
@@ -26,6 +26,10 @@
 @property (assign, nonatomic) NSUInteger songShares;
 @property (assign, nonatomic) BOOL hasChosen;
 
+@property (nonatomic, strong) AMPopTip *popTip;
+- (IBAction)popTipButton:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet UIButton *yellowPopTipButton;
+
 @end
 
 @implementation SongSelectionViewController
@@ -34,32 +38,53 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.session.delegate = self;
-}
+    [self.view setBackgroundColor:[UIColor colorWithRed:197/247.0 green:239/247.0 blue:247/247.0 alpha:1.000]];
 
-//- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
-//                                  animationControllerForOperation:(UINavigationControllerOperation)operation
-//                                               fromViewController:(UIViewController*)fromVC
-//                                                 toViewController:(UIViewController*)toVC
-//{
-//    if (operation != UINavigationControllerOperationNone) {
-//        // Return your preferred transition operation
-//        return [AMWaveTransition transitionWithOperation:operation andTransitionType:AMWaveTransitionTypeBounce];
-//    }
-//    return nil;
-//}
+    
+    [self setupPopTip];
+}
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:YES];
     if (self.isMovingFromParentViewController) {
         [self sendBackMessage];
     }
 }
 
+- (void)setupPopTip
+{
+    [[AMPopTip appearance] setFont:[UIFont fontWithName:@"Avenir-Medium" size:15]];
+    
+    self.popTip = [AMPopTip popTip];
+    self.popTip.shouldDismissOnTap = YES;
+    self.popTip.edgeMargin = 5;
+    self.popTip.offset = 2;
+    self.popTip.edgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+    self.popTip.tapHandler = ^{
+        NSLog(@"Tap!");
+    };
+    self.popTip.dismissHandler = ^{
+        NSLog(@"Dismiss!");
+    };
+    self.popTip.popoverColor = [UIColor colorWithRed:0.31 green:0.57 blue:0.87 alpha:1];
+    [self.popTip showText:@"You can choose your music, allow me to randomly choose, or skip!" direction:AMPopTipDirectionLeft maxWidth:200 inView:self.view fromFrame:self.yellowPopTipButton.frame];
+    [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(displaySecondPopTip) userInfo:nil repeats:NO];
+}
+
+- (void)displaySecondPopTip
+{
+    self.popTip.popoverColor = [UIColor colorWithRed:0.31 green:0.57 blue:0.87 alpha:1];
+    [self.popTip showText:@"Once everyone has made their decision, Cloudplay will automatically begin." direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:self.yellowPopTipButton.frame];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    [self.navigationController setDelegate:self];
 }
 
 - (void)sendBackMessage
@@ -111,7 +136,7 @@
 - (void)session:(MPCSession *)session didStartConnectingtoPeer:(MCPeerID *)peer{}
 - (void)session:(MPCSession *)session didFinishConnetingtoPeer:(MCPeerID *)peer{}
 - (void)session:(MPCSession *)session didDisconnectFromPeer:(MCPeerID *)peer{}
-
+- (void)session:(MPCSession *)session lostConnectionToPeer:(MCPeerID *)peer{}
 - (void)session:(MPCSession *)session didReceiveData:(NSData *)data //
 {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -207,7 +232,29 @@
             playlistVC.songsData = shuffledSongs;
             playlistVC.session = self.session;
             playlistVC.mySongs = self.sessionData.mySongs;
+            self.sessionData = nil;
+            self.session = nil;
         }
+    }
+}
+
+- (IBAction)popTipButton:(UIButton *)sender {
+    [self.popTip hide];
+    
+    if ([self.popTip isVisible]) {
+        return;
+    }
+    
+    if (sender == self.yellowPopTipButton) {
+        static int presses = 0;
+        if (presses == 0) {
+            self.popTip.popoverColor = [UIColor colorWithRed:0.31 green:0.57 blue:0.87 alpha:1];
+            [self.popTip showText:@"You can choose your music, allow me to randomly choose, or skip!" direction:AMPopTipDirectionLeft maxWidth:200 inView:self.view fromFrame:sender.frame];
+        } else {
+            self.popTip.popoverColor = [UIColor colorWithRed:0.31 green:0.57 blue:0.87 alpha:1];
+            [self.popTip showText:@"Once everyone has made their decision, Cloudplay will automatically begin." direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:sender.frame];
+        }
+        presses = (presses + 1) % 2;
     }
 }
 

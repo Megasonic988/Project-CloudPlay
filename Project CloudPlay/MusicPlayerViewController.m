@@ -9,9 +9,10 @@
 #import "MusicPlayerViewController.h"
 #import "KWMusicPlayer.h"
 @import AudioToolbox;
-#import "AMWaveTransition.h"
+@import MediaPlayer;
+#import "UIImageEffects.h"
 
-@interface MusicPlayerViewController () <UINavigationControllerDelegate, AMWaveTransitioning>
+@interface MusicPlayerViewController ()
 
 
 
@@ -28,29 +29,30 @@
     [self.albumImageView setImage:[self.currentSong valueForKey:@"Artwork"]];
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
+    
+    UIImage *backgroundImage = [self blurWithImageEffects:[self.currentSong valueForKey:@"Artwork"]];
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    backgroundImageView.image = backgroundImage;
+    [self.view insertSubview:backgroundImageView atIndex:0];
 }
 
-- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
-                                  animationControllerForOperation:(UINavigationControllerOperation)operation
-                                               fromViewController:(UIViewController*)fromVC
-                                                 toViewController:(UIViewController*)toVC
+- (UIImage *)blurWithImageEffects:(UIImage *)image
 {
-    if (operation != UINavigationControllerOperationNone) {
-        return [AMWaveTransition transitionWithOperation:operation andTransitionType:AMWaveTransitionTypeNervous];
-    }
-    return nil;
+    UIColor *tintColor = [UIColor colorWithWhite:0.97 alpha:0.82];
+    return [UIImageEffects imageByApplyingBlurToImage:image withRadius:8 tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
-    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:2] animated:YES];
+    self.inputStreamer = nil;
+    [self.musicPlayer stop];
+    self.musicPlayer = nil;
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    [self.navigationController setDelegate:self];
 }
 
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event

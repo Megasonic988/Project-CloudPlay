@@ -13,11 +13,16 @@
 #import "SongSelectionViewController.h"
 #import "BOZPongRefreshControl.h"
 @import QuartzCore;
+#import "AMPopTip.h"
 
 @interface ConnectionViewController () <MPCSessionDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate>
 
-- (IBAction)displayConnectedPeers:(id)sender;
-- (IBAction)startButton:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UIButton *redPopTipButton;
+- (IBAction)popTipButton:(UIButton *)sender;
+
+
+@property (nonatomic, strong) AMPopTip *popTip;
 
 @property (weak, nonatomic) BOZPongRefreshControl *refreshControl;
 
@@ -25,7 +30,6 @@
 @property (strong, nonatomic) MPCSession *session;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray *dataArray;
-- (IBAction)restartConnectionButton:(id)sender;
 
 @end
 
@@ -35,8 +39,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.session = [[MPCSession alloc] initWithPeerDisplayName:[UIDevice currentDevice].name];
-    self.session.delegate = self;
     
     UINib *cellNib = [UINib nibWithNibName:@"PeerCell" bundle:nil];
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"peerCell"];
@@ -47,23 +49,59 @@
     self.collectionView.alwaysBounceVertical = YES;
     [flowLayout setMinimumInteritemSpacing:20];
     
+    [self.collectionView setCollectionViewLayout:flowLayout];
+    
     [self.navigationController.view setBackgroundColor:[UIColor colorWithRed:197/247.0 green:239/247.0 blue:247/247.0 alpha:1.000]];
     
     [self.view setBackgroundColor:[UIColor clearColor]];
     
-    [self.collectionView setCollectionViewLayout:flowLayout];
+    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        self.collectionView.contentOffset = CGPointMake(0, -70);
+    } completion:^(BOOL finished){
+        if (finished) {
+            [self.refreshControl beginLoadingAnimated:YES];
+        }
+    }];
+    
+    [self setupPopTip];
+}
+
+- (void)setupPopTip
+{
+    [[AMPopTip appearance] setFont:[UIFont fontWithName:@"Avenir-Medium" size:15]];
+    
+    self.popTip = [AMPopTip popTip];
+    self.popTip.shouldDismissOnTap = YES;
+    self.popTip.edgeMargin = 5;
+    self.popTip.offset = 2;
+    self.popTip.edgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+    self.popTip.tapHandler = ^{
+        NSLog(@"Tap!");
+    };
+    self.popTip.dismissHandler = ^{
+        NSLog(@"Dismiss!");
+    };
+    self.popTip.popoverColor = [UIColor colorWithRed:0.31 green:0.57 blue:0.87 alpha:1];
+    [self.popTip showText:@"Welcome to Cloudplay! Pull down to refresh connections." direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:self.redPopTipButton.frame duration:0];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    NSLog(@"view will appeaR");
+    self.session = nil;
+    self.session = [[MPCSession alloc] initWithPeerDisplayName:[UIDevice currentDevice].name];
+    self.session.delegate = self;
+    [self.session startAdvertising];
+    [self.session startBrowsing];
+    [self setupStartButton];
+    [self updatePlayers];
+    
     // Do any additional setup after loading the view, typically from a nib.
     [self setupStartButton];
     
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self setTitle:@"Cloudplay"];
-    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        self.collectionView.contentOffset = CGPointMake(0, -70);
-    } completion:^(BOOL finished){
-        if (finished) {
-            [self.refreshControl beginLoading];
-        }
-    }];
 }
 
 - (void)viewDidLayoutSubviews
@@ -75,14 +113,14 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    dispatch_async(dispatch_get_current_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
     [self.refreshControl scrollViewDidScroll];
     });
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    dispatch_async(dispatch_get_current_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         [self.refreshControl scrollViewDidEndDragging];
     });
 }
@@ -110,16 +148,7 @@
     [self.refreshControl finishedLoading];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:YES];
-    self.session.delegate = self;
-    [self.session startAdvertising];
-    [self.session startBrowsing];
-    [self setupStartButton];
-    [self updatePlayers];
-    self.session.isLeader = YES;
-}
+
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -140,12 +169,16 @@
 - (void)setupStartButton
 {
     self.startButton.enabled = NO;
+    [self.startButton setTitle:@"Waiting..." forState:UIControlStateDisabled];
+    [self.startButton.layer setShadowOffset:CGSizeMake(2, 2)];
+    [self.startButton.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [self.startButton.layer setShadowOpacity:0.5];
+    [self.startButton.layer setShadowRadius:3.0];
 }
 
 - (void)startButton:(id)sender
 {
     [self sendStartMessage];
-    [self performSegueWithIdentifier:@"show menu" sender:self];
 }
 
 #pragma mark - MPCSessionDelegate
@@ -241,5 +274,20 @@
     [self.session startAdvertising];
     [self.session startBrowsing];
     [self.session setIsLeader:YES];
+}
+
+- (IBAction)popTipButton:(UIButton *)sender {
+    [self.popTip hide];
+    
+    if ([self.popTip isVisible]) {
+        return;
+    }
+    
+//    if (sender == self.redPopTipButton) {
+        self.popTip.popoverColor = [UIColor colorWithRed:0.31 green:0.57 blue:0.87 alpha:1];
+        static int direction = 0;
+        [self.popTip showText:@"Welcome to Cloudplay! Pull down to refresh connections." direction:direction maxWidth:200 inView:self.view fromFrame:sender.frame duration:0];
+        direction = (direction + 1) % 4;
+//    }
 }
 @end
