@@ -28,7 +28,7 @@
     return _justSelectedSongsData;
 }
 
-static const CGSize ALBUM_IMAGE_SIZE = {50,50};
+static const CGSize ALBUM_IMAGE_SIZE = {600,600};
 
 - (void)storeSongDataFromSongs:(NSArray *)songs withMyPeerID:(MCPeerID *)peerID;
 {

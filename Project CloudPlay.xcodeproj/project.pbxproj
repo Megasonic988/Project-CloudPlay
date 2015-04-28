@@ -7,11 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A2812E81AEF3103004E380B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A2812E71AEF3103004E380B /* StoreKit.framework */; };
 		0A38D1C81AEF4CDF009D12A9 /* MPCSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A38D1C51AEF4CDF009D12A9 /* MPCSession.m */; };
 		0A38D1C91AEF4CDF009D12A9 /* MPCSessionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A38D1C71AEF4CDF009D12A9 /* MPCSessionData.m */; };
 		0A38D1CC1AEF4CF2009D12A9 /* KWMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A38D1CB1AEF4CF2009D12A9 /* KWMusicPlayer.m */; };
-		0A38D1CF1AEF4D03009D12A9 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A38D1CE1AEF4D03009D12A9 /* IAPHelper.m */; };
 		0A38D1D81AEF4D22009D12A9 /* ConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A38D1D11AEF4D22009D12A9 /* ConnectionViewController.m */; };
 		0A38D1D91AEF4D22009D12A9 /* MusicPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A38D1D31AEF4D22009D12A9 /* MusicPlayerViewController.m */; };
 		0A38D1DA1AEF4D22009D12A9 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A38D1D51AEF4D22009D12A9 /* PlaylistViewController.m */; };
@@ -72,8 +70,6 @@
 		0A38D1C71AEF4CDF009D12A9 /* MPCSessionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPCSessionData.m; path = "Project CloudPlay/Models/MPC Model/MPCSessionData.m"; sourceTree = SOURCE_ROOT; };
 		0A38D1CA1AEF4CF2009D12A9 /* KWMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KWMusicPlayer.h; path = Models/KWMusicPlayer.h; sourceTree = "<group>"; };
 		0A38D1CB1AEF4CF2009D12A9 /* KWMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KWMusicPlayer.m; path = Models/KWMusicPlayer.m; sourceTree = "<group>"; };
-		0A38D1CD1AEF4D03009D12A9 /* IAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IAPHelper.h; path = Models/IAPHelper.h; sourceTree = "<group>"; };
-		0A38D1CE1AEF4D03009D12A9 /* IAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IAPHelper.m; path = Models/IAPHelper.m; sourceTree = "<group>"; };
 		0A38D1D01AEF4D22009D12A9 /* ConnectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConnectionViewController.h; path = "View Controllers/ConnectionViewController.h"; sourceTree = "<group>"; };
 		0A38D1D11AEF4D22009D12A9 /* ConnectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConnectionViewController.m; path = "View Controllers/ConnectionViewController.m"; sourceTree = "<group>"; };
 		0A38D1D21AEF4D22009D12A9 /* MusicPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MusicPlayerViewController.h; path = "View Controllers/MusicPlayerViewController.h"; sourceTree = "<group>"; };
@@ -151,7 +147,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A2812E81AEF3103004E380B /* StoreKit.framework in Frameworks */,
 				0ADB3B5E1AB4EB2100CF0CF9 /* Foundation.framework in Frameworks */,
 				0ADB3B5C1AB4EB1A00CF0CF9 /* UIKit.framework in Frameworks */,
 				0ADB3B5A1AB4EB1400CF0CF9 /* CoreGraphics.framework in Frameworks */,
@@ -237,8 +232,6 @@
 		0A5AB4011AB93022003DD934 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0A38D1CD1AEF4D03009D12A9 /* IAPHelper.h */,
-				0A38D1CE1AEF4D03009D12A9 /* IAPHelper.m */,
 				0A38D1CA1AEF4CF2009D12A9 /* KWMusicPlayer.h */,
 				0A38D1CB1AEF4CF2009D12A9 /* KWMusicPlayer.m */,
 				0ADB3B611AB4ECB900CF0CF9 /* MPC Model */,
@@ -507,7 +500,6 @@
 				0AA51FEC1AC65E5A00704F54 /* TDAudioStreamer.m in Sources */,
 				0AA3EBA41AEF4A02005A2D53 /* AMWaveViewController.m in Sources */,
 				0AA3EB9D1AEF49EE005A2D53 /* CXCardContainerView.m in Sources */,
-				0A38D1CF1AEF4D03009D12A9 /* IAPHelper.m in Sources */,
 				0AA3EBA31AEF4A02005A2D53 /* AMWaveTransition.m in Sources */,
 				0A38D1DA1AEF4D22009D12A9 /* PlaylistViewController.m in Sources */,
 				0A38D1D81AEF4D22009D12A9 /* ConnectionViewController.m in Sources */,
@@ -654,15 +646,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Tony Basu (BMRR84DU62)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tony Basu (BMRR84DU62)";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = "Project CloudPlay/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "887a4c8b-cbff-47e0-a241-8e7a1b96d87f";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -671,15 +663,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Tony Basu (BMRR84DU62)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tony Basu (BMRR84DU62)";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = "Project CloudPlay/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "887a4c8b-cbff-47e0-a241-8e7a1b96d87f";
 				SDKROOT = iphoneos;
 			};
 			name = Release;
