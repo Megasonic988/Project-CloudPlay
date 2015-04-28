@@ -7,11 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A00BFD71AB52B9200216487 /* MPCSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A00BFD61AB52B9200216487 /* MPCSession.m */; };
 		0A2812E81AEF3103004E380B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A2812E71AEF3103004E380B /* StoreKit.framework */; };
-		0A3687551AEF4384007FCB24 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3687541AEF4384007FCB24 /* IAPHelper.m */; };
-		0A8402D81ABBDB03003494D3 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8402D71ABBDB03003494D3 /* PlaylistViewController.m */; };
-		0A8402DB1ABBDB17003494D3 /* MusicPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8402DA1ABBDB17003494D3 /* MusicPlayerViewController.m */; };
+		0A38D1C81AEF4CDF009D12A9 /* MPCSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A38D1C51AEF4CDF009D12A9 /* MPCSession.m */; };
+		0A38D1C91AEF4CDF009D12A9 /* MPCSessionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A38D1C71AEF4CDF009D12A9 /* MPCSessionData.m */; };
+		0A38D1CC1AEF4CF2009D12A9 /* KWMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A38D1CB1AEF4CF2009D12A9 /* KWMusicPlayer.m */; };
+		0A38D1CF1AEF4D03009D12A9 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A38D1CE1AEF4D03009D12A9 /* IAPHelper.m */; };
+		0A38D1D81AEF4D22009D12A9 /* ConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A38D1D11AEF4D22009D12A9 /* ConnectionViewController.m */; };
+		0A38D1D91AEF4D22009D12A9 /* MusicPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A38D1D31AEF4D22009D12A9 /* MusicPlayerViewController.m */; };
+		0A38D1DA1AEF4D22009D12A9 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A38D1D51AEF4D22009D12A9 /* PlaylistViewController.m */; };
+		0A38D1DB1AEF4D22009D12A9 /* SongSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A38D1D71AEF4D22009D12A9 /* SongSelectionViewController.m */; };
+		0A38D1E41AEF4DFC009D12A9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A38D1E31AEF4DFC009D12A9 /* AppDelegate.m */; };
 		0AA3EB9D1AEF49EE005A2D53 /* CXCardContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA3EB991AEF49EE005A2D53 /* CXCardContainerView.m */; };
 		0AA3EB9E1AEF49EE005A2D53 /* CXCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA3EB9C1AEF49EE005A2D53 /* CXCardView.m */; };
 		0AA3EBA31AEF4A02005A2D53 /* AMWaveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA3EBA01AEF4A02005A2D53 /* AMWaveTransition.m */; };
@@ -35,12 +40,7 @@
 		0AA51FEA1AC65E5A00704F54 /* TDAudioOutputStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA51FDC1AC65E5A00704F54 /* TDAudioOutputStreamer.m */; };
 		0AA51FEB1AC65E5A00704F54 /* TDAudioStreamerConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA51FDE1AC65E5A00704F54 /* TDAudioStreamerConstants.m */; };
 		0AA51FEC1AC65E5A00704F54 /* TDAudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA51FE01AC65E5A00704F54 /* TDAudioStreamer.m */; };
-		0AB5A08B1AD05A7400AA2F46 /* KWMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB5A08A1AD05A7400AA2F46 /* KWMusicPlayer.m */; };
-		0AC6CE101AC1C9AF001AE449 /* MPCSessionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC6CE0F1AC1C9AF001AE449 /* MPCSessionData.m */; };
-		0AC6CE131AC45FF5001AE449 /* SongSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC6CE121AC45FF5001AE449 /* SongSelectionViewController.m */; };
 		0ADB3A751AB4DB6400CF0CF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB3A741AB4DB6400CF0CF9 /* main.m */; };
-		0ADB3A781AB4DB6400CF0CF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB3A771AB4DB6400CF0CF9 /* AppDelegate.m */; };
-		0ADB3A7B1AB4DB6400CF0CF9 /* ConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB3A7A1AB4DB6400CF0CF9 /* ConnectionViewController.m */; };
 		0ADB3A7E1AB4DB6400CF0CF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ADB3A7C1AB4DB6400CF0CF9 /* Main.storyboard */; };
 		0ADB3A801AB4DB6400CF0CF9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ADB3A7F1AB4DB6400CF0CF9 /* Images.xcassets */; };
 		0ADB3A831AB4DB6400CF0CF9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ADB3A811AB4DB6400CF0CF9 /* LaunchScreen.xib */; };
@@ -65,15 +65,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0A00BFD51AB52B9200216487 /* MPCSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPCSession.h; path = "MPC Model/MPCSession.h"; sourceTree = SOURCE_ROOT; };
-		0A00BFD61AB52B9200216487 /* MPCSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPCSession.m; path = "MPC Model/MPCSession.m"; sourceTree = SOURCE_ROOT; };
 		0A2812E71AEF3103004E380B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		0A3687531AEF4384007FCB24 /* IAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPHelper.h; sourceTree = "<group>"; };
-		0A3687541AEF4384007FCB24 /* IAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPHelper.m; sourceTree = "<group>"; };
-		0A8402D61ABBDB03003494D3 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
-		0A8402D71ABBDB03003494D3 /* PlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistViewController.m; sourceTree = "<group>"; };
-		0A8402D91ABBDB17003494D3 /* MusicPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerViewController.h; sourceTree = "<group>"; };
-		0A8402DA1ABBDB17003494D3 /* MusicPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerViewController.m; sourceTree = "<group>"; };
+		0A38D1C41AEF4CDF009D12A9 /* MPCSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPCSession.h; path = "Project CloudPlay/Models/MPC Model/MPCSession.h"; sourceTree = SOURCE_ROOT; };
+		0A38D1C51AEF4CDF009D12A9 /* MPCSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPCSession.m; path = "Project CloudPlay/Models/MPC Model/MPCSession.m"; sourceTree = SOURCE_ROOT; };
+		0A38D1C61AEF4CDF009D12A9 /* MPCSessionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPCSessionData.h; path = "Project CloudPlay/Models/MPC Model/MPCSessionData.h"; sourceTree = SOURCE_ROOT; };
+		0A38D1C71AEF4CDF009D12A9 /* MPCSessionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPCSessionData.m; path = "Project CloudPlay/Models/MPC Model/MPCSessionData.m"; sourceTree = SOURCE_ROOT; };
+		0A38D1CA1AEF4CF2009D12A9 /* KWMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KWMusicPlayer.h; path = Models/KWMusicPlayer.h; sourceTree = "<group>"; };
+		0A38D1CB1AEF4CF2009D12A9 /* KWMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KWMusicPlayer.m; path = Models/KWMusicPlayer.m; sourceTree = "<group>"; };
+		0A38D1CD1AEF4D03009D12A9 /* IAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IAPHelper.h; path = Models/IAPHelper.h; sourceTree = "<group>"; };
+		0A38D1CE1AEF4D03009D12A9 /* IAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IAPHelper.m; path = Models/IAPHelper.m; sourceTree = "<group>"; };
+		0A38D1D01AEF4D22009D12A9 /* ConnectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConnectionViewController.h; path = "View Controllers/ConnectionViewController.h"; sourceTree = "<group>"; };
+		0A38D1D11AEF4D22009D12A9 /* ConnectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConnectionViewController.m; path = "View Controllers/ConnectionViewController.m"; sourceTree = "<group>"; };
+		0A38D1D21AEF4D22009D12A9 /* MusicPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MusicPlayerViewController.h; path = "View Controllers/MusicPlayerViewController.h"; sourceTree = "<group>"; };
+		0A38D1D31AEF4D22009D12A9 /* MusicPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MusicPlayerViewController.m; path = "View Controllers/MusicPlayerViewController.m"; sourceTree = "<group>"; };
+		0A38D1D41AEF4D22009D12A9 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaylistViewController.h; path = "View Controllers/PlaylistViewController.h"; sourceTree = "<group>"; };
+		0A38D1D51AEF4D22009D12A9 /* PlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaylistViewController.m; path = "View Controllers/PlaylistViewController.m"; sourceTree = "<group>"; };
+		0A38D1D61AEF4D22009D12A9 /* SongSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongSelectionViewController.h; path = "View Controllers/SongSelectionViewController.h"; sourceTree = "<group>"; };
+		0A38D1D71AEF4D22009D12A9 /* SongSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongSelectionViewController.m; path = "View Controllers/SongSelectionViewController.m"; sourceTree = "<group>"; };
+		0A38D1E21AEF4DFC009D12A9 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		0A38D1E31AEF4DFC009D12A9 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0AA3EB991AEF49EE005A2D53 /* CXCardContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXCardContainerView.m; path = "3rd Party/CXCardView/CXCardContainerView.m"; sourceTree = SOURCE_ROOT; };
 		0AA3EB9A1AEF49EE005A2D53 /* CXCardContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXCardContainerView.h; path = "3rd Party/CXCardView/CXCardContainerView.h"; sourceTree = SOURCE_ROOT; };
 		0AA3EB9B1AEF49EE005A2D53 /* CXCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXCardView.h; path = "3rd Party/CXCardView/CXCardView.h"; sourceTree = SOURCE_ROOT; };
@@ -118,19 +128,9 @@
 		0AA51FDE1AC65E5A00704F54 /* TDAudioStreamerConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDAudioStreamerConstants.m; path = ../../../TDAudioStreamer/TDAudioStreamer/AudioStreamer/TDAudioStreamerConstants.m; sourceTree = "<group>"; };
 		0AA51FDF1AC65E5A00704F54 /* TDAudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDAudioStreamer.h; path = ../../../TDAudioStreamer/TDAudioStreamer/AudioStreamer/TDAudioStreamer.h; sourceTree = "<group>"; };
 		0AA51FE01AC65E5A00704F54 /* TDAudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDAudioStreamer.m; path = ../../../TDAudioStreamer/TDAudioStreamer/AudioStreamer/TDAudioStreamer.m; sourceTree = "<group>"; };
-		0AB5A0891AD05A7400AA2F46 /* KWMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KWMusicPlayer.h; path = ../../../TDAudioStreamer/TDAudioStreamer/AudioStreamer/Classes/KWMusicPlayer.h; sourceTree = "<group>"; };
-		0AB5A08A1AD05A7400AA2F46 /* KWMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KWMusicPlayer.m; path = ../../../TDAudioStreamer/TDAudioStreamer/AudioStreamer/Classes/KWMusicPlayer.m; sourceTree = "<group>"; };
-		0AC6CE0E1AC1C9AF001AE449 /* MPCSessionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCSessionData.h; sourceTree = "<group>"; };
-		0AC6CE0F1AC1C9AF001AE449 /* MPCSessionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCSessionData.m; sourceTree = "<group>"; };
-		0AC6CE111AC45FF5001AE449 /* SongSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongSelectionViewController.h; sourceTree = "<group>"; };
-		0AC6CE121AC45FF5001AE449 /* SongSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongSelectionViewController.m; sourceTree = "<group>"; };
 		0ADB3A6F1AB4DB6400CF0CF9 /* Project CloudPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project CloudPlay.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADB3A731AB4DB6400CF0CF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0ADB3A741AB4DB6400CF0CF9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		0ADB3A761AB4DB6400CF0CF9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		0ADB3A771AB4DB6400CF0CF9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		0ADB3A791AB4DB6400CF0CF9 /* ConnectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConnectionViewController.h; sourceTree = "<group>"; };
-		0ADB3A7A1AB4DB6400CF0CF9 /* ConnectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConnectionViewController.m; sourceTree = "<group>"; };
 		0ADB3A7D1AB4DB6400CF0CF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0ADB3A7F1AB4DB6400CF0CF9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0ADB3A821AB4DB6400CF0CF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -222,14 +222,14 @@
 		0A5AB3FC1AB91B23003DD934 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0ADB3A791AB4DB6400CF0CF9 /* ConnectionViewController.h */,
-				0ADB3A7A1AB4DB6400CF0CF9 /* ConnectionViewController.m */,
-				0AC6CE111AC45FF5001AE449 /* SongSelectionViewController.h */,
-				0AC6CE121AC45FF5001AE449 /* SongSelectionViewController.m */,
-				0A8402D61ABBDB03003494D3 /* PlaylistViewController.h */,
-				0A8402D71ABBDB03003494D3 /* PlaylistViewController.m */,
-				0A8402D91ABBDB17003494D3 /* MusicPlayerViewController.h */,
-				0A8402DA1ABBDB17003494D3 /* MusicPlayerViewController.m */,
+				0A38D1D01AEF4D22009D12A9 /* ConnectionViewController.h */,
+				0A38D1D11AEF4D22009D12A9 /* ConnectionViewController.m */,
+				0A38D1D21AEF4D22009D12A9 /* MusicPlayerViewController.h */,
+				0A38D1D31AEF4D22009D12A9 /* MusicPlayerViewController.m */,
+				0A38D1D41AEF4D22009D12A9 /* PlaylistViewController.h */,
+				0A38D1D51AEF4D22009D12A9 /* PlaylistViewController.m */,
+				0A38D1D61AEF4D22009D12A9 /* SongSelectionViewController.h */,
+				0A38D1D71AEF4D22009D12A9 /* SongSelectionViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -237,11 +237,11 @@
 		0A5AB4011AB93022003DD934 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0A38D1CD1AEF4D03009D12A9 /* IAPHelper.h */,
+				0A38D1CE1AEF4D03009D12A9 /* IAPHelper.m */,
+				0A38D1CA1AEF4CF2009D12A9 /* KWMusicPlayer.h */,
+				0A38D1CB1AEF4CF2009D12A9 /* KWMusicPlayer.m */,
 				0ADB3B611AB4ECB900CF0CF9 /* MPC Model */,
-				0AB5A0891AD05A7400AA2F46 /* KWMusicPlayer.h */,
-				0AB5A08A1AD05A7400AA2F46 /* KWMusicPlayer.m */,
-				0A3687531AEF4384007FCB24 /* IAPHelper.h */,
-				0A3687541AEF4384007FCB24 /* IAPHelper.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -321,8 +321,6 @@
 			children = (
 				0A2812E91AEF31DF004E380B /* 3rd Party */,
 				0AE6C2DA1AB7C68C004E6D44 /* Views */,
-				0ADB3A761AB4DB6400CF0CF9 /* AppDelegate.h */,
-				0ADB3A771AB4DB6400CF0CF9 /* AppDelegate.m */,
 				0A5AB4011AB93022003DD934 /* Models */,
 				0A5AB3FC1AB91B23003DD934 /* View Controllers */,
 				0ADB3A7C1AB4DB6400CF0CF9 /* Main.storyboard */,
@@ -336,6 +334,8 @@
 		0ADB3A721AB4DB6400CF0CF9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0A38D1E21AEF4DFC009D12A9 /* AppDelegate.h */,
+				0A38D1E31AEF4DFC009D12A9 /* AppDelegate.m */,
 				0ADB3A731AB4DB6400CF0CF9 /* Info.plist */,
 				0ADB3A741AB4DB6400CF0CF9 /* main.m */,
 			);
@@ -377,10 +377,10 @@
 		0ADB3B611AB4ECB900CF0CF9 /* MPC Model */ = {
 			isa = PBXGroup;
 			children = (
-				0A00BFD51AB52B9200216487 /* MPCSession.h */,
-				0A00BFD61AB52B9200216487 /* MPCSession.m */,
-				0AC6CE0E1AC1C9AF001AE449 /* MPCSessionData.h */,
-				0AC6CE0F1AC1C9AF001AE449 /* MPCSessionData.m */,
+				0A38D1C41AEF4CDF009D12A9 /* MPCSession.h */,
+				0A38D1C51AEF4CDF009D12A9 /* MPCSession.m */,
+				0A38D1C61AEF4CDF009D12A9 /* MPCSessionData.h */,
+				0A38D1C71AEF4CDF009D12A9 /* MPCSessionData.m */,
 			);
 			name = "MPC Model";
 			path = ../Classes;
@@ -505,34 +505,34 @@
 				0AA51FE81AC65E5A00704F54 /* TDAudioStream.m in Sources */,
 				0AA51FE21AC65E5A00704F54 /* TDAudioFileStream.m in Sources */,
 				0AA51FEC1AC65E5A00704F54 /* TDAudioStreamer.m in Sources */,
-				0ADB3A7B1AB4DB6400CF0CF9 /* ConnectionViewController.m in Sources */,
 				0AA3EBA41AEF4A02005A2D53 /* AMWaveViewController.m in Sources */,
 				0AA3EB9D1AEF49EE005A2D53 /* CXCardContainerView.m in Sources */,
-				0A3687551AEF4384007FCB24 /* IAPHelper.m in Sources */,
-				0ADB3A781AB4DB6400CF0CF9 /* AppDelegate.m in Sources */,
+				0A38D1CF1AEF4D03009D12A9 /* IAPHelper.m in Sources */,
 				0AA3EBA31AEF4A02005A2D53 /* AMWaveTransition.m in Sources */,
-				0A8402D81ABBDB03003494D3 /* PlaylistViewController.m in Sources */,
-				0AC6CE131AC45FF5001AE449 /* SongSelectionViewController.m in Sources */,
-				0AC6CE101AC1C9AF001AE449 /* MPCSessionData.m in Sources */,
-				0A00BFD71AB52B9200216487 /* MPCSession.m in Sources */,
+				0A38D1DA1AEF4D22009D12A9 /* PlaylistViewController.m in Sources */,
+				0A38D1D81AEF4D22009D12A9 /* ConnectionViewController.m in Sources */,
 				0AA3EB9E1AEF49EE005A2D53 /* CXCardView.m in Sources */,
 				0AA3EBB71AEF4B6A005A2D53 /* ConnectedPeerCVCell.m in Sources */,
 				0AA3EBAD1AEF4A37005A2D53 /* AMPopTip.m in Sources */,
 				0AA51FE11AC65E5A00704F54 /* NSMutableArray+QueueMethods.m in Sources */,
 				0AA3EBAA1AEF4A26005A2D53 /* UIImageEffects.m in Sources */,
+				0A38D1CC1AEF4CF2009D12A9 /* KWMusicPlayer.m in Sources */,
+				0A38D1DB1AEF4D22009D12A9 /* SongSelectionViewController.m in Sources */,
 				0AA51FEA1AC65E5A00704F54 /* TDAudioOutputStreamer.m in Sources */,
 				0AA51FE61AC65E5A00704F54 /* TDAudioQueueController.m in Sources */,
 				0AA51FE41AC65E5A00704F54 /* TDAudioQueueBuffer.m in Sources */,
-				0A8402DB1ABBDB17003494D3 /* MusicPlayerViewController.m in Sources */,
 				0AA51FE31AC65E5A00704F54 /* TDAudioQueue.m in Sources */,
 				0ADB3A751AB4DB6400CF0CF9 /* main.m in Sources */,
 				0AA51FE71AC65E5A00704F54 /* TDAudioQueueFiller.m in Sources */,
-				0AB5A08B1AD05A7400AA2F46 /* KWMusicPlayer.m in Sources */,
 				0AA3EBA71AEF4A10005A2D53 /* BOZPongRefreshControl.m in Sources */,
+				0A38D1E41AEF4DFC009D12A9 /* AppDelegate.m in Sources */,
 				0AA51FEB1AC65E5A00704F54 /* TDAudioStreamerConstants.m in Sources */,
 				0AA3EBB41AEF4B6A005A2D53 /* InformationView.m in Sources */,
 				0AA51FE51AC65E5A00704F54 /* TDAudioQueueBufferManager.m in Sources */,
 				0AA51FE91AC65E5A00704F54 /* TDAudioInputStreamer.m in Sources */,
+				0A38D1C91AEF4CDF009D12A9 /* MPCSessionData.m in Sources */,
+				0A38D1D91AEF4D22009D12A9 /* MusicPlayerViewController.m in Sources */,
+				0A38D1C81AEF4CDF009D12A9 /* MPCSession.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
