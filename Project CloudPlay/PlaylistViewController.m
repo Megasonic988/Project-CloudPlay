@@ -6,13 +6,12 @@
 //  Copyright (c) 2015 Kevin Wang. All rights reserved.
 //
 
-#import "PlaylistViewController.h"
-#import "SongsCollectionViewCell.h"
-#import "MusicPlayerViewController.h"
 @import AVFoundation;
+@import QuartzCore;
+#import "PlaylistViewController.h"
+#import "MusicPlayerViewController.h"
 #import "TDAudioStreamer.h"
 #import "AMWaveTransition.h"
-@import QuartzCore;
 #import "InformationView.h"
 #import "CXCardView.h"
 
@@ -55,85 +54,34 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    //
-//    [self.songsCollectionView registerClass:[SongsCollectionViewCell class] forCellWithReuseIdentifier:@"song cell"];
-//    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-//    [flowLayout setItemSize:CGSizeMake(368, 50)];
-//    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-//    [self.songsCollectionView setCollectionViewLayout:flowLayout];
-    //
-    
-    [self.navigationItem setHidesBackButton:YES];
+
+    [self setupUI];
     
     self.session.delegate = self;
+    
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
-    NSLog(@"AM I THE LEADER???? %d", self.session.isLeader);
+
+    self.allPeersHaveStoppedPlayback = YES;
+    
+    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTimeLeft) userInfo:nil repeats:YES];
+}
+
+- (void)setupUI
+{
+    [self.navigationItem setHidesBackButton:YES];
     if (self.session.isLeader) {
         [self.leaderLabel setText:@"I am the leader!"];
     } else {
         [self.leaderLabel setText:@"I am not the leader!"];
     }
-    self.allPeersHaveStoppedPlayback = YES;
-    
     if (self.session.isLeader == NO) self.songsTableView.allowsSelection = NO;
     [self.songsTableView setBackgroundColor:[UIColor clearColor]];
     [self.view setBackgroundColor:[UIColor clearColor]];
-    
-    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTimeLeft) userInfo:nil repeats:YES];
-    
     self.leaderInfoView.layer.borderColor = [UIColor colorWithRed:52/255.0 green:152/255.0 blue:219/255.0 alpha:1].CGColor;
     self.leaderInfoView.layer.borderWidth = 1.0f;
     self.nowPlayingButton.hidden = YES;
-    
     [self showLeaderContentView];
-}
-
-- (void)updateTimeLeft
-{
-    if (self.musicPlayer) {
-        NSTimeInterval timeLeft = self.musicPlayer.musicPlayer.duration - self.musicPlayer.musicPlayer.currentTime;
-        NSLog(@"TIME LEFT ON SONG: %f", timeLeft);
-        if ((timeLeft > (double)0.1) && (timeLeft < (double)10)) {
-            if (self.session.isLeader) {
-                [self playNewSong];
-            } else {
-                [self tellLeaderToPlayANewSong];
-            }
-        }
-    }
-//    static NSTimeInterval timeLeft;
-//    NSLog(@"%f", timeLeft);
-//    timeLeft++;
-//    if (timeLeft > 10.0) {
-//        if (self.session.isLeader) {
-//                [self playNewSong];
-//            } else {
-//                [self tellLeaderToPlayANewSong];
-//            }
-//        timeLeft = 0;
-//    }
-}
-
-- (void)tellLeaderToPlayANewSong
-{
-    NSMutableDictionary *tellLeaderPlayNewSong = [[NSMutableDictionary alloc] init];
-    tellLeaderPlayNewSong[@"Description"] = @"Leader Play New Song";
-    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[tellLeaderPlayNewSong copy]]];
-}
-
-- (void)playNewSong
-{
-    if (self.session.isLeader) {
-        int randomNum = arc4random()%[self.songsData count];
-        NSLog(@"RANDOM NUMBER IS %d", randomNum);
-        self.currentSong = [self.songsData objectAtIndex:randomNum];
-        NSLog(@"THE NEW CURRENT SONG IS %@", self.currentSong);
-        [self tellOthersToStopPlayback];
-        [self stopPlayback];
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -177,6 +125,22 @@
     [CXCardView showWithView:_infoView draggable:YES];
 }
 
+
+- (void)updateTimeLeft
+{
+    //this plays a random new song, checking to see how much time is left on the song
+    if (self.musicPlayer) {
+        NSTimeInterval timeLeft = self.musicPlayer.musicPlayer.duration - self.musicPlayer.musicPlayer.currentTime;
+        NSLog(@"TIME LEFT ON SONG: %f", timeLeft);
+        if ((timeLeft > (double)0.1) && (timeLeft < (double)10)) {
+            if (self.session.isLeader) {
+                [self playNewSong];
+            } else {
+                [self tellLeaderToPlayANewSong];
+            }
+        }
+    }
+}
 
 - (void)dealloc
 {
@@ -278,49 +242,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-//#pragma mark - UICollectionViewDelegate Methods
-//
-//- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-//{
-//    return 1;
-//}
-//
-//-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-//{
-//    return [self.songsData count];
-//}
-//
-//-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    static NSString *cellIdentifier = @"song cell";
-//    SongsCollectionViewCell *cell = (SongsCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-//    NSString *songTitle = [[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Song Title"];
-//    NSString *artist = [[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Artist"];
-//    
-//    UIImage *songImage = [[UIImage alloc] init];
-//    if ([[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Artwork"]) {
-//        songImage = [[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Artwork"];
-//    } else {
-//        songImage = [UIImage imageNamed:@"blankAlbum.png"];
-//        [self.songsData objectAtIndex:indexPath.row][@"Artwork"] = songImage;
-//    }
-//    
-//    [cell.songImage setImage:songImage];
-//    [cell.titleLabel setText:songTitle];
-//    [cell.artistLabel setText:artist];
-//    
-//    return cell;
-//}
-//
-//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if (self.session.isLeader) {
-//        self.currentSong = [self.songsData objectAtIndex:indexPath.row];
-//        [self tellOthersToStopPlayback];
-//        [self stopPlayback];
-//    }
-//}
-
 #pragma mark - Song Playback/Changing Methods
 
 - (void)changeToSelfCurrentSong
@@ -347,6 +268,25 @@
     NSMutableDictionary *stopAllStreamsAndPlaybackMsg = [[NSMutableDictionary alloc] init];
     stopAllStreamsAndPlaybackMsg[@"Description"] = @"Stop Playback";
     [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[stopAllStreamsAndPlaybackMsg copy]]];
+}
+
+- (void)tellLeaderToPlayANewSong
+{
+    NSMutableDictionary *tellLeaderPlayNewSong = [[NSMutableDictionary alloc] init];
+    tellLeaderPlayNewSong[@"Description"] = @"Leader Play New Song";
+    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[tellLeaderPlayNewSong copy]]];
+}
+
+- (void)playNewSong
+{
+    if (self.session.isLeader) {
+        int randomNum = arc4random()%[self.songsData count];
+        NSLog(@"RANDOM NUMBER IS %d", randomNum);
+        self.currentSong = [self.songsData objectAtIndex:randomNum];
+        NSLog(@"THE NEW CURRENT SONG IS %@", self.currentSong);
+        [self tellOthersToStopPlayback];
+        [self stopPlayback];
+    }
 }
 
 - (void)stopPlayback
@@ -392,6 +332,7 @@
     // if it is not my song, the owner will automatically stream it to everyone else (in the changeCurrentSong method below)
 }
 
+//the TDAudioStreamer requires all peers receiving streams to stop their stream before the output streamer plays a new song. Else, the streaming will stop functioning. Therefore, a check is implemented to check if all peers have ended their inputStreams before a new song is streamed to them.
 - (void)checkIfAllPeersHaveStoppedPlayback
 {
     if (self.numberOfPeersWhoHaveStoppedPlayback == [self.session.connectedPeers count]) {
@@ -478,27 +419,17 @@
 }
 
 - (void)session:(MPCSession *)session lostConnectionToPeer:(MCPeerID *)peer{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"disconnected, peers left:%@", self.session.connectedPeers);
+        if ([self.session.connectedPeers count] == 0) {
+            NSLog(@"no peers left");
+            [self resetToConnectionViewController];
+        }
+    });
 }
-
-
-- (void)session:(MPCSession *)session didStartConnectingtoPeer:(MCPeerID *)peer{}
+- (void)session:(MPCSession *)session didStartConnectingtoPeer:(MCPeerID *)peer{
+}
 - (void)session:(MPCSession *)session didFinishConnetingtoPeer:(MCPeerID *)peer{}
-
-- (IBAction)returnButton:(id)sender {
-//    self.session.delegate = nil;
-//    self.session = nil;
-//    [self.navigationController popToRootViewControllerAnimated:NO];
-    [self stopPlayback];
-    [self tellOthersToStopPlayback];
-    
-}
-- (IBAction)adjustButton:(id)sender {
-    [self.musicPlayer pause];
-    [self.inputStream pause];
-    usleep(15000);
-    [self.musicPlayer play];
-    [self.inputStream resume];
-}
 
 #pragma mark - Navigation
 
@@ -539,6 +470,10 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+- (IBAction)logoutButton:(id)sender {
+    [self showExitInfoView];
+}
+
 - (void)showExitInfoView
 {
     if (!_exitInfoView) {
@@ -566,10 +501,8 @@
     [CXCardView showWithView:_exitInfoView draggable:NO];
 }
 
-- (IBAction)logoutButton:(id)sender {
-    [self showExitInfoView];
-}
 
+//even though the inputStream pointer is passed to the music player, the music player cannot control pause/play. Therefore, the music player will ask this view controller to handle the inputStreamer playback through a selector.
 - (void)pauseStream
 {
     [self.inputStream pause];

@@ -40,14 +40,11 @@
 
 - (NSArray *)connectedPeers;
 
-- (NSOutputStream *)outputStreamForPeer:(MCPeerID *)peer;
-
+- (NSOutputStream *)outputStreamForPeer:(MCPeerID *)peer; //all data transfer is through a local stream, handled by Multipeer Connectivity
 
 - (void)sendData:(NSData *)data;
 - (void)sendData:(NSData *)data toPeer:(MCPeerID *)peer;
 
-@property (assign, nonatomic) BOOL isLeader;
-
-
+@property (assign, nonatomic) BOOL isLeader; //if leader of the session, you get control over playback
 
 @end

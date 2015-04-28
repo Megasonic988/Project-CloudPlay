@@ -21,7 +21,7 @@
 
 @end
 
-@interface PlaylistViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface PlaylistViewController : UIViewController
 
 @property (strong, nonatomic) id <PlaylistViewControllerDelegate> delegate;
 

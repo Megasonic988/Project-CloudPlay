@@ -32,6 +32,7 @@ static const CGSize ALBUM_IMAGE_SIZE = {50,50};
 
 - (void)storeSongDataFromSongs:(NSArray *)songs withMyPeerID:(MCPeerID *)peerID;
 {
+    //songs are sorted into an array, organized alphabetically by song name
     NSMutableArray *songsData = [[NSMutableArray alloc] init];
     if ([[songs firstObject] isKindOfClass:[MPMediaItem class]]) {
         for (MPMediaItem *song in songs) {

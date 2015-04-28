@@ -104,105 +104,6 @@
             </objects>
             <point key="canvasLocation" x="922.5" y="410.5"/>
         </scene>
-        <!--Menu View Controller-->
-        <scene sceneID="DVX-a1-0YI">
-            <objects>
-                <viewController id="Tdv-Lp-64u" customClass="MenuViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="PCh-Nt-4AJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="lzp-zg-q3w"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="hbo-Iq-XUu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1cM-Np-VRZ">
-                                <rect key="frame" x="56" y="319" width="86" height="30"/>
-                                <state key="normal" title="View Playlist">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="viewPlaylist:" destination="Tdv-Lp-64u" eventType="touchUpInside" id="IFf-lq-J7t"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wXc-4M-JuC">
-                                <rect key="frame" x="187" y="319" width="156" height="30"/>
-                                <state key="normal" title="View Connected Peers">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="viewConnectedPeers:" destination="Tdv-Lp-64u" eventType="touchUpInside" id="RAV-ly-VkI"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EyH-I4-o7v">
-                                <rect key="frame" x="143" y="386" width="88" height="30"/>
-                                <state key="normal" title="Music Player">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="displayMusicPlayer:" destination="Tdv-Lp-64u" eventType="touchUpInside" id="hKD-DX-GDk"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hzp-Cy-aGg">
-                                <rect key="frame" x="138" y="248" width="99" height="30"/>
-                                <state key="normal" title="Choose Music">
-                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="chooseMusicButton:" destination="Tdv-Lp-64u" eventType="touchUpInside" id="Rr4-Ac-en6"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="MTD-nk-SPI"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vvK-if-h04" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1265.5" y="-567.5"/>
-        </scene>
-        <!--Connected Peers-->
-        <scene sceneID="7Wu-d4-0jn">
-            <objects>
-                <viewController id="hgB-2K-FHs" customClass="ConnectedPeersViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="yPP-Iz-nFo"/>
-                        <viewControllerLayoutGuide type="bottom" id="429-YE-zNU"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ezj-gf-Gmg">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TrQ-LR-PrG">
-                                <rect key="frame" x="0.0" y="7" width="375" height="660"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vhJ-km-vwP">
-                                    <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                                <connections>
-                                    <outlet property="dataSource" destination="hgB-2K-FHs" id="82Z-Pe-2RR"/>
-                                    <outlet property="delegate" destination="hgB-2K-FHs" id="PbN-Me-Ekw"/>
-                                </connections>
-                            </collectionView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Connected Peers" id="46V-b7-8Q6"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <connections>
-                        <outlet property="peersCollectionView" destination="TrQ-LR-PrG" id="Y7g-by-slW"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4Tb-KU-AVw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1718.5" y="-567.5"/>
-        </scene>
         <!--Music Selection-->
         <scene sceneID="92Q-wn-BeO">
             <objects>
@@ -583,6 +484,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="8Z9-fX-Frd"/>
+        <segue reference="EIF-8V-rK4"/>
     </inferredMetricsTieBreakers>
 </document>

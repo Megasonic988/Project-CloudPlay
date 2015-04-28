@@ -16,7 +16,6 @@
 @property (strong, nonatomic) NSDate *date;
 @property (strong, nonatomic) NSString *number;
 
-
 @end
 
 @implementation MPCSession

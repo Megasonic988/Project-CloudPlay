@@ -8,18 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		0A00BFD71AB52B9200216487 /* MPCSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A00BFD61AB52B9200216487 /* MPCSession.m */; };
-		0A2080BB1AE1D5290088D53E /* CXCardContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A2080B81AE1D5290088D53E /* CXCardContainerView.m */; };
-		0A2080BC1AE1D5290088D53E /* CXCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A2080BA1AE1D5290088D53E /* CXCardView.m */; };
-		0A2812DC1AE7510A004E380B /* InformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A2812DB1AE7510A004E380B /* InformationView.m */; };
 		0A2812E81AEF3103004E380B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A2812E71AEF3103004E380B /* StoreKit.framework */; };
-		0A3046201ACDC2640047BE19 /* AMWaveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A30461D1ACDC2640047BE19 /* AMWaveTransition.m */; };
-		0A3046211ACDC2640047BE19 /* AMWaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A30461F1ACDC2640047BE19 /* AMWaveViewController.m */; };
-		0A42332C1ACF81E600ED82E6 /* BOZPongRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A42332B1ACF81E600ED82E6 /* BOZPongRefreshControl.m */; };
-		0A5AB3FB1AB91B0E003DD934 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AB3FA1AB91B0E003DD934 /* MenuViewController.m */; };
-		0A7219F01AD219D400C4F77D /* UIImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A7219EF1AD219D400C4F77D /* UIImageEffects.m */; };
+		0A3687551AEF4384007FCB24 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3687541AEF4384007FCB24 /* IAPHelper.m */; };
 		0A8402D81ABBDB03003494D3 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8402D71ABBDB03003494D3 /* PlaylistViewController.m */; };
 		0A8402DB1ABBDB17003494D3 /* MusicPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8402DA1ABBDB17003494D3 /* MusicPlayerViewController.m */; };
-		0A8402DE1ABBDB2B003494D3 /* ConnectedPeersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8402DD1ABBDB2B003494D3 /* ConnectedPeersViewController.m */; };
+		0AA3EB9D1AEF49EE005A2D53 /* CXCardContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA3EB991AEF49EE005A2D53 /* CXCardContainerView.m */; };
+		0AA3EB9E1AEF49EE005A2D53 /* CXCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA3EB9C1AEF49EE005A2D53 /* CXCardView.m */; };
+		0AA3EBA31AEF4A02005A2D53 /* AMWaveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA3EBA01AEF4A02005A2D53 /* AMWaveTransition.m */; };
+		0AA3EBA41AEF4A02005A2D53 /* AMWaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA3EBA21AEF4A02005A2D53 /* AMWaveViewController.m */; };
+		0AA3EBA71AEF4A10005A2D53 /* BOZPongRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA3EBA61AEF4A10005A2D53 /* BOZPongRefreshControl.m */; };
+		0AA3EBAA1AEF4A26005A2D53 /* UIImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA3EBA91AEF4A26005A2D53 /* UIImageEffects.m */; };
+		0AA3EBAD1AEF4A37005A2D53 /* AMPopTip.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA3EBAC1AEF4A37005A2D53 /* AMPopTip.m */; };
+		0AA3EBB41AEF4B6A005A2D53 /* InformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA3EBAE1AEF4B6A005A2D53 /* InformationView.m */; };
+		0AA3EBB51AEF4B6A005A2D53 /* PeerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AA3EBB01AEF4B6A005A2D53 /* PeerCell.xib */; };
+		0AA3EBB61AEF4B6A005A2D53 /* SongCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AA3EBB11AEF4B6A005A2D53 /* SongCell.xib */; };
+		0AA3EBB71AEF4B6A005A2D53 /* ConnectedPeerCVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA3EBB31AEF4B6A005A2D53 /* ConnectedPeerCVCell.m */; };
 		0AA51FE11AC65E5A00704F54 /* NSMutableArray+QueueMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA51FCA1AC65E5A00704F54 /* NSMutableArray+QueueMethods.m */; };
 		0AA51FE21AC65E5A00704F54 /* TDAudioFileStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA51FCC1AC65E5A00704F54 /* TDAudioFileStream.m */; };
 		0AA51FE31AC65E5A00704F54 /* TDAudioQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA51FCE1AC65E5A00704F54 /* TDAudioQueue.m */; };
@@ -33,11 +36,8 @@
 		0AA51FEB1AC65E5A00704F54 /* TDAudioStreamerConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA51FDE1AC65E5A00704F54 /* TDAudioStreamerConstants.m */; };
 		0AA51FEC1AC65E5A00704F54 /* TDAudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA51FE01AC65E5A00704F54 /* TDAudioStreamer.m */; };
 		0AB5A08B1AD05A7400AA2F46 /* KWMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB5A08A1AD05A7400AA2F46 /* KWMusicPlayer.m */; };
-		0AB5A08F1AD105F300AA2F46 /* AMPopTip.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB5A08E1AD105F300AA2F46 /* AMPopTip.m */; };
 		0AC6CE101AC1C9AF001AE449 /* MPCSessionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC6CE0F1AC1C9AF001AE449 /* MPCSessionData.m */; };
 		0AC6CE131AC45FF5001AE449 /* SongSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC6CE121AC45FF5001AE449 /* SongSelectionViewController.m */; };
-		0ACD19831ABD2ECB007F980F /* SongsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ACD19821ABD2ECB007F980F /* SongsCollectionViewCell.m */; };
-		0ACD19871ABD2FF7007F980F /* SongCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ACD19861ABD2FF7007F980F /* SongCell.xib */; };
 		0ADB3A751AB4DB6400CF0CF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB3A741AB4DB6400CF0CF9 /* main.m */; };
 		0ADB3A781AB4DB6400CF0CF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB3A771AB4DB6400CF0CF9 /* AppDelegate.m */; };
 		0ADB3A7B1AB4DB6400CF0CF9 /* ConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB3A7A1AB4DB6400CF0CF9 /* ConnectionViewController.m */; };
@@ -52,8 +52,6 @@
 		0ADB3B5A1AB4EB1400CF0CF9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADB3B591AB4EB1400CF0CF9 /* CoreGraphics.framework */; };
 		0ADB3B5C1AB4EB1A00CF0CF9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADB3B5B1AB4EB1A00CF0CF9 /* UIKit.framework */; };
 		0ADB3B5E1AB4EB2100CF0CF9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADB3B5D1AB4EB2100CF0CF9 /* Foundation.framework */; };
-		0AE6C2D91AB7C683004E6D44 /* ConnectedPeerCVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE6C2D81AB7C683004E6D44 /* ConnectedPeerCVCell.m */; };
-		0AE6C2DC1AB7D46B004E6D44 /* PeerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE6C2DB1AB7D46B004E6D44 /* PeerCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,29 +67,33 @@
 /* Begin PBXFileReference section */
 		0A00BFD51AB52B9200216487 /* MPCSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPCSession.h; path = "MPC Model/MPCSession.h"; sourceTree = SOURCE_ROOT; };
 		0A00BFD61AB52B9200216487 /* MPCSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPCSession.m; path = "MPC Model/MPCSession.m"; sourceTree = SOURCE_ROOT; };
-		0A2080B71AE1D5290088D53E /* CXCardContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXCardContainerView.h; sourceTree = "<group>"; };
-		0A2080B81AE1D5290088D53E /* CXCardContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXCardContainerView.m; sourceTree = "<group>"; };
-		0A2080B91AE1D5290088D53E /* CXCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXCardView.h; sourceTree = "<group>"; };
-		0A2080BA1AE1D5290088D53E /* CXCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXCardView.m; sourceTree = "<group>"; };
-		0A2812DA1AE7510A004E380B /* InformationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InformationView.h; path = "../Project CloudPlay/InformationView.h"; sourceTree = "<group>"; };
-		0A2812DB1AE7510A004E380B /* InformationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InformationView.m; path = "../Project CloudPlay/InformationView.m"; sourceTree = "<group>"; };
 		0A2812E71AEF3103004E380B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		0A30461C1ACDC2640047BE19 /* AMWaveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWaveTransition.h; sourceTree = "<group>"; };
-		0A30461D1ACDC2640047BE19 /* AMWaveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWaveTransition.m; sourceTree = "<group>"; };
-		0A30461E1ACDC2640047BE19 /* AMWaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWaveViewController.h; sourceTree = "<group>"; };
-		0A30461F1ACDC2640047BE19 /* AMWaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWaveViewController.m; sourceTree = "<group>"; };
-		0A42332A1ACF81E600ED82E6 /* BOZPongRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOZPongRefreshControl.h; sourceTree = "<group>"; };
-		0A42332B1ACF81E600ED82E6 /* BOZPongRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOZPongRefreshControl.m; sourceTree = "<group>"; };
-		0A5AB3F91AB91B0E003DD934 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
-		0A5AB3FA1AB91B0E003DD934 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
-		0A7219EE1AD219D400C4F77D /* UIImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIImageEffects.h; path = ../../../../Downloads/UIImageEffects/UIImageEffects/UIImageEffects.h; sourceTree = "<group>"; };
-		0A7219EF1AD219D400C4F77D /* UIImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIImageEffects.m; path = ../../../../Downloads/UIImageEffects/UIImageEffects/UIImageEffects.m; sourceTree = "<group>"; };
+		0A3687531AEF4384007FCB24 /* IAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPHelper.h; sourceTree = "<group>"; };
+		0A3687541AEF4384007FCB24 /* IAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPHelper.m; sourceTree = "<group>"; };
 		0A8402D61ABBDB03003494D3 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
 		0A8402D71ABBDB03003494D3 /* PlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistViewController.m; sourceTree = "<group>"; };
 		0A8402D91ABBDB17003494D3 /* MusicPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerViewController.h; sourceTree = "<group>"; };
 		0A8402DA1ABBDB17003494D3 /* MusicPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerViewController.m; sourceTree = "<group>"; };
-		0A8402DC1ABBDB2B003494D3 /* ConnectedPeersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectedPeersViewController.h; sourceTree = "<group>"; };
-		0A8402DD1ABBDB2B003494D3 /* ConnectedPeersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectedPeersViewController.m; sourceTree = "<group>"; };
+		0AA3EB991AEF49EE005A2D53 /* CXCardContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXCardContainerView.m; path = "3rd Party/CXCardView/CXCardContainerView.m"; sourceTree = SOURCE_ROOT; };
+		0AA3EB9A1AEF49EE005A2D53 /* CXCardContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXCardContainerView.h; path = "3rd Party/CXCardView/CXCardContainerView.h"; sourceTree = SOURCE_ROOT; };
+		0AA3EB9B1AEF49EE005A2D53 /* CXCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXCardView.h; path = "3rd Party/CXCardView/CXCardView.h"; sourceTree = SOURCE_ROOT; };
+		0AA3EB9C1AEF49EE005A2D53 /* CXCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXCardView.m; path = "3rd Party/CXCardView/CXCardView.m"; sourceTree = SOURCE_ROOT; };
+		0AA3EB9F1AEF4A02005A2D53 /* AMWaveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMWaveTransition.h; path = "3rd Party/AMWaveTransition/AMWaveTransition.h"; sourceTree = SOURCE_ROOT; };
+		0AA3EBA01AEF4A02005A2D53 /* AMWaveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMWaveTransition.m; path = "3rd Party/AMWaveTransition/AMWaveTransition.m"; sourceTree = SOURCE_ROOT; };
+		0AA3EBA11AEF4A02005A2D53 /* AMWaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMWaveViewController.h; path = "3rd Party/AMWaveTransition/AMWaveViewController.h"; sourceTree = SOURCE_ROOT; };
+		0AA3EBA21AEF4A02005A2D53 /* AMWaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMWaveViewController.m; path = "3rd Party/AMWaveTransition/AMWaveViewController.m"; sourceTree = SOURCE_ROOT; };
+		0AA3EBA51AEF4A10005A2D53 /* BOZPongRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BOZPongRefreshControl.h; path = "3rd Party/BOZPongRefreshControl/BOZPongRefreshControl.h"; sourceTree = SOURCE_ROOT; };
+		0AA3EBA61AEF4A10005A2D53 /* BOZPongRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BOZPongRefreshControl.m; path = "3rd Party/BOZPongRefreshControl/BOZPongRefreshControl.m"; sourceTree = SOURCE_ROOT; };
+		0AA3EBA81AEF4A26005A2D53 /* UIImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIImageEffects.h; path = "3rd Party/UIImageEffects/UIImageEffects.h"; sourceTree = SOURCE_ROOT; };
+		0AA3EBA91AEF4A26005A2D53 /* UIImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIImageEffects.m; path = "3rd Party/UIImageEffects/UIImageEffects.m"; sourceTree = SOURCE_ROOT; };
+		0AA3EBAB1AEF4A37005A2D53 /* AMPopTip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMPopTip.h; path = "3rd Party/AMPopTip/AMPopTip.h"; sourceTree = SOURCE_ROOT; };
+		0AA3EBAC1AEF4A37005A2D53 /* AMPopTip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMPopTip.m; path = "3rd Party/AMPopTip/AMPopTip.m"; sourceTree = SOURCE_ROOT; };
+		0AA3EBAE1AEF4B6A005A2D53 /* InformationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InformationView.m; path = Views/InformationView.m; sourceTree = "<group>"; };
+		0AA3EBAF1AEF4B6A005A2D53 /* InformationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InformationView.h; path = Views/InformationView.h; sourceTree = "<group>"; };
+		0AA3EBB01AEF4B6A005A2D53 /* PeerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PeerCell.xib; path = Views/PeerCell.xib; sourceTree = "<group>"; };
+		0AA3EBB11AEF4B6A005A2D53 /* SongCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SongCell.xib; path = Views/SongCell.xib; sourceTree = "<group>"; };
+		0AA3EBB21AEF4B6A005A2D53 /* ConnectedPeerCVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConnectedPeerCVCell.h; path = Views/ConnectedPeerCVCell.h; sourceTree = "<group>"; };
+		0AA3EBB31AEF4B6A005A2D53 /* ConnectedPeerCVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConnectedPeerCVCell.m; path = Views/ConnectedPeerCVCell.m; sourceTree = "<group>"; };
 		0AA51FC91AC65E5A00704F54 /* NSMutableArray+QueueMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+QueueMethods.h"; path = "../../../TDAudioStreamer/TDAudioStreamer/AudioStreamer/Categories/NSMutableArray+QueueMethods.h"; sourceTree = "<group>"; };
 		0AA51FCA1AC65E5A00704F54 /* NSMutableArray+QueueMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+QueueMethods.m"; path = "../../../TDAudioStreamer/TDAudioStreamer/AudioStreamer/Categories/NSMutableArray+QueueMethods.m"; sourceTree = "<group>"; };
 		0AA51FCB1AC65E5A00704F54 /* TDAudioFileStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDAudioFileStream.h; path = ../../../TDAudioStreamer/TDAudioStreamer/AudioStreamer/Classes/TDAudioFileStream.h; sourceTree = "<group>"; };
@@ -118,15 +120,10 @@
 		0AA51FE01AC65E5A00704F54 /* TDAudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDAudioStreamer.m; path = ../../../TDAudioStreamer/TDAudioStreamer/AudioStreamer/TDAudioStreamer.m; sourceTree = "<group>"; };
 		0AB5A0891AD05A7400AA2F46 /* KWMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KWMusicPlayer.h; path = ../../../TDAudioStreamer/TDAudioStreamer/AudioStreamer/Classes/KWMusicPlayer.h; sourceTree = "<group>"; };
 		0AB5A08A1AD05A7400AA2F46 /* KWMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KWMusicPlayer.m; path = ../../../TDAudioStreamer/TDAudioStreamer/AudioStreamer/Classes/KWMusicPlayer.m; sourceTree = "<group>"; };
-		0AB5A08D1AD105F300AA2F46 /* AMPopTip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMPopTip.h; sourceTree = "<group>"; };
-		0AB5A08E1AD105F300AA2F46 /* AMPopTip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMPopTip.m; sourceTree = "<group>"; };
 		0AC6CE0E1AC1C9AF001AE449 /* MPCSessionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCSessionData.h; sourceTree = "<group>"; };
 		0AC6CE0F1AC1C9AF001AE449 /* MPCSessionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCSessionData.m; sourceTree = "<group>"; };
 		0AC6CE111AC45FF5001AE449 /* SongSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongSelectionViewController.h; sourceTree = "<group>"; };
 		0AC6CE121AC45FF5001AE449 /* SongSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongSelectionViewController.m; sourceTree = "<group>"; };
-		0ACD19811ABD2ECB007F980F /* SongsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongsCollectionViewCell.h; sourceTree = "<group>"; };
-		0ACD19821ABD2ECB007F980F /* SongsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongsCollectionViewCell.m; sourceTree = "<group>"; };
-		0ACD19861ABD2FF7007F980F /* SongCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SongCell.xib; path = ../SongCell.xib; sourceTree = "<group>"; };
 		0ADB3A6F1AB4DB6400CF0CF9 /* Project CloudPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project CloudPlay.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADB3A731AB4DB6400CF0CF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0ADB3A741AB4DB6400CF0CF9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -147,9 +144,6 @@
 		0ADB3B591AB4EB1400CF0CF9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		0ADB3B5B1AB4EB1A00CF0CF9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0ADB3B5D1AB4EB2100CF0CF9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		0AE6C2D71AB7C683004E6D44 /* ConnectedPeerCVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectedPeerCVCell.h; sourceTree = "<group>"; };
-		0AE6C2D81AB7C683004E6D44 /* ConnectedPeerCVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectedPeerCVCell.m; sourceTree = "<group>"; };
-		0AE6C2DB1AB7D46B004E6D44 /* PeerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PeerCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,15 +175,13 @@
 		0A2080B61AE1D5290088D53E /* CXCardView */ = {
 			isa = PBXGroup;
 			children = (
-				0A2080B71AE1D5290088D53E /* CXCardContainerView.h */,
-				0A2080B81AE1D5290088D53E /* CXCardContainerView.m */,
-				0A2080B91AE1D5290088D53E /* CXCardView.h */,
-				0A2080BA1AE1D5290088D53E /* CXCardView.m */,
-				0A2812DA1AE7510A004E380B /* InformationView.h */,
-				0A2812DB1AE7510A004E380B /* InformationView.m */,
+				0AA3EB991AEF49EE005A2D53 /* CXCardContainerView.m */,
+				0AA3EB9A1AEF49EE005A2D53 /* CXCardContainerView.h */,
+				0AA3EB9B1AEF49EE005A2D53 /* CXCardView.h */,
+				0AA3EB9C1AEF49EE005A2D53 /* CXCardView.m */,
 			);
 			name = CXCardView;
-			path = ../../CXCardView;
+			path = "../3rd Party/CXCardView/CXCardView";
 			sourceTree = "<group>";
 		};
 		0A2812E91AEF31DF004E380B /* 3rd Party */ = {
@@ -208,29 +200,28 @@
 		0A30461B1ACDC2640047BE19 /* AMWaveTransition */ = {
 			isa = PBXGroup;
 			children = (
-				0A30461C1ACDC2640047BE19 /* AMWaveTransition.h */,
-				0A30461D1ACDC2640047BE19 /* AMWaveTransition.m */,
-				0A30461E1ACDC2640047BE19 /* AMWaveViewController.h */,
-				0A30461F1ACDC2640047BE19 /* AMWaveViewController.m */,
+				0AA3EB9F1AEF4A02005A2D53 /* AMWaveTransition.h */,
+				0AA3EBA01AEF4A02005A2D53 /* AMWaveTransition.m */,
+				0AA3EBA11AEF4A02005A2D53 /* AMWaveViewController.h */,
+				0AA3EBA21AEF4A02005A2D53 /* AMWaveViewController.m */,
 			);
 			name = AMWaveTransition;
-			path = ../../../AMWaveTransition/AMWaveTransition;
+			path = "../3rd Party/AMWaveTransition/AMWaveTransition";
 			sourceTree = "<group>";
 		};
 		0A4233291ACF81E600ED82E6 /* BOZPongRefreshControl */ = {
 			isa = PBXGroup;
 			children = (
-				0A42332A1ACF81E600ED82E6 /* BOZPongRefreshControl.h */,
-				0A42332B1ACF81E600ED82E6 /* BOZPongRefreshControl.m */,
+				0AA3EBA51AEF4A10005A2D53 /* BOZPongRefreshControl.h */,
+				0AA3EBA61AEF4A10005A2D53 /* BOZPongRefreshControl.m */,
 			);
 			name = BOZPongRefreshControl;
-			path = ../../../BOZPongRefreshControl/BOZPongRefreshControl;
+			path = "../3rd Party/BOZPongRefreshControl/BOZPongRefreshControl";
 			sourceTree = "<group>";
 		};
 		0A5AB3FC1AB91B23003DD934 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0AC6CE161AC4BBA8001AE449 /* Old Controllers */,
 				0ADB3A791AB4DB6400CF0CF9 /* ConnectionViewController.h */,
 				0ADB3A7A1AB4DB6400CF0CF9 /* ConnectionViewController.m */,
 				0AC6CE111AC45FF5001AE449 /* SongSelectionViewController.h */,
@@ -246,8 +237,11 @@
 		0A5AB4011AB93022003DD934 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0ADB3B611AB4ECB900CF0CF9 /* MPC Model */,
 				0AB5A0891AD05A7400AA2F46 /* KWMusicPlayer.h */,
 				0AB5A08A1AD05A7400AA2F46 /* KWMusicPlayer.m */,
+				0A3687531AEF4384007FCB24 /* IAPHelper.h */,
+				0A3687541AEF4384007FCB24 /* IAPHelper.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -255,10 +249,11 @@
 		0A7219F21AD219E000C4F77D /* UIImageEffects */ = {
 			isa = PBXGroup;
 			children = (
-				0A7219EE1AD219D400C4F77D /* UIImageEffects.h */,
-				0A7219EF1AD219D400C4F77D /* UIImageEffects.m */,
+				0AA3EBA81AEF4A26005A2D53 /* UIImageEffects.h */,
+				0AA3EBA91AEF4A26005A2D53 /* UIImageEffects.m */,
 			);
 			name = UIImageEffects;
+			path = "../3rd Party/UIImageEffects/UIImageEffects";
 			sourceTree = "<group>";
 		};
 		0AA51FC81AC65E1600704F54 /* TDAS Library */ = {
@@ -295,22 +290,11 @@
 		0AB5A08C1AD105F300AA2F46 /* AMPopTip */ = {
 			isa = PBXGroup;
 			children = (
-				0AB5A08D1AD105F300AA2F46 /* AMPopTip.h */,
-				0AB5A08E1AD105F300AA2F46 /* AMPopTip.m */,
+				0AA3EBAB1AEF4A37005A2D53 /* AMPopTip.h */,
+				0AA3EBAC1AEF4A37005A2D53 /* AMPopTip.m */,
 			);
 			name = AMPopTip;
-			path = ../../../AMPopTip/AMPopTip;
-			sourceTree = "<group>";
-		};
-		0AC6CE161AC4BBA8001AE449 /* Old Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				0A5AB3F91AB91B0E003DD934 /* MenuViewController.h */,
-				0A5AB3FA1AB91B0E003DD934 /* MenuViewController.m */,
-				0A8402DC1ABBDB2B003494D3 /* ConnectedPeersViewController.h */,
-				0A8402DD1ABBDB2B003494D3 /* ConnectedPeersViewController.m */,
-			);
-			name = "Old Controllers";
+			path = "../3rd Party/AMPopTip/AMPopTip";
 			sourceTree = "<group>";
 		};
 		0ADB3A661AB4DB6400CF0CF9 = {
@@ -337,7 +321,6 @@
 			children = (
 				0A2812E91AEF31DF004E380B /* 3rd Party */,
 				0AE6C2DA1AB7C68C004E6D44 /* Views */,
-				0ADB3B611AB4ECB900CF0CF9 /* MPC Model */,
 				0ADB3A761AB4DB6400CF0CF9 /* AppDelegate.h */,
 				0ADB3A771AB4DB6400CF0CF9 /* AppDelegate.m */,
 				0A5AB4011AB93022003DD934 /* Models */,
@@ -406,12 +389,12 @@
 		0AE6C2DA1AB7C68C004E6D44 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0AE6C2D71AB7C683004E6D44 /* ConnectedPeerCVCell.h */,
-				0AE6C2D81AB7C683004E6D44 /* ConnectedPeerCVCell.m */,
-				0ACD19811ABD2ECB007F980F /* SongsCollectionViewCell.h */,
-				0ACD19821ABD2ECB007F980F /* SongsCollectionViewCell.m */,
-				0ACD19861ABD2FF7007F980F /* SongCell.xib */,
-				0AE6C2DB1AB7D46B004E6D44 /* PeerCell.xib */,
+				0AA3EBAE1AEF4B6A005A2D53 /* InformationView.m */,
+				0AA3EBAF1AEF4B6A005A2D53 /* InformationView.h */,
+				0AA3EBB01AEF4B6A005A2D53 /* PeerCell.xib */,
+				0AA3EBB11AEF4B6A005A2D53 /* SongCell.xib */,
+				0AA3EBB21AEF4B6A005A2D53 /* ConnectedPeerCVCell.h */,
+				0AA3EBB31AEF4B6A005A2D53 /* ConnectedPeerCVCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -460,7 +443,7 @@
 		0ADB3A671AB4DB6400CF0CF9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Kevin Wang";
 				TargetAttributes = {
 					0ADB3A6E1AB4DB6400CF0CF9 = {
@@ -498,8 +481,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0ADB3A7E1AB4DB6400CF0CF9 /* Main.storyboard in Resources */,
-				0ACD19871ABD2FF7007F980F /* SongCell.xib in Resources */,
-				0AE6C2DC1AB7D46B004E6D44 /* PeerCell.xib in Resources */,
+				0AA3EBB61AEF4B6A005A2D53 /* SongCell.xib in Resources */,
+				0AA3EBB51AEF4B6A005A2D53 /* PeerCell.xib in Resources */,
 				0ADB3A831AB4DB6400CF0CF9 /* LaunchScreen.xib in Resources */,
 				0ADB3A801AB4DB6400CF0CF9 /* Images.xcassets in Resources */,
 			);
@@ -519,39 +502,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A5AB3FB1AB91B0E003DD934 /* MenuViewController.m in Sources */,
 				0AA51FE81AC65E5A00704F54 /* TDAudioStream.m in Sources */,
 				0AA51FE21AC65E5A00704F54 /* TDAudioFileStream.m in Sources */,
-				0A2080BB1AE1D5290088D53E /* CXCardContainerView.m in Sources */,
 				0AA51FEC1AC65E5A00704F54 /* TDAudioStreamer.m in Sources */,
 				0ADB3A7B1AB4DB6400CF0CF9 /* ConnectionViewController.m in Sources */,
-				0A2812DC1AE7510A004E380B /* InformationView.m in Sources */,
-				0AE6C2D91AB7C683004E6D44 /* ConnectedPeerCVCell.m in Sources */,
+				0AA3EBA41AEF4A02005A2D53 /* AMWaveViewController.m in Sources */,
+				0AA3EB9D1AEF49EE005A2D53 /* CXCardContainerView.m in Sources */,
+				0A3687551AEF4384007FCB24 /* IAPHelper.m in Sources */,
 				0ADB3A781AB4DB6400CF0CF9 /* AppDelegate.m in Sources */,
+				0AA3EBA31AEF4A02005A2D53 /* AMWaveTransition.m in Sources */,
 				0A8402D81ABBDB03003494D3 /* PlaylistViewController.m in Sources */,
-				0A7219F01AD219D400C4F77D /* UIImageEffects.m in Sources */,
 				0AC6CE131AC45FF5001AE449 /* SongSelectionViewController.m in Sources */,
 				0AC6CE101AC1C9AF001AE449 /* MPCSessionData.m in Sources */,
-				0A2080BC1AE1D5290088D53E /* CXCardView.m in Sources */,
 				0A00BFD71AB52B9200216487 /* MPCSession.m in Sources */,
+				0AA3EB9E1AEF49EE005A2D53 /* CXCardView.m in Sources */,
+				0AA3EBB71AEF4B6A005A2D53 /* ConnectedPeerCVCell.m in Sources */,
+				0AA3EBAD1AEF4A37005A2D53 /* AMPopTip.m in Sources */,
 				0AA51FE11AC65E5A00704F54 /* NSMutableArray+QueueMethods.m in Sources */,
-				0ACD19831ABD2ECB007F980F /* SongsCollectionViewCell.m in Sources */,
+				0AA3EBAA1AEF4A26005A2D53 /* UIImageEffects.m in Sources */,
 				0AA51FEA1AC65E5A00704F54 /* TDAudioOutputStreamer.m in Sources */,
 				0AA51FE61AC65E5A00704F54 /* TDAudioQueueController.m in Sources */,
 				0AA51FE41AC65E5A00704F54 /* TDAudioQueueBuffer.m in Sources */,
-				0A42332C1ACF81E600ED82E6 /* BOZPongRefreshControl.m in Sources */,
 				0A8402DB1ABBDB17003494D3 /* MusicPlayerViewController.m in Sources */,
 				0AA51FE31AC65E5A00704F54 /* TDAudioQueue.m in Sources */,
 				0ADB3A751AB4DB6400CF0CF9 /* main.m in Sources */,
 				0AA51FE71AC65E5A00704F54 /* TDAudioQueueFiller.m in Sources */,
-				0AB5A08F1AD105F300AA2F46 /* AMPopTip.m in Sources */,
-				0A3046201ACDC2640047BE19 /* AMWaveTransition.m in Sources */,
 				0AB5A08B1AD05A7400AA2F46 /* KWMusicPlayer.m in Sources */,
+				0AA3EBA71AEF4A10005A2D53 /* BOZPongRefreshControl.m in Sources */,
 				0AA51FEB1AC65E5A00704F54 /* TDAudioStreamerConstants.m in Sources */,
-				0A8402DE1ABBDB2B003494D3 /* ConnectedPeersViewController.m in Sources */,
+				0AA3EBB41AEF4B6A005A2D53 /* InformationView.m in Sources */,
 				0AA51FE51AC65E5A00704F54 /* TDAudioQueueBufferManager.m in Sources */,
 				0AA51FE91AC65E5A00704F54 /* TDAudioInputStreamer.m in Sources */,
-				0A3046211ACDC2640047BE19 /* AMWaveViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,7 +608,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -662,7 +643,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -682,7 +663,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SDKROOT = iphoneos8.2;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -699,7 +680,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SDKROOT = iphoneos8.2;
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};

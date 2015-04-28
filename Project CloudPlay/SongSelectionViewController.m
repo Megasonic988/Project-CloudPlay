@@ -42,8 +42,6 @@
     // Do any additional setup after loading the view.
     self.session.delegate = self;
     [self.view setBackgroundColor:[UIColor colorWithRed:197/247.0 green:239/247.0 blue:247/247.0 alpha:1.000]];
-
-    
     [self setupPopTip];
 }
 
@@ -127,7 +125,6 @@
     [self.sessionData storeSongDataFromSongs:mediaItemCollection.items withMyPeerID:self.session.peerID];
     [self shareSongData];
     self.sessionData.currentPlayingSong = [mediaItemCollection.items firstObject];
-    
     [self setHasChosen:YES];
     self.randomSongsButton.enabled = NO;
     self.chooseSongsButton.enabled = NO;
@@ -148,12 +145,28 @@
 #pragma mark - MPCSessionDelegate Methods
 - (void)session:(MPCSession *)session didStartConnectingtoPeer:(MCPeerID *)peer{}
 - (void)session:(MPCSession *)session didFinishConnetingtoPeer:(MCPeerID *)peer{}
-- (void)session:(MPCSession *)session didDisconnectFromPeer:(MCPeerID *)peer{}
-- (void)session:(MPCSession *)session lostConnectionToPeer:(MCPeerID *)peer{}
+- (void)session:(MPCSession *)session didDisconnectFromPeer:(MCPeerID *)peer{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"disconnected, peers left:%@", self.session.connectedPeers);
+        if ([self.session.connectedPeers count] == 0) {
+            NSLog(@"no peers left");
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+    });
+}
+- (void)session:(MPCSession *)session lostConnectionToPeer:(MCPeerID *)peer{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"disconnected, peers left:%@", self.session.connectedPeers);
+        if ([self.session.connectedPeers count] == 0) {
+            NSLog(@"no peers left");
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+    });
+}
 - (void)session:(MPCSession *)session didReceiveData:(NSData *)data //
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        
+        //sometimes a weird glitch occurs where errors in the data will cause the NSDictionary to raise an exception and cause crashing. This try/catch statement tries to prevent that.
         @try {
             id message = [NSKeyedUnarchiver unarchiveObjectWithData:data];
             NSLog(@"received data: %@", message);
@@ -184,6 +197,8 @@
         }
     });}
 
+#pragma mark - Song Choosing Methods
+
 - (IBAction)randomSongsButton:(id)sender {
     MPMediaQuery *songsQuery = [MPMediaQuery songsQuery];
     NSArray *allSongs = [songsQuery items];
@@ -195,7 +210,6 @@
         [selectedSongs addObject:[allSongs objectAtIndex:randomNum]];
     }
     [self.sessionData storeSongDataFromSongs:selectedSongs withMyPeerID:self.session.peerID];
-    
     [self shareSongData];
     [self setHasChosen:YES];
     self.randomSongsButton.enabled = NO;
@@ -224,7 +238,6 @@
 
 - (IBAction)skipButton:(id)sender {
     [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[NSMutableArray array]]];
-    
     [self setHasChosen:YES];
     self.randomSongsButton.enabled = NO;
     self.chooseSongsButton.enabled = NO;
@@ -236,13 +249,7 @@
     }
 }
 
-- (void)showMusicHasBeenChosenPopTip
-{
-    [self.timer invalidate];
-
-    self.popTip.popoverColor = [UIColor colorWithRed:231/255.0 green:76/255.0 blue:60/255.0 alpha:1];
-    [self.popTip showText:@"Thanks for choosing. Waiting on others..." direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:self.yellowPopTipButton.frame];
-}
+#pragma mark - Segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -261,13 +268,15 @@
     }
 }
 
+
+#pragma mark - PopTip
+
 - (IBAction)popTipButton:(UIButton *)sender {
     [self.popTip hide];
     [self.timer invalidate];
     if ([self.popTip isVisible]) {
         return;
     }
-    
     if (sender == self.yellowPopTipButton) {
         static int presses = 0;
         if (presses == 0) {
@@ -279,6 +288,13 @@
         }
         presses = (presses + 1) % 2;
     }
+}
+
+- (void)showMusicHasBeenChosenPopTip
+{
+    [self.timer invalidate]; //stops the automatic poptip from continuing to show
+    self.popTip.popoverColor = [UIColor colorWithRed:231/255.0 green:76/255.0 blue:60/255.0 alpha:1];
+    [self.popTip showText:@"Thanks for choosing. Waiting on others..." direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:self.yellowPopTipButton.frame];
 }
 
 @end

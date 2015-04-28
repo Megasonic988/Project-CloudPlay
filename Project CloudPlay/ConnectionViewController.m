@@ -45,22 +45,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    UINib *cellNib = [UINib nibWithNibName:@"PeerCell" bundle:nil];
-    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"peerCell"];
-    
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    [flowLayout setItemSize:CGSizeMake(self.view.bounds.size.width, 50)];
-    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    self.collectionView.alwaysBounceVertical = YES;
-    [flowLayout setMinimumInteritemSpacing:20];
-    
-    [self.collectionView setCollectionViewLayout:flowLayout];
-    
+    [self setupCollectionView];
     [self.navigationController.view setBackgroundColor:[UIColor colorWithRed:197/247.0 green:239/247.0 blue:247/247.0 alpha:1.000]];
-    
     [self.view setBackgroundColor:[UIColor clearColor]];
     
+// this code refreshed on startup by animating a drag
 //    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
 //        self.collectionView.contentOffset = CGPointMake(0, -70);
 //    } completion:^(BOOL finished){
@@ -72,10 +61,21 @@
     [self setupPopTip];
 }
 
+- (void)setupCollectionView
+{
+    UINib *cellNib = [UINib nibWithNibName:@"PeerCell" bundle:nil];
+    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"peerCell"];
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    [flowLayout setItemSize:CGSizeMake(self.view.bounds.size.width, 50)];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+    self.collectionView.alwaysBounceVertical = YES;
+    [flowLayout setMinimumInteritemSpacing:20];
+    [self.collectionView setCollectionViewLayout:flowLayout];
+}
+
 - (void)setupPopTip
 {
     [[AMPopTip appearance] setFont:[UIFont fontWithName:@"Avenir-Medium" size:15]];
-    
     self.popTip = [AMPopTip popTip];
     self.popTip.shouldDismissOnTap = YES;
     self.popTip.edgeMargin = 5;
@@ -101,7 +101,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    NSLog(@"view will appeaR");
+    
+    // this code starts an MPC session that is passed on to each new view controller
     self.session = nil;
     self.session = [[MPCSession alloc] initWithPeerDisplayName:[UIDevice currentDevice].name];
     self.session.delegate = self;
@@ -109,8 +110,8 @@
     [self.session startBrowsing];
     [self setupStartButton];
     [self updatePlayers];
+    //
     
-    // Do any additional setup after loading the view, typically from a nib.
     [self setupStartButton];
     
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
@@ -142,6 +143,7 @@
 
 - (void)refreshTriggered
 {
+    // a refresh ends the current session and restarts a new one
     dispatch_queue_t myQueue = dispatch_queue_create("My Queue", NULL);
     dispatch_async(myQueue, ^{
         [self.session stopAdvertising];
@@ -155,7 +157,6 @@
     }
                    );
     [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(stopRefreshing) userInfo:nil repeats:NO];
-   
 }
 
 - (void)stopRefreshing
@@ -163,12 +164,10 @@
     [self.refreshControl finishedLoading];
 }
 
-
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
-    
+    //connection broadcasting ends when this view is off screen
     [self.session stopAdvertising];
     [self.session stopBrowsing];
     
@@ -192,13 +191,14 @@
 }
 
 - (void)startButton:(id)sender
-{
+{   //starting on one device also causes all other devices to start
     [self sendStartMessage];
 }
 
-#pragma mark - MPCSessionDelegate
+#pragma mark - MPCSessionDelegate Methods
 - (void)session:(MPCSession *)session didReceiveAudioStream:(NSInputStream *)stream{}
 
+//UI update is called whenever connection status is changed
 - (void)session:(MPCSession *)session didStartConnectingtoPeer:(MCPeerID *)peer{
     [self updatePlayers];
 }
@@ -208,6 +208,7 @@
 - (void)session:(MPCSession *)session didDisconnectFromPeer:(MCPeerID *)peer{
     [self updatePlayers];
 }
+
 
 - (void)session:(MPCSession *)session didReceiveData:(NSData *)data
 {
@@ -244,7 +245,7 @@
     [self updatePlayers];
 }
 
-#pragma mark - UICollectionView DataSource
+#pragma mark - UICollectionView DataSource Methods
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -259,13 +260,10 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *cellIdentifier = @"peerCell";
-    
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:100];
     [titleLabel setText:[self.session.connectedPeers[indexPath.row] displayName]];
     [titleLabel setFont:[UIFont fontWithName:@"GillSans-Light" size:28]];
-    
     return cell;
     
 }
@@ -279,32 +277,18 @@
     }
 }
 
-
-- (IBAction)restartConnectionButton:(id)sender {
-    [self.session stopAdvertising];
-    [self.session stopBrowsing];
-    self.session = nil;
-    self.session = [[MPCSession alloc] initWithPeerDisplayName:[UIDevice currentDevice].name];
-    self.session.delegate = self;
-    [self.session startAdvertising];
-    [self.session startBrowsing];
-    [self.session setIsLeader:YES];
-}
-
 - (IBAction)popTipButton:(UIButton *)sender {
     [self.popTip hide];
     [self stopRefreshing];
     if ([self.popTip isVisible]) {
         return;
     }
-    
-//    if (sender == self.redPopTipButton) {
-        self.popTip.popoverColor = [UIColor colorWithRed:0.31 green:0.57 blue:0.87 alpha:1];
-        static int direction = 0;
-        [self.popTip showText:@"Welcome to Cloudplay! Pull down to refresh connections." direction:direction maxWidth:200 inView:self.view fromFrame:sender.frame duration:0];
-        direction = (direction + 1) % 4;
-//    }
+    self.popTip.popoverColor = [UIColor colorWithRed:0.31 green:0.57 blue:0.87 alpha:1];
+    static int direction = 0;
+    [self.popTip showText:@"Welcome to Cloudplay! Pull down to refresh connections." direction:direction maxWidth:200 inView:self.view fromFrame:sender.frame duration:0];
+    direction = (direction + 1) % 4;
 }
+
 - (IBAction)infoButton:(UIButton *)sender {
     [self showInfoContentView];
 }
@@ -330,7 +314,6 @@
             [CXCardView dismissCurrent];
         }];
     }
-    
     [CXCardView showWithView:_infoView draggable:YES];
 }
 @end

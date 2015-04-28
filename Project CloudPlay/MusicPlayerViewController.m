@@ -24,7 +24,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     [self.artistLabel setText:[self.currentSong valueForKey:@"Artist"]];
     [self.songTitleLabel setText:[self.currentSong valueForKey:@"Song Title"]];
@@ -115,6 +114,9 @@
 }
 */
 
+
+#pragma mark - Playback Controls
+
 - (IBAction)playPauseTouched:(id)sender {
     UIButton *button = (UIButton *)sender;
     if ([[button currentImage] isEqual:[UIImage imageNamed:@"pause.png"]]) {
@@ -140,7 +142,6 @@
     }
 }
 
-- (IBAction)forwardButton:(id)sender {
-}
+//TODO: implement fastforward, reverse
 
 @end
