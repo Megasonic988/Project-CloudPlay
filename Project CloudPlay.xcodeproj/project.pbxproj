@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0A00BFD71AB52B9200216487 /* MPCSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A00BFD61AB52B9200216487 /* MPCSession.m */; };
+		0A2080BB1AE1D5290088D53E /* CXCardContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A2080B81AE1D5290088D53E /* CXCardContainerView.m */; };
+		0A2080BC1AE1D5290088D53E /* CXCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A2080BA1AE1D5290088D53E /* CXCardView.m */; };
+		0A2812DC1AE7510A004E380B /* InformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A2812DB1AE7510A004E380B /* InformationView.m */; };
+		0A2812E81AEF3103004E380B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A2812E71AEF3103004E380B /* StoreKit.framework */; };
 		0A3046201ACDC2640047BE19 /* AMWaveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A30461D1ACDC2640047BE19 /* AMWaveTransition.m */; };
 		0A3046211ACDC2640047BE19 /* AMWaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A30461F1ACDC2640047BE19 /* AMWaveViewController.m */; };
 		0A42332C1ACF81E600ED82E6 /* BOZPongRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A42332B1ACF81E600ED82E6 /* BOZPongRefreshControl.m */; };
@@ -65,6 +69,13 @@
 /* Begin PBXFileReference section */
 		0A00BFD51AB52B9200216487 /* MPCSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPCSession.h; path = "MPC Model/MPCSession.h"; sourceTree = SOURCE_ROOT; };
 		0A00BFD61AB52B9200216487 /* MPCSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPCSession.m; path = "MPC Model/MPCSession.m"; sourceTree = SOURCE_ROOT; };
+		0A2080B71AE1D5290088D53E /* CXCardContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXCardContainerView.h; sourceTree = "<group>"; };
+		0A2080B81AE1D5290088D53E /* CXCardContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXCardContainerView.m; sourceTree = "<group>"; };
+		0A2080B91AE1D5290088D53E /* CXCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXCardView.h; sourceTree = "<group>"; };
+		0A2080BA1AE1D5290088D53E /* CXCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXCardView.m; sourceTree = "<group>"; };
+		0A2812DA1AE7510A004E380B /* InformationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InformationView.h; path = "../Project CloudPlay/InformationView.h"; sourceTree = "<group>"; };
+		0A2812DB1AE7510A004E380B /* InformationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InformationView.m; path = "../Project CloudPlay/InformationView.m"; sourceTree = "<group>"; };
+		0A2812E71AEF3103004E380B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		0A30461C1ACDC2640047BE19 /* AMWaveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWaveTransition.h; sourceTree = "<group>"; };
 		0A30461D1ACDC2640047BE19 /* AMWaveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWaveTransition.m; sourceTree = "<group>"; };
 		0A30461E1ACDC2640047BE19 /* AMWaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWaveViewController.h; sourceTree = "<group>"; };
@@ -146,6 +157,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A2812E81AEF3103004E380B /* StoreKit.framework in Frameworks */,
 				0ADB3B5E1AB4EB2100CF0CF9 /* Foundation.framework in Frameworks */,
 				0ADB3B5C1AB4EB1A00CF0CF9 /* UIKit.framework in Frameworks */,
 				0ADB3B5A1AB4EB1400CF0CF9 /* CoreGraphics.framework in Frameworks */,
@@ -166,6 +178,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A2080B61AE1D5290088D53E /* CXCardView */ = {
+			isa = PBXGroup;
+			children = (
+				0A2080B71AE1D5290088D53E /* CXCardContainerView.h */,
+				0A2080B81AE1D5290088D53E /* CXCardContainerView.m */,
+				0A2080B91AE1D5290088D53E /* CXCardView.h */,
+				0A2080BA1AE1D5290088D53E /* CXCardView.m */,
+				0A2812DA1AE7510A004E380B /* InformationView.h */,
+				0A2812DB1AE7510A004E380B /* InformationView.m */,
+			);
+			name = CXCardView;
+			path = ../../CXCardView;
+			sourceTree = "<group>";
+		};
+		0A2812E91AEF31DF004E380B /* 3rd Party */ = {
+			isa = PBXGroup;
+			children = (
+				0A2080B61AE1D5290088D53E /* CXCardView */,
+				0A7219F21AD219E000C4F77D /* UIImageEffects */,
+				0AB5A08C1AD105F300AA2F46 /* AMPopTip */,
+				0A30461B1ACDC2640047BE19 /* AMWaveTransition */,
+				0A4233291ACF81E600ED82E6 /* BOZPongRefreshControl */,
+				0AA51FC81AC65E1600704F54 /* TDAS Library */,
+			);
+			name = "3rd Party";
+			sourceTree = "<group>";
+		};
 		0A30461B1ACDC2640047BE19 /* AMWaveTransition */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,11 +335,7 @@
 		0ADB3A711AB4DB6400CF0CF9 /* Project CloudPlay */ = {
 			isa = PBXGroup;
 			children = (
-				0A7219F21AD219E000C4F77D /* UIImageEffects */,
-				0AB5A08C1AD105F300AA2F46 /* AMPopTip */,
-				0A30461B1ACDC2640047BE19 /* AMWaveTransition */,
-				0A4233291ACF81E600ED82E6 /* BOZPongRefreshControl */,
-				0AA51FC81AC65E1600704F54 /* TDAS Library */,
+				0A2812E91AEF31DF004E380B /* 3rd Party */,
 				0AE6C2DA1AB7C68C004E6D44 /* Views */,
 				0ADB3B611AB4ECB900CF0CF9 /* MPC Model */,
 				0ADB3A761AB4DB6400CF0CF9 /* AppDelegate.h */,
@@ -344,6 +379,7 @@
 		0ADB3B5F1AB4EB6D00CF0CF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0A2812E71AEF3103004E380B /* StoreKit.framework */,
 				0ADB3B5D1AB4EB2100CF0CF9 /* Foundation.framework */,
 				0ADB3B5B1AB4EB1A00CF0CF9 /* UIKit.framework */,
 				0ADB3B591AB4EB1400CF0CF9 /* CoreGraphics.framework */,
@@ -429,6 +465,7 @@
 				TargetAttributes = {
 					0ADB3A6E1AB4DB6400CF0CF9 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = BMRR84DU62;
 					};
 					0ADB3A871AB4DB6400CF0CF9 = {
 						CreatedOnToolsVersion = 6.2;
@@ -485,14 +522,17 @@
 				0A5AB3FB1AB91B0E003DD934 /* MenuViewController.m in Sources */,
 				0AA51FE81AC65E5A00704F54 /* TDAudioStream.m in Sources */,
 				0AA51FE21AC65E5A00704F54 /* TDAudioFileStream.m in Sources */,
+				0A2080BB1AE1D5290088D53E /* CXCardContainerView.m in Sources */,
 				0AA51FEC1AC65E5A00704F54 /* TDAudioStreamer.m in Sources */,
 				0ADB3A7B1AB4DB6400CF0CF9 /* ConnectionViewController.m in Sources */,
+				0A2812DC1AE7510A004E380B /* InformationView.m in Sources */,
 				0AE6C2D91AB7C683004E6D44 /* ConnectedPeerCVCell.m in Sources */,
 				0ADB3A781AB4DB6400CF0CF9 /* AppDelegate.m in Sources */,
 				0A8402D81ABBDB03003494D3 /* PlaylistViewController.m in Sources */,
 				0A7219F01AD219D400C4F77D /* UIImageEffects.m in Sources */,
 				0AC6CE131AC45FF5001AE449 /* SongSelectionViewController.m in Sources */,
 				0AC6CE101AC1C9AF001AE449 /* MPCSessionData.m in Sources */,
+				0A2080BC1AE1D5290088D53E /* CXCardView.m in Sources */,
 				0A00BFD71AB52B9200216487 /* MPCSession.m in Sources */,
 				0AA51FE11AC65E5A00704F54 /* NSMutableArray+QueueMethods.m in Sources */,
 				0ACD19831ABD2ECB007F980F /* SongsCollectionViewCell.m in Sources */,
@@ -633,12 +673,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = "Project CloudPlay/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos8.2;
 			};
 			name = Debug;
@@ -647,12 +690,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = "Project CloudPlay/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos8.2;
 			};
 			name = Release;

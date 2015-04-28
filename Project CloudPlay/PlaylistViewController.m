@@ -11,15 +11,23 @@
 #import "MusicPlayerViewController.h"
 @import AVFoundation;
 #import "TDAudioStreamer.h"
+#import "AMWaveTransition.h"
+@import QuartzCore;
+#import "InformationView.h"
+#import "CXCardView.h"
 
 
-@interface PlaylistViewController () <MPCSessionDelegate, UINavigationControllerDelegate>
+
+@interface PlaylistViewController () <MPCSessionDelegate, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate>
+
 @property (weak, nonatomic) IBOutlet UILabel *leaderLabel;
 
 - (IBAction)logoutButton:(id)sender;
+@property (weak, nonatomic) IBOutlet UITableView *songsTableView;
+@property (weak, nonatomic) IBOutlet UIView *leaderInfoView;
 
-@property (strong, nonatomic) IBOutlet UICollectionView *songsCollectionView;
-- (IBAction)returnButton:(id)sender;
+//@property (strong, nonatomic) IBOutlet UICollectionView *songsCollectionView;
+//- (IBAction)returnButton:(id)sender;
 
 @property (strong, nonatomic) NSDictionary *currentSong;
 @property (strong, nonatomic) TDAudioInputStreamer *inputStream;
@@ -29,27 +37,36 @@
 @property (assign, nonatomic) int numberOfPeersWhoHaveStoppedPlayback;
 @property (assign, nonatomic) BOOL allPeersHaveStoppedPlayback;
 
+@property (strong, nonatomic) InformationView *infoView;
+@property (strong, nonatomic) InformationView *exitInfoView;
+@property (weak, nonatomic) IBOutlet UIButton *nowPlayingButton;
+
+
 @end
 
 @implementation PlaylistViewController
 
-//- (NSArray*)visibleCells
-//{
-//    NSMutableArray *cells = [@[] mutableCopy];
-//    [cells addObjectsFromArray:[self.songsCollectionView visibleCells]];
-//    
-//    return cells;
-//}
+- (NSArray*)visibleCells
+{
+    NSMutableArray *cells = [@[] mutableCopy];
+    [cells addObjectsFromArray:[self.songsTableView visibleCells]];
+    return cells;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.songsCollectionView registerClass:[SongsCollectionViewCell class] forCellWithReuseIdentifier:@"song cell"];
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    [flowLayout setItemSize:CGSizeMake(368, 50)];
-    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    [self.songsCollectionView setCollectionViewLayout:flowLayout];
+    
+    //
+//    [self.songsCollectionView registerClass:[SongsCollectionViewCell class] forCellWithReuseIdentifier:@"song cell"];
+//    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+//    [flowLayout setItemSize:CGSizeMake(368, 50)];
+//    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+//    [self.songsCollectionView setCollectionViewLayout:flowLayout];
+    //
+    
     [self.navigationItem setHidesBackButton:YES];
+    
     self.session.delegate = self;
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
@@ -60,29 +77,128 @@
         [self.leaderLabel setText:@"I am not the leader!"];
     }
     self.allPeersHaveStoppedPlayback = YES;
+    
+    if (self.session.isLeader == NO) self.songsTableView.allowsSelection = NO;
+    [self.songsTableView setBackgroundColor:[UIColor clearColor]];
+    [self.view setBackgroundColor:[UIColor clearColor]];
+    
+    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTimeLeft) userInfo:nil repeats:YES];
+    
+    self.leaderInfoView.layer.borderColor = [UIColor colorWithRed:52/255.0 green:152/255.0 blue:219/255.0 alpha:1].CGColor;
+    self.leaderInfoView.layer.borderWidth = 1.0f;
+    self.nowPlayingButton.hidden = YES;
+    
+    [self showLeaderContentView];
 }
+
+- (void)updateTimeLeft
+{
+    if (self.musicPlayer) {
+        NSTimeInterval timeLeft = self.musicPlayer.musicPlayer.duration - self.musicPlayer.musicPlayer.currentTime;
+        NSLog(@"TIME LEFT ON SONG: %f", timeLeft);
+        if ((timeLeft > (double)0.1) && (timeLeft < (double)10)) {
+            if (self.session.isLeader) {
+                [self playNewSong];
+            } else {
+                [self tellLeaderToPlayANewSong];
+            }
+        }
+    }
+//    static NSTimeInterval timeLeft;
+//    NSLog(@"%f", timeLeft);
+//    timeLeft++;
+//    if (timeLeft > 10.0) {
+//        if (self.session.isLeader) {
+//                [self playNewSong];
+//            } else {
+//                [self tellLeaderToPlayANewSong];
+//            }
+//        timeLeft = 0;
+//    }
+}
+
+- (void)tellLeaderToPlayANewSong
+{
+    NSMutableDictionary *tellLeaderPlayNewSong = [[NSMutableDictionary alloc] init];
+    tellLeaderPlayNewSong[@"Description"] = @"Leader Play New Song";
+    [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:[tellLeaderPlayNewSong copy]]];
+}
+
+- (void)playNewSong
+{
+    if (self.session.isLeader) {
+        int randomNum = arc4random()%[self.songsData count];
+        NSLog(@"RANDOM NUMBER IS %d", randomNum);
+        self.currentSong = [self.songsData objectAtIndex:randomNum];
+        NSLog(@"THE NEW CURRENT SONG IS %@", self.currentSong);
+        [self tellOthersToStopPlayback];
+        [self stopPlayback];
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-//    [self.navigationController setDelegate:self];
 }
 
-//- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
-//                                  animationControllerForOperation:(UINavigationControllerOperation)operation
-//                                               fromViewController:(UIViewController*)fromVC
-//                                                 toViewController:(UIViewController*)toVC
-//{
-//    if (operation != UINavigationControllerOperationNone) {
-//        // Return your preferred transition operation
-//        return [AMWaveTransition transitionWithOperation:operation andTransitionType:AMWaveTransitionTypeNervous];
-//    }
-//    return nil;
-//}
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    [self.navigationController setDelegate:self];
+}
+
+- (void)showLeaderContentView
+{
+    if (!_infoView) {
+        _infoView = [InformationView viewWithChoice:1];
+        
+        UILabel *descriptionLabel = [[UILabel alloc] init];
+        descriptionLabel.frame = CGRectMake(20, 8, 260, 100);
+        descriptionLabel.numberOfLines = 0.;
+        descriptionLabel.textAlignment = NSTextAlignmentLeft;
+        descriptionLabel.backgroundColor = [UIColor clearColor];
+        descriptionLabel.textColor = [UIColor blackColor];
+        descriptionLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:16.0];
+        if (self.session.isLeader) {
+            NSString *leaderInformation = @"You are the leader!";
+            descriptionLabel.text = leaderInformation;
+        } else {
+            NSString *leaderInformation = @"You are not the leader!";
+            descriptionLabel.text = leaderInformation;
+        }
+        [_infoView addSubview:descriptionLabel];
+        
+        [_infoView setDismissHandler:^(InformationView *view) {
+            NSLog(@"view dismissed");
+            [CXCardView dismissCurrent];
+        }];
+    }
+    
+    [CXCardView showWithView:_infoView draggable:YES];
+}
+
+
+- (void)dealloc
+{
+    [self.navigationController setDelegate:nil];
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                  animationControllerForOperation:(UINavigationControllerOperation)operation
+                                               fromViewController:(UIViewController*)fromVC
+                                                 toViewController:(UIViewController*)toVC
+{
+    if (operation != UINavigationControllerOperationNone) {
+        // Return your preferred transition operation
+        return [AMWaveTransition transitionWithOperation:operation andTransitionType:AMWaveTransitionTypeBounce];
+    }
+    return nil;
+}
+
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
-//    [self.navigationController setDelegate:nil];
 }
 
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event
@@ -108,25 +224,31 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - UICollectionViewDelegate Methods
+#pragma mark - UITableViewDelegate Methods
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 1;
-}
-
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.songsData count];
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    static NSString *cellIdentifier = @"song cell";
-    SongsCollectionViewCell *cell = (SongsCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    return 1;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 70;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier = @"Song Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    
     NSString *songTitle = [[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Song Title"];
     NSString *artist = [[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Artist"];
-    
     UIImage *songImage = [[UIImage alloc] init];
     if ([[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Artwork"]) {
         songImage = [[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Artwork"];
@@ -134,23 +256,70 @@
         songImage = [UIImage imageNamed:@"blankAlbum.png"];
         [self.songsData objectAtIndex:indexPath.row][@"Artwork"] = songImage;
     }
-    
-    [cell.songImage setImage:songImage];
-    [cell.titleLabel setText:songTitle];
-    [cell.artistLabel setText:artist];
-    
+    [cell setPreservesSuperviewLayoutMargins:NO];
+    [cell setSeparatorInset:UIEdgeInsetsZero];
+    [cell setLayoutMargins:UIEdgeInsetsZero];
+    UILabel *songTitleLabel = (UILabel *)[cell viewWithTag:50];
+    UILabel *artistLabel = (UILabel *)[cell viewWithTag:51];
+    UIImageView *albumImageView = (UIImageView *)[cell viewWithTag:100];
+    [songTitleLabel setText:songTitle];
+    [artistLabel setText:artist];
+    [albumImageView setImage:songImage];
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.session.isLeader) {
         self.currentSong = [self.songsData objectAtIndex:indexPath.row];
-        
         [self tellOthersToStopPlayback];
         [self stopPlayback];
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+//#pragma mark - UICollectionViewDelegate Methods
+//
+//- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+//{
+//    return 1;
+//}
+//
+//-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+//{
+//    return [self.songsData count];
+//}
+//
+//-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    static NSString *cellIdentifier = @"song cell";
+//    SongsCollectionViewCell *cell = (SongsCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+//    NSString *songTitle = [[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Song Title"];
+//    NSString *artist = [[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Artist"];
+//    
+//    UIImage *songImage = [[UIImage alloc] init];
+//    if ([[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Artwork"]) {
+//        songImage = [[self.songsData objectAtIndex:indexPath.row] valueForKey:@"Artwork"];
+//    } else {
+//        songImage = [UIImage imageNamed:@"blankAlbum.png"];
+//        [self.songsData objectAtIndex:indexPath.row][@"Artwork"] = songImage;
+//    }
+//    
+//    [cell.songImage setImage:songImage];
+//    [cell.titleLabel setText:songTitle];
+//    [cell.artistLabel setText:artist];
+//    
+//    return cell;
+//}
+//
+//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if (self.session.isLeader) {
+//        self.currentSong = [self.songsData objectAtIndex:indexPath.row];
+//        [self tellOthersToStopPlayback];
+//        [self stopPlayback];
+//    }
+//}
 
 #pragma mark - Song Playback/Changing Methods
 
@@ -184,6 +353,7 @@
 {
     if (self.musicPlayer) [self.musicPlayer stop];
     if (self.inputStream) {
+        NSLog(@"STOPPING INPUT STREAM");
         [self.inputStream stop];
         self.inputStream = nil;
     }
@@ -209,7 +379,7 @@
             for (MCPeerID *peer in peers) {
                 self.outputStreamer = [[TDAudioOutputStreamer alloc] initWithOutputStream:[self.session outputStreamForPeer:peer]];
                 [self.outputStreamer streamAudioFromURL:[self.currentSong valueForKey:@"MediaItemURL"]];
-                NSLog(@"%@", self.outputStreamer);
+                NSLog(@"THIS IS THE OUTPUT STREAMER: %@", self.outputStreamer);
                 [self.outputStreamer start];
                 NSLog(@"starting output streamer");
             }
@@ -300,6 +470,9 @@
                 NSLog(@"Number of peers who have stopped playback: %i", self.numberOfPeersWhoHaveStoppedPlayback);
                 [self checkIfAllPeersHaveStoppedPlayback];
             }
+            if ([[message valueForKey:@"Description"] isEqualToString:@"Leader Play New Song"]) {
+                [self playNewSong];
+            }
         }
     });
 }
@@ -332,6 +505,7 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"show music player"]) {
+        self.nowPlayingButton.hidden = NO;
         if ([segue.destinationViewController isKindOfClass:[MusicPlayerViewController class]]) {
             for (UIViewController *viewController in self.navigationController.viewControllers) {
                 if ([viewController isKindOfClass:[MusicPlayerViewController class]]) {
@@ -344,6 +518,11 @@
             musicPlayerVC.isLeader = self.session.isLeader;
             musicPlayerVC.musicPlayer = self.musicPlayer;
             musicPlayerVC.inputStreamer = self.inputStream;
+            NSTimeInterval timeLeft = self.musicPlayer.musicPlayer.duration - self.musicPlayer.musicPlayer.currentTime;
+            if (timeLeft == 0.0f) {
+                NSLog(@"I am streaming");
+                musicPlayerVC.isStreaming = YES;
+            }
         }
     }
     
@@ -356,9 +535,48 @@
     self.session.delegate = nil;
     self.session = nil;
     self.musicPlayer = nil;
+    self.navigationController.delegate = nil;
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
+- (void)showExitInfoView
+{
+    if (!_exitInfoView) {
+        _exitInfoView = [InformationView viewWithChoice:2];
+        UILabel *descriptionLabel = [[UILabel alloc] init];
+        descriptionLabel.frame = CGRectMake(20, 8, 260, 100);
+        descriptionLabel.numberOfLines = 0.;
+        descriptionLabel.textAlignment = NSTextAlignmentLeft;
+        descriptionLabel.backgroundColor = [UIColor clearColor];
+        descriptionLabel.textColor = [UIColor blackColor];
+        descriptionLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:16.0];
+        NSString *information = @"Are you sure you wish to exit? All connections and songs will be reset.";
+        descriptionLabel.text = information;
+        [_exitInfoView addSubview:descriptionLabel];
+        [_exitInfoView setDismissHandler:^(InformationView *view) {
+            NSLog(@"view dismissed");
+            [CXCardView dismissCurrent];
+        }];
+        __weak PlaylistViewController *weakSelf = self;
+        [_exitInfoView setExitHandler:^(InformationView *view) {
+            [CXCardView dismissCurrent];
+            [weakSelf resetToConnectionViewController];
+        }];
+    }
+    [CXCardView showWithView:_exitInfoView draggable:NO];
+}
+
 - (IBAction)logoutButton:(id)sender {
-    [self resetToConnectionViewController];
+    [self showExitInfoView];
+}
+
+- (void)pauseStream
+{
+    [self.inputStream pause];
+}
+
+- (void)playStream
+{
+    [self.inputStream resume];
 }
 @end

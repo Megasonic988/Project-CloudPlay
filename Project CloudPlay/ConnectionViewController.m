@@ -14,6 +14,8 @@
 #import "BOZPongRefreshControl.h"
 @import QuartzCore;
 #import "AMPopTip.h"
+#import "InformationView.h"
+#import "CXCardView.h"
 
 @interface ConnectionViewController () <MPCSessionDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate>
 
@@ -30,6 +32,10 @@
 @property (strong, nonatomic) MPCSession *session;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray *dataArray;
+@property (weak, nonatomic) IBOutlet UIButton *infoButton;
+- (IBAction)infoButton:(UIButton *)sender;
+
+@property (strong, nonatomic) InformationView *infoView;
 
 @end
 
@@ -55,13 +61,13 @@
     
     [self.view setBackgroundColor:[UIColor clearColor]];
     
-    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        self.collectionView.contentOffset = CGPointMake(0, -70);
-    } completion:^(BOOL finished){
-        if (finished) {
-            [self.refreshControl beginLoadingAnimated:YES];
-        }
-    }];
+//    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+//        self.collectionView.contentOffset = CGPointMake(0, -70);
+//    } completion:^(BOOL finished){
+//        if (finished) {
+//            [self.refreshControl beginLoadingAnimated:YES];
+//        }
+//    }];
     
     [self setupPopTip];
 }
@@ -82,7 +88,14 @@
         NSLog(@"Dismiss!");
     };
     self.popTip.popoverColor = [UIColor colorWithRed:0.31 green:0.57 blue:0.87 alpha:1];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
     [self.popTip showText:@"Welcome to Cloudplay! Pull down to refresh connections." direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:self.redPopTipButton.frame duration:0];
+    [self.navigationController.view setBackgroundColor:[UIColor colorWithRed:197/247.0 green:239/247.0 blue:247/247.0 alpha:1.000]];
+    [self.view setBackgroundColor:[UIColor clearColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -102,6 +115,8 @@
     
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self setTitle:@"Cloudplay"];
+    [self.view setBackgroundColor:[UIColor clearColor]];
+    [self.navigationController.view setBackgroundColor:[UIColor colorWithRed:197/247.0 green:239/247.0 blue:247/247.0 alpha:1.000]];
 }
 
 - (void)viewDidLayoutSubviews
@@ -139,7 +154,7 @@
         [self.session setIsLeader:YES];
     }
                    );
-    [NSTimer scheduledTimerWithTimeInterval:1.5f target:self selector:@selector(stopRefreshing) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(stopRefreshing) userInfo:nil repeats:NO];
    
 }
 
@@ -220,7 +235,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.collectionView reloadData];
         self.startButton.enabled = ([self.session.connectedPeers count] > 0);
-        [self.refreshControl finishedLoading];
+        [self stopRefreshing];
     });
 }
 
@@ -278,7 +293,7 @@
 
 - (IBAction)popTipButton:(UIButton *)sender {
     [self.popTip hide];
-    
+    [self stopRefreshing];
     if ([self.popTip isVisible]) {
         return;
     }
@@ -289,5 +304,33 @@
         [self.popTip showText:@"Welcome to Cloudplay! Pull down to refresh connections." direction:direction maxWidth:200 inView:self.view fromFrame:sender.frame duration:0];
         direction = (direction + 1) % 4;
 //    }
+}
+- (IBAction)infoButton:(UIButton *)sender {
+    [self showInfoContentView];
+}
+
+- (void)showInfoContentView
+{
+    if (!_infoView) {
+        _infoView = [InformationView viewWithChoice:3];
+        
+        UILabel *descriptionLabel = [[UILabel alloc] init];
+        descriptionLabel.frame = CGRectMake(20, 8, 260, 380);
+        descriptionLabel.numberOfLines = 0.;
+        descriptionLabel.textAlignment = NSTextAlignmentLeft;
+        descriptionLabel.backgroundColor = [UIColor clearColor];
+        descriptionLabel.textColor = [UIColor blackColor];
+        descriptionLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:16.0];
+        NSString *info = @"Cloudplay is a local music sharing app. Create playlists on the fly, share them with your friends, and listen simultaneously.\n\nBegin by connecting to your friends. Cloudplay will automatically link you to others who are using the app.\n\nNext, choose the songs you would like to share.\n\nFinally, turn up the volume and play your shared music! One person will be designated the leader and have the ability to choose the music.";
+        descriptionLabel.text = info;
+        [_infoView addSubview:descriptionLabel];
+        
+        [_infoView setDismissHandler:^(InformationView *view) {
+            NSLog(@"view dismissed");
+            [CXCardView dismissCurrent];
+        }];
+    }
+    
+    [CXCardView showWithView:_infoView draggable:YES];
 }
 @end

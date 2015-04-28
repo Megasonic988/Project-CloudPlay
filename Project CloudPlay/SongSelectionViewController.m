@@ -17,6 +17,7 @@
 - (IBAction)randomSongsButton:(id)sender;
 - (IBAction)chooseSongsButton:(id)sender;
 - (IBAction)skipButton:(id)sender;
+
 @property (weak, nonatomic) IBOutlet UIButton *randomSongsButton;
 @property (weak, nonatomic) IBOutlet UIButton *chooseSongsButton;
 @property (weak, nonatomic) IBOutlet UIButton *skipButton;
@@ -29,6 +30,8 @@
 @property (nonatomic, strong) AMPopTip *popTip;
 - (IBAction)popTipButton:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *yellowPopTipButton;
+
+@property (strong, nonatomic) NSTimer *timer;
 
 @end
 
@@ -52,7 +55,9 @@
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:YES];
     if (self.isMovingFromParentViewController) {
-        [self sendBackMessage];
+        if (self.session.connectedPeers) {
+            [self sendBackMessage];
+        }
     }
 }
 
@@ -72,8 +77,9 @@
         NSLog(@"Dismiss!");
     };
     self.popTip.popoverColor = [UIColor colorWithRed:0.31 green:0.57 blue:0.87 alpha:1];
-    [self.popTip showText:@"You can choose your music, allow me to randomly choose, or skip!" direction:AMPopTipDirectionLeft maxWidth:200 inView:self.view fromFrame:self.yellowPopTipButton.frame];
-    [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(displaySecondPopTip) userInfo:nil repeats:NO];
+    
+    //will display first poptip message
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(displaySecondPopTip) userInfo:nil repeats:NO]; //display 2nd poptip message
 }
 
 - (void)displaySecondPopTip
@@ -85,6 +91,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    [self.popTip showText:@"You can choose your music, randomly choose, or skip!" direction:AMPopTipDirectionLeft maxWidth:200 inView:self.view fromFrame:self.yellowPopTipButton.frame];
 }
 
 - (void)sendBackMessage
@@ -120,6 +132,7 @@
     self.randomSongsButton.enabled = NO;
     self.chooseSongsButton.enabled = NO;
     self.skipButton.enabled = NO;
+    [self showMusicHasBeenChosenPopTip];
     if (self.songShares == [self.session.connectedPeers count] && self.hasChosen == YES)
     {
         [self performSegueWithIdentifier:@"show playlist" sender:self];
@@ -188,6 +201,7 @@
     self.randomSongsButton.enabled = NO;
     self.chooseSongsButton.enabled = NO;
     self.skipButton.enabled = NO;
+    [self showMusicHasBeenChosenPopTip];
     if (self.songShares == [self.session.connectedPeers count] && self.hasChosen == YES)
     {
         [self performSegueWithIdentifier:@"show playlist" sender:self];
@@ -215,10 +229,19 @@
     self.randomSongsButton.enabled = NO;
     self.chooseSongsButton.enabled = NO;
     self.skipButton.enabled = NO;
+    [self showMusicHasBeenChosenPopTip];
     if (self.songShares == [self.session.connectedPeers count] && self.hasChosen == YES)
     {
         [self performSegueWithIdentifier:@"show playlist" sender:self];
     }
+}
+
+- (void)showMusicHasBeenChosenPopTip
+{
+    [self.timer invalidate];
+
+    self.popTip.popoverColor = [UIColor colorWithRed:231/255.0 green:76/255.0 blue:60/255.0 alpha:1];
+    [self.popTip showText:@"Thanks for choosing. Waiting on others..." direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:self.yellowPopTipButton.frame];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -240,7 +263,7 @@
 
 - (IBAction)popTipButton:(UIButton *)sender {
     [self.popTip hide];
-    
+    [self.timer invalidate];
     if ([self.popTip isVisible]) {
         return;
     }

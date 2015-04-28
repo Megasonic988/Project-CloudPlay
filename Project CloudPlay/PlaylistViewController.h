@@ -30,6 +30,7 @@
 
 @property (strong, nonatomic) MPCSession *session;
 
-
+- (void)pauseStream;
+- (void)playStream;
 
 @end

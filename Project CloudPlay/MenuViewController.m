@@ -88,7 +88,7 @@
             self.outputStreamer = [[TDAudioOutputStreamer alloc] initWithOutputStream:[self.session outputStreamForPeer:peer]];
             [self.outputStreamer streamAudioFromURL:[self.sessionData.songToStream valueForProperty:MPMediaItemPropertyAssetURL]];
             
-            NSLog(@"%@", self.outputStreamer);
+            NSLog(@"THIS IS THE OUTPUT STREAMER: %@", self.outputStreamer);
             [self.outputStreamer start];
         }
     }
