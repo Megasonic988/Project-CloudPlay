@@ -9,7 +9,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loadscreen" translatesAutoresizingMaskIntoConstraints="NO" id="j97-7I-ufu">
@@ -63,16 +63,16 @@
                     <exclude reference="4W7-jX-zoo"/>
                 </mask>
                 <mask key="constraints">
+                    <exclude reference="0HH-sE-STq"/>
+                    <exclude reference="cs0-Ww-fW9"/>
+                    <exclude reference="vrd-31-c1H"/>
+                    <exclude reference="yYa-4D-VKC"/>
                     <exclude reference="HRg-eV-ZWv"/>
                     <exclude reference="IV8-rd-MDg"/>
                     <exclude reference="bQP-Ld-ecC"/>
                     <exclude reference="hsK-ri-HHu"/>
                     <exclude reference="kVM-Mf-HtQ"/>
                     <exclude reference="xvl-Vr-y4m"/>
-                    <exclude reference="yYa-4D-VKC"/>
-                    <exclude reference="0HH-sE-STq"/>
-                    <exclude reference="cs0-Ww-fW9"/>
-                    <exclude reference="vrd-31-c1H"/>
                 </mask>
             </variation>
             <variation key="heightClass=regular">
@@ -82,16 +82,16 @@
                     <include reference="4W7-jX-zoo"/>
                 </mask>
                 <mask key="constraints">
+                    <include reference="0HH-sE-STq"/>
+                    <include reference="cs0-Ww-fW9"/>
+                    <include reference="vrd-31-c1H"/>
+                    <include reference="yYa-4D-VKC"/>
                     <include reference="HRg-eV-ZWv"/>
                     <include reference="IV8-rd-MDg"/>
                     <include reference="bQP-Ld-ecC"/>
                     <include reference="hsK-ri-HHu"/>
                     <include reference="kVM-Mf-HtQ"/>
                     <include reference="xvl-Vr-y4m"/>
-                    <include reference="yYa-4D-VKC"/>
-                    <include reference="0HH-sE-STq"/>
-                    <include reference="cs0-Ww-fW9"/>
-                    <include reference="vrd-31-c1H"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="546.5" y="453.5"/>
